@@ -98,6 +98,11 @@
                             <div class="col-md-4">
                                 <div class="bg-light p-3 rounded-3">
                                     <h6 class="mb-3">Eğitim Detayları</h6>
+                                    
+                                    <!-- Test butonu (sadece geliştirme amaçlı) -->
+                                    <button onclick="addSampleDurations()" class="btn btn-sm btn-outline-secondary mb-2">
+                                        <i class="bi bi-clock me-1"></i>Örnek Süreler Ekle
+                                    </button>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="text-muted">Seviye:</span>
                                         <span class="fw-semibold">@Model.CourseLevel.Name</span>
@@ -262,10 +267,20 @@
                 {
                     var isRegistered = ViewBag.IsRegistered as bool? ?? false;
                     var buttonText = isRegistered ? "Eğitime Devam Et" : "Eğitime Başla";
+                    var buttonClass = isRegistered ? "btn-primary" : "btn-warning";
 
-                    <a href="@Url.Action("StartLesson", "Course", new { id = Model.Id })" class="btn btn-primary sidebar-btn start-lesson-btn w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
-                        <i class="bi bi-play-circle me-2"></i>@buttonText
-                    </a>
+                    if (isRegistered)
+                    {
+                        <a href="@Url.Action("StartLesson", "Course", new { id = Model.Id })" class="btn @buttonClass sidebar-btn start-lesson-btn w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                            <i class="bi bi-play-circle me-2"></i>@buttonText
+                        </a>
+                    }
+                    else
+                    {
+                        <button onclick="enrollToCourse(@Model.Id)" class="btn @buttonClass sidebar-btn enroll-btn w-100" style="background:linear-gradient(135deg, #FFC107, #FF8C00); border:none; color:white;">
+                            <i class="bi bi-person-plus me-2"></i>@buttonText
+                        </button>
+                    }
                 }
                 else
                 {
@@ -281,4 +296,69 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/js/lesson-detail.js"></script>
+
+<script>
+    // Eğitime kayıt olma fonksiyonu
+    function enrollToCourse(courseId) {
+        // Butonu devre dışı bırak ve loading göster
+        const button = event.target;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Kayıt Yapılıyor...';
+        button.disabled = true;
+        
+        fetch('/Home/EnrollToCourse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `courseId=${courseId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Başarılı kayıt sonrası StartLesson sayfasına yönlendir
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    window.location.href = '/Course/StartLesson/@Model.Id';
+                }
+            } else {
+                // Hata durumunda butonu eski haline getir
+                button.innerHTML = originalText;
+                button.disabled = false;
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+            // Hata durumunda butonu eski haline getir
+            button.innerHTML = originalText;
+            button.disabled = false;
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        });
+    }
+    
+    // Örnek video süreleri ekleme fonksiyonu
+    function addSampleDurations() {
+        fetch('/Home/AddSampleVideoDurations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Video süreleri başarıyla eklendi!');
+                location.reload();
+            } else {
+                alert('Hata: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        });
+    }
+</script>
 

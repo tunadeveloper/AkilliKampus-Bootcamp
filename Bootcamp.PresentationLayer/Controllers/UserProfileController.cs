@@ -9,34 +9,79 @@ namespace Bootcamp.PresentationLayer.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICourseService _courseService;
+        private readonly IProgressService _progressService;
+        private readonly ICourseEnrollmentService _courseEnrollmentService;
+        private readonly IVideoCompletionService _videoCompletionService;
 
-        public UserProfileController(UserManager<ApplicationUser> userManager, ICourseService courseService)
+        public UserProfileController(UserManager<ApplicationUser> userManager, ICourseService courseService, IProgressService progressService, ICourseEnrollmentService courseEnrollmentService, IVideoCompletionService videoCompletionService)
         {
             _userManager = userManager;
             _courseService = courseService;
+            _progressService = progressService;
+            _courseEnrollmentService = courseEnrollmentService;
+            _videoCompletionService = videoCompletionService;
         }
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
 
-            var progresses = _courseService.GetAllCoursesWithVideosAndProgressBL()
-     .Where(p => p.CourseVideos.Any(cv => cv.Progresses.Any(pr => pr.UserId == user.Id)))
-     .ToList();
+            // Kullanıcının kayıtlı olduğu kursları al
+            var userEnrollments = _courseEnrollmentService.GetListBL()
+                .Where(e => e.UserId == user.Id)
+                .ToList();
 
-            var courseStatuses = progresses
-                .GroupBy(p => p) // p zaten Course nesnesi
-                .Select(g =>
+            var userVideoCompletions = _videoCompletionService.GetListBL()
+                .Where(vc => vc.UserId == user.Id)
+                .ToList();
+
+            var courseStatuses = new List<dynamic>();
+
+            foreach (var enrollment in userEnrollments)
+            {
+                var course = _courseService.GetCourseWithAllBL(enrollment.CourseId);
+                if (course != null)
                 {
-                    var course = g.Key;
-                    int total = course.CourseVideos?.Count ?? 0;
-                    int watched = course.CourseVideos?.Count(v =>
-                        v.Progresses.Any(p => p.UserId == user.Id)) ?? 0;
+                    int totalVideos = course.CourseVideos?.Count ?? 0;
+                    
+                    // Bu kurs için kullanıcının video tamamlanma durumlarını bul
+                    var courseVideoCompletions = userVideoCompletions.Where(vc => vc.CourseId == course.Id && vc.IsCompleted).ToList();
+                    int watchedVideos = courseVideoCompletions.Count;
 
-                    string status = (watched == total && total > 0) ? "Tamamlandı" : "Devam Ediyor";
+                    // Yüzde hesapla
+                    double percentage = totalVideos > 0 ? (double)watchedVideos / totalVideos * 100 : 0;
+                    
+                    // Durum belirle
+                    string status;
+                    if (totalVideos == 0)
+                    {
+                        status = "Henüz Başlanmadı";
+                    }
+                    else if (watchedVideos == 0)
+                    {
+                        status = "Henüz Başlanmadı";
+                    }
+                    else if (watchedVideos == totalVideos)
+                    {
+                        status = "Tamamlandı";
+                    }
+                    else
+                    {
+                        status = "Devam Ediyor";
+                    }
 
-                    return (course, status, watched, total);
-                }).ToList();
+                    courseStatuses.Add(new
+                    {
+                        Course = course,
+                        Status = status,
+                        WatchedCount = watchedVideos,
+                        TotalCount = totalVideos,
+                        Percentage = (double)Math.Round(percentage, 1)
+                    });
+                }
+            }
 
+            // Yüzdeye göre sırala
+            courseStatuses = courseStatuses.OrderByDescending(x => x.Percentage).ToList();
 
             ViewBag.CourseStatuses = courseStatuses;
             return View(user);

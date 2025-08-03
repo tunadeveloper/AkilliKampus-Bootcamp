@@ -8,11 +8,16 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    var statuses = ViewBag.CourseStatuses as List<(Course Course, string Status, int WatchedCount, int TotalCount)>;
-    int completed = ViewBag.CompletedCount ?? 0;
-    int average = ViewBag.TotalAverage ?? 0;
-    int hours = ViewBag.TotalHours ?? 0;
-    int certificates = ViewBag.CertificateCount ?? 0;
+    var statuses = ViewBag.CourseStatuses as List<dynamic>;
+    int completed = statuses?.Count(x => x.Status == "Tamamlandı") ?? 0;
+    double average = 0;
+    if (statuses?.Any() == true)
+    {
+        var percentages = statuses.Select(x => (double)x.Percentage).ToList();
+        average = percentages.Any() ? percentages.Average() : 0;
+    }
+    int totalVideos = statuses?.Sum(x => x.TotalCount) ?? 0;
+    int watchedVideos = statuses?.Sum(x => x.WatchedCount) ?? 0;
 }
 <head>
     <meta charset="UTF-8">
@@ -50,14 +55,14 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="stat-item">
-                                    <div class="stat-number">@average%</div>
+                                    <div class="stat-number">@Math.Round(average, 1)%</div>
                                     <div class="stat-label">Ortalama Başarı</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="stat-item">
-                                    <div class="stat-number">@hours</div>
-                                    <div class="stat-label">Toplam Saat</div>
+                                    <div class="stat-number">@watchedVideos</div>
+                                    <div class="stat-label">İzlenen Video</div>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +109,7 @@
             <div class="modern-card p-4 h-100">
                 <h2 class="section-title"><i class="bi bi-check-circle-fill me-2 text-success"></i> Tamamlanan Eğitimler</h2>
                 <div class="row g-3">
-                    @foreach (var course in statuses.Where(x => x.Status == "Tamamlandı"))
+                    @foreach (var course in statuses?.Where(x => x.Status == "Tamamlandı") ?? new List<dynamic>())
                     {
                         <div class="col-12">
                             <div class="lesson-item d-flex align-items-center">
@@ -129,20 +134,19 @@
             <div class="modern-card p-4 h-100">
                 <h2 class="section-title"><i class="bi bi-play-circle-fill me-2 text-purple"></i> Devam Edilen Eğitimler</h2>
                 <div class="row g-3">
-                    @foreach (var course in statuses.Where(x => x.Status == "Devam Ediyor"))
+                    @foreach (var course in statuses?.Where(x => x.Status == "Devam Ediyor") ?? new List<dynamic>())
                     {
-                        var progress = course.TotalCount == 0 ? 0 : (int)(((double)course.WatchedCount / course.TotalCount) * 100);
                         <div class="col-12">
                             <div class="lesson-item d-flex align-items-center">
                                 <img src="@course.Course.ThumbnailUrl" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
                                 <div class="flex-grow-1">
                                     <h6 class="fw-semibold">@course.Course.Name</h6>
                                     <div class="progress-modern mb-2">
-                                        <div class="progress-bar" style="width: @progress%"></div>
+                                        <div class="progress-bar" style="width: @course.Percentage%"></div>
                                     </div>
-                                    <small class="text-muted">%@progress tamamlandı • @course.WatchedCount/@course.TotalCount modül</small>
+                                    <small class="text-muted">@course.Percentage% tamamlandı • @course.WatchedCount/@course.TotalCount video</small>
                                 </div>
-                                <a href="/Lesson/Detail/@course.Course.Id" class="btn btn-outline-primary btn-sm">Devam Et</a>
+                                <a href="/Course/StartLesson/@course.Course.Id" class="btn btn-outline-primary btn-sm">Devam Et</a>
                             </div>
                         </div>
                     }
@@ -162,16 +166,16 @@
                         <div class="text-muted">Tamamlanan Eğitim</div>
                     </div>
                     <div class="col-md-3 col-6 text-center">
-                        <div class="display-6 fw-bold text-success mb-2">@average%</div>
+                        <div class="display-6 fw-bold text-success mb-2">@Math.Round(average, 1)%</div>
                         <div class="text-muted">Ortalama Başarı</div>
                     </div>
                     <div class="col-md-3 col-6 text-center">
-                        <div class="display-6 fw-bold text-warning mb-2">@hours</div>
-                        <div class="text-muted">Toplam Saat</div>
+                        <div class="display-6 fw-bold text-warning mb-2">@watchedVideos</div>
+                        <div class="text-muted">İzlenen Video</div>
                     </div>
                     <div class="col-md-3 col-6 text-center">
-                        <div class="display-6 fw-bold text-info mb-2">@certificates</div>
-                        <div class="text-muted">Sertifika</div>
+                        <div class="display-6 fw-bold text-info mb-2">@totalVideos</div>
+                        <div class="text-muted">Toplam Video</div>
                     </div>
                 </div>
             </div>

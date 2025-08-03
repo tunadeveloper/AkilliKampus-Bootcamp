@@ -13,6 +13,7 @@ namespace Bootcamp.EntityLayer.Concrete
         public string Description { get; set; }
         public string VideoUrl { get; set; }
         public string Summary { get; set; }
+        public int Duration { get; set; } // Video süresi (saniye cinsinden)
 
         public int CourseID { get; set; }
         public Course Course { get; set; }

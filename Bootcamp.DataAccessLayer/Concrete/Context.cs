@@ -34,5 +34,7 @@ namespace Bootcamp.DataAccessLayer.Concrete
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Progress> Progresses { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
+        public DbSet<VideoCompletion> VideoCompletions { get; set; }
     }
 }

@@ -23,6 +23,18 @@ builder.Services.AddScoped<IInstructorService, InstructorManager>();
 builder.Services.AddScoped<ICourseDal, EfCourseDal>();
 builder.Services.AddScoped<ICourseService, CourseManager>();
 
+builder.Services.AddScoped<IProgressDal, EfProgressDal>();
+builder.Services.AddScoped<IProgressService, ProgressManager>();
+
+builder.Services.AddScoped<ICourseVideoDal, EfCourseVideoDal>();
+builder.Services.AddScoped<ICourseVideoService, CourseVideoManager>();
+
+builder.Services.AddScoped<ICourseEnrollmentDal, EfCourseEnrollmentDal>();
+builder.Services.AddScoped<ICourseEnrollmentService, CourseEnrollmentManager>();
+
+builder.Services.AddScoped<IVideoCompletionDal, EfVideoCompletionDal>();
+builder.Services.AddScoped<IVideoCompletionService, VideoCompletionManager>();
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
     .AddEntityFrameworkStores<Context>()
     .AddDefaultTokenProviders();
