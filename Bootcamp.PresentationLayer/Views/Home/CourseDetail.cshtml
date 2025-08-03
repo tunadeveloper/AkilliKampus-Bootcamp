@@ -1,0 +1,284 @@
+﻿@model Bootcamp.EntityLayer.Concrete.Course
+@using Bootcamp.EntityLayer.Concrete
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "CourseDetail";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var commentsCount = ViewBag.Comments != null ? ((List<Comment>)ViewBag.Comments).Count : 0;
+}
+
+<main class="container py-5">
+    <div class="row g-4">
+        <!-- Ana İçerik -->
+        <div class="col-lg-8">
+            <!-- Hero Section -->
+            <div class="lesson-hero stagger-animation" data-delay="0">
+                <div class="lesson-hero-content">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <img src="@Model.ThumbnailUrl" alt="@Model.Name" class="lesson-image img-fluid" style="width:100%;height:120px;object-fit:cover;">
+                        </div>
+                        <div class="col-md-9">
+                            <h1 class="h3 mb-2 fw-bold">@Model.Name</h1>
+                            <p class="mb-3 opacity-75">Bu eğitimde temel matematik kavramları, sayılar, denklemler ve problem çözme teknikleri anlatılmaktadır.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark">@Model.CourseLevel.Name</span>
+                                <span class="badge bg-light text-dark">@Model.Category.Name</span>
+                                <span class="badge bg-light text-dark">4 Saat</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eğitmen Bilgisi -->
+            <div class="modern-card p-4 mb-4 stagger-animation" data-delay="0.1">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <img src="@Model.Instructor.ImageUrl" alt="Eğitmen" class="rounded-circle" style="width:60px;height:60px;object-fit:cover;">
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1">@Model.Instructor.NameSurname</h5>
+                        <p class="text-muted mb-0 small">@Model.Instructor.Position</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="text-muted ms-1">@commentsCount değerlendirme</span>
+                        </div>
+                        <div class="small text-muted">500+ Öğrenci</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sekmeler -->
+            <div class="modern-card p-4 stagger-animation" data-delay="0.2">
+                <ul class="nav nav-tabs modern-tabs mb-3" id="lessonTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="hakkinda-tab" data-bs-toggle="tab" data-bs-target="#hakkinda" type="button" role="tab" aria-controls="hakkinda" aria-selected="true">
+                            <i class="bi bi-info-circle me-2"></i>Hakkında
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="mufredat-tab" data-bs-toggle="tab" data-bs-target="#mufredat" type="button" role="tab" aria-controls="mufredat" aria-selected="false">
+                            <i class="bi bi-list-check me-2"></i>Müfredat
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="yorumlar-tab" data-bs-toggle="tab" data-bs-target="#yorumlar" type="button" role="tab" aria-controls="yorumlar" aria-selected="false">
+                            <i class="bi bi-chat-dots me-2"></i>Yorumlar
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="lessonTabContent">
+                    <div class="tab-pane fade show active" id="hakkinda" role="tabpanel" aria-labelledby="hakkinda-tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="mb-3">Eğitim Hakkında</h5>
+                                <p class="text-muted">@Model.Description</p>
+
+                                <h6 class="mb-2">Bu Eğitimde Öğrenecekleriniz:</h6>
+                                @if (Model.Outcomes != null && Model.Outcomes.Any())
+                                {
+                                    <ul class="text-muted">
+                                        @foreach (var item in Model.Outcomes)
+                                        {
+                                            <li>@item.Title</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <br />
+                                    <p>İçerik Eklenmedi.</p>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light p-3 rounded-3">
+                                    <h6 class="mb-3">Eğitim Detayları</h6>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Seviye:</span>
+                                        <span class="fw-semibold">@Model.CourseLevel.Name</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Süre:</span>
+                                        <span class="fw-semibold">4 Saat</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Videolar:</span>
+                                        <span class="fw-semibold">10 Adet</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">Sertifika:</span>
+                                        <span class="fw-semibold text-success">Var</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="mufredat" role="tabpanel" aria-labelledby="mufredat-tab">
+                        <h5 class="mb-4">Müfredat</h5>
+                        @if (Model.CourseVideos != null && Model.CourseVideos.Any())
+                        {
+                            <div class="curriculum-list">
+                                @foreach (var item in Model.CourseVideos)
+                                {
+                                    <div class="curriculum-item d-flex align-items-center">
+                                        <div class="lesson-number">@item.Id</div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">@item.Name</h6>
+                                            <p class="text-muted mb-0 small">@item.Description</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-success">45 dk</span>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="tab-pane fade" id="yorumlar" role="tabpanel" aria-labelledby="yorumlar-tab">
+                        <h5 class="mb-4">Öğrenci Yorumları</h5>
+                        <div class="comments-container">
+                            @if (Model.Comments != null && Model.Comments.Any())
+                            {
+                                foreach (var item in Model.Comments)
+                                {
+                                    <div class="comment-item">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <img src="@(item.ApplicationUser?.Gender == "Erkek"
+                    ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    : item.ApplicationUser?.Gender == "Kadın"
+                        ? "https://cdn-icons-png.flaticon.com/512/3135/3135789.png"
+                        : "https://cdn-icons-png.flaticon.com/512/4139/4139981.png")"
+                                                 alt="Kullanıcı"
+                                                 class="rounded-circle me-2"
+                                                 style="width:40px;height:40px;object-fit:cover;">
+                                            <div>
+                                                <div class="comment-author">@item.ApplicationUser?.NameSurname</div>
+                                                <div class="comment-date">@item.CreatedAt.ToString("dd MMMM yyyy")</div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">@item.Text</div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>Henüz yorum yapılmamış.</p>
+                            }
+
+                          
+                        </div>
+
+                        <form class="comment-form mt-4">
+                            <h6 class="mb-3">Yorumunuzu Ekleyin</h6>
+                            <div class="mb-3">
+                                <label for="commentInput" class="form-label">Yorumunuz</label>
+                                <textarea class="form-control modern-form" id="commentInput" rows="3" placeholder="Bu eğitim hakkında düşüncelerinizi paylaşın..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Puanınız</label>
+                                <div class="rating-stars">
+                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary modern-form" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                                <i class="bi bi-send me-2"></i>Yorum Gönder
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="sidebar-card p-4 mb-4 stagger-animation" data-delay="0.3">
+                <h5 class="mb-4">Eğitim Bilgileri</h5>
+
+                <div class="sidebar-info">
+                    <i class="bi bi-clock" style="color:#667eea;"></i>
+                    <div>
+                        <div class="fw-semibold">Süre</div>
+                        <div class="text-muted small">4 Saat</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-info">
+                    <i class="bi bi-play-circle" style="color:#667eea;"></i>
+                    <div>
+                        <div class="fw-semibold">Videolar</div>
+                        <div class="text-muted small">10 Adet</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-info">
+                    <i class="bi bi-award" style="color:#FFC107;"></i>
+                    <div>
+                        <div class="fw-semibold">Sertifika</div>
+                        <div class="text-muted small">Tamamlandığında</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-info">
+                    <i class="bi bi-people" style="color:#667eea;"></i>
+                    <div>
+                        <div class="fw-semibold">Öğrenci</div>
+                        <div class="text-muted small">500+ Kayıtlı</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container mt-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-semibold">İlerleme</span>
+                        <span class="text-muted">65%</span>
+                    </div>
+                    <div class="progress" style="height:8px;">
+                        <div class="progress-bar" role="progressbar" style="width:65%"></div>
+                    </div>
+                    <div class="progress-text">3/5 bölüm tamamlandı</div>
+                </div>
+            </div>
+
+            <div class="sidebar-card p-4 stagger-animation" data-delay="0.4">
+                <h5 class="mb-4">Eğitime Katıl</h5>
+                <p class="text-muted mb-4">Bu eğitime katılarak matematik temellerini öğrenin ve sertifikanızı alın.</p>
+
+                <button class="btn btn-warning sidebar-btn enroll-btn w-100 mb-3" style="background:linear-gradient(135deg, #FFC107, #FF8C00); border:none; color:white;">
+                    <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+                </button>
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var isRegistered = ViewBag.IsRegistered as bool? ?? false;
+                    var buttonText = isRegistered ? "Eğitime Devam Et" : "Eğitime Başla";
+
+                    <a href="@Url.Action("StartLesson", "Course", new { id = Model.Id })" class="btn btn-primary sidebar-btn start-lesson-btn w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                        <i class="bi bi-play-circle me-2"></i>@buttonText
+                    </a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-primary sidebar-btn start-lesson-btn w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                        <i class="bi bi-play-circle me-2"></i>Giriş Yaparak Başla
+                    </a>
+                }
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/js/lesson-detail.js"></script>
+

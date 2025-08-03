@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eğitimler | Yapay Zeka Eğitim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lessons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+  <!-- Modern Header -->
+  <nav class="navbar navbar-expand-lg navbar-light modern-header sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html" style="color:#667eea;font-size:1.5rem;">
+        <i class="bi bi-lightbulb me-2" style="font-size:1.8rem;"></i>Yapay Zeka Eğitim
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active fw-semibold" href="lessons.html">Eğitimler</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#features">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Giriş Yap</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-2 px-3" href="register.html" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none; border-radius:12px;">Kayıt Ol</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <!-- Hero Section -->
+    <section class="hero-section text-center animate-fade-in">
+      <div class="hero-content">
+        <h1 class="display-4 fw-bold mb-3" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+          <i class="bi bi-book-open me-3"></i>Eğitimler
+        </h1>
+        <p class="lead mb-4" style="opacity: 0.9;">
+          Yapay zeka destekli kişiselleştirilmiş eğitim deneyimi
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <div class="d-flex align-items-center gap-2 animate-pulse">
+            <i class="bi bi-check-circle-fill" style="color:#4CAF50;"></i>
+            <span style="opacity: 0.9;">500+ Eğitim</span>
+          </div>
+          <div class="d-flex align-items-center gap-2 animate-pulse" style="animation-delay: 0.5s;">
+            <i class="bi bi-people-fill" style="color:#2196F3;"></i>
+            <span style="opacity: 0.9;">10K+ Öğrenci</span>
+          </div>
+          <div class="d-flex align-items-center gap-2 animate-pulse" style="animation-delay: 1s;">
+            <i class="bi bi-star-fill" style="color:#FFC107;"></i>
+            <span style="opacity: 0.9;">4.9/5 Puan</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Filter Section -->
+    <section class="modern-filter p-4 mb-5 animate-slide-in">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <label for="kategori" class="form-label fw-semibold">Kategori</label>
+          <select class="form-select" id="kategori">
+            <option>Tümü</option>
+            <option>Sayısal</option>
+            <option>Sözel</option>
+            <option>Dil</option>
+            <option>Teknoloji</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="zorluk" class="form-label fw-semibold">Zorluk</label>
+          <select class="form-select" id="zorluk">
+            <option>Tümü</option>
+            <option>Başlangıç</option>
+            <option>Orta</option>
+            <option>İleri</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="arama" class="form-label fw-semibold">Arama</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" class="form-control" id="arama" placeholder="Eğitim veya anahtar kelime...">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none; border-radius:12px;">
+            <i class="bi bi-funnel me-2"></i>Filtrele
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section animate-fade-in">
+      <div class="row text-center">
+        <div class="col-md-3 col-6 mb-3">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Eğitim</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Öğrenci</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Memnuniyet</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Destek</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Lesson Cards -->
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0">
+          <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Matematik" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sayısal</div>
+          <h3 class="h5 mb-2 fw-semibold">Matematik Temelleri</h3>
+          <p class="mb-3 text-muted small">Sayılar, denklemler ve temel matematik kavramları. Yapay zeka destekli öğrenme deneyimi.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-success">Başlangıç</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>4 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=1" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.1">
+          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Fizik" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sayısal</div>
+          <h3 class="h5 mb-2 fw-semibold">Fizik 101</h3>
+          <p class="mb-3 text-muted small">Hareket, kuvvet ve enerjiye giriş. Pratik uygulamalarla öğrenme.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-warning text-dark">Orta</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>6 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=2" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.2">
+          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" alt="Kimya" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sayısal</div>
+          <h3 class="h5 mb-2 fw-semibold">Kimya Başlangıç</h3>
+          <p class="mb-3 text-muted small">Maddelerin yapısı ve temel kimya konuları. İnteraktif deneyler.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-success">Başlangıç</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>5 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=3" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.3">
+          <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?auto=format&fit=crop&w=400&q=80" alt="Biyoloji" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sayısal</div>
+          <h3 class="h5 mb-2 fw-semibold">Biyolojiye Giriş</h3>
+          <p class="mb-3 text-muted small">Canlılar, hücre ve yaşam bilimleri. Görsel öğrenme destekli.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-success">Başlangıç</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>4 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=4" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.4">
+          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80" alt="Türkçe" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sözel</div>
+          <h3 class="h5 mb-2 fw-semibold">Türkçe ve Edebiyat</h3>
+          <p class="mb-3 text-muted small">Dil bilgisi, edebiyat ve anlatım teknikleri. Yazma becerileri.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-warning text-dark">Orta</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>7 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=5" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.5">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Coğrafya" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sözel</div>
+          <h3 class="h5 mb-2 fw-semibold">Coğrafya Temelleri</h3>
+          <p class="mb-3 text-muted small">Dünya, iklim ve haritalar. İnteraktif harita uygulamaları.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-success">Başlangıç</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>3 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=6" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.6">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="İngilizce" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Dil</div>
+          <h3 class="h5 mb-2 fw-semibold">İngilizce Başlangıç</h3>
+          <p class="mb-3 text-muted small">Yabancı dil ve iletişim becerileri. Konuşma pratiği dahil.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-success">Başlangıç</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>8 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=7" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.7">
+          <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?auto=format&fit=crop&w=400&q=80" alt="Tarih" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Sözel</div>
+          <h3 class="h5 mb-2 fw-semibold">Tarih</h3>
+          <p class="mb-3 text-muted small">Geçmişten günümüze insanlık tarihi. Kronolojik öğrenme.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-danger">İleri</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>10 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=8" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="modern-lesson-card p-4 h-100 stagger-animation" data-delay="0.8">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Yapay Zeka" class="img-fluid mb-3" style="height:160px;object-fit:cover;width:100%;">
+          <div class="category-badge">Teknoloji</div>
+          <h3 class="h5 mb-2 fw-semibold">Yapay Zeka Temelleri</h3>
+          <p class="mb-3 text-muted small">AI kavramları, makine öğrenmesi ve uygulama örnekleri.</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-warning text-dark">Orta</span>
+            <span class="text-muted small"><i class="bi bi-clock me-1"></i>12 saat</span>
+          </div>
+          <a href="lesson-detail.html?id=9" class="btn w-100">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="text-center mt-5">
+      <button class="btn load-more-btn px-5 py-3 floating">
+        <i class="bi bi-arrow-down me-2"></i>Daha Fazla Eğitim Yükle
+      </button>
+    </div>
+  </main>
+
+  <!-- Modern Footer -->
+  <footer class="modern-footer text-center py-4 mt-5">
+    <div class="container">
+      <p class="mb-0">© 2024 Yapay Zeka Eğitim Platformu | Tüm hakları saklıdır</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/lessons.js"></script>
+</body>
+</html> 

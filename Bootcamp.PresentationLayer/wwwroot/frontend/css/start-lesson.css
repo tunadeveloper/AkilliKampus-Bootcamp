@@ -1,0 +1,234 @@
+body { 
+  font-family: 'Poppins', sans-serif; 
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff 50%, #f0f8ff 100%);
+  min-height: 100vh;
+}
+
+.sticky-top { z-index: 1030; }
+
+/* Modern Video Container */
+.video-container {
+  background: linear-gradient(145deg, #212529 0%, #343a40 100%);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+  transform: translateY(-5px);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(111,66,193,0.1) 0%, rgba(255,193,7,0.1) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Modern AI Chat Box */
+.ai-chat-modern {
+  background: linear-gradient(145deg, #fff 0%, #f8f9fa 100%);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 35px rgba(111,66,193,0.08);
+  border: 1px solid rgba(111,66,193,0.1);
+  transition: all 0.3s ease;
+}
+
+.ai-chat-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(111,66,193,0.12);
+}
+
+.chat-messages {
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff 100%);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  height: 220px;
+  overflow-y: auto;
+  border: 1px solid rgba(111,66,193,0.1);
+}
+
+.message {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 1rem;
+  max-width: 85%;
+  animation: fadeInUp 0.5s ease;
+}
+
+.message.ai {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  color: white;
+  margin-right: auto;
+}
+
+.message.user {
+  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  color: #212529;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Modern Lesson Notes */
+.lesson-notes-modern {
+  background: linear-gradient(145deg, #fff 0%, #f8f9fa 100%);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 35px rgba(111,66,193,0.08);
+  border: 1px solid rgba(111,66,193,0.1);
+  transition: all 0.3s ease;
+}
+
+.lesson-notes-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(111,66,193,0.12);
+}
+
+.note-item {
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff 100%);
+  border-radius: 0.8rem;
+  border-left: 4px solid #6F42C1;
+  transition: all 0.3s ease;
+}
+
+.note-item:hover {
+  transform: translateX(5px);
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  color: white;
+}
+
+/* Modern Buttons */
+.btn-modern {
+  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255,193,7,0.3);
+}
+
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(255,193,7,0.4);
+  background: linear-gradient(135deg, #FFD54F 0%, #FFC107 100%);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(111,66,193,0.3);
+}
+
+.btn-next:hover {
+  box-shadow: 0 12px 35px rgba(111,66,193,0.4);
+  background: linear-gradient(135deg, #8B5CF6 0%, #6F42C1 100%);
+}
+
+/* Progress Bar */
+.progress-modern {
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff 100%);
+  border-radius: 1rem;
+  height: 0.8rem;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-bar-modern {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  border-radius: 1rem;
+  transition: width 0.5s ease;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+/* Modern Header */
+.navbar-modern {
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(111,66,193,0.1);
+}
+
+.navbar-brand-modern {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Modern Footer */
+.footer-modern {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 50%, #A855F7 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-container {
+    margin-bottom: 2rem;
+  }
+  
+  .ai-chat-modern {
+    margin-top: 2rem;
+  }
+}
+
+/* Custom Scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(111,66,193,0.1);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #6F42C1 100%);
+} 

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yapay Zeka Destekli Eğitim Platformu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  </style>
+</head>
+<body style="background:#fff;">
+  <!-- Sticky Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#" style="color:#6F42C1;font-size:1.7rem;letter-spacing:1px;">
+        <i class="bi bi-lightbulb me-2" style="font-size:2rem;"></i>Yapay Zeka Eğitim
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link px-3" href="lessons.html">Eğitimler</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#features">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.html">Giriş Yap</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-2 px-3" href="register.html" style="background:#6F42C1; border:none;">Kayıt Ol</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="top-wave">
+    <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:100%;display:block;"><path d="M0 60 Q 360 0 720 60 T 1440 60 V90 H0Z" fill="#6F42C1" fill-opacity="0.10"/><path d="M0 80 Q 360 40 720 80 T 1440 80 V90 H0Z" fill="#6F42C1" fill-opacity="0.16"/></svg>
+  </div>
+  <!-- Hero Section -->
+  <section class="py-5 text-center bg-light hero-section animate-fadein fullpage-hero position-relative overflow-hidden" style="background:linear-gradient(120deg,#f8f6ff 60%,#fff 100%);">
+    <!-- AI Network SVG Arka Plan Efekti -->
+    <svg class="position-absolute top-0 start-0 w-100 h-100" style="z-index:0;opacity:0.12;pointer-events:none;min-height:400px;" viewBox="0 0 1440 500" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <!-- Noktalar -->
+      <circle cx="120" cy="80" r="7" fill="#6F42C1"/>
+      <circle cx="400" cy="120" r="5" fill="#FFC107"/>
+      <circle cx="700" cy="60" r="8" fill="#6F42C1"/>
+      <circle cx="1100" cy="100" r="6" fill="#FFC107"/>
+      <circle cx="300" cy="300" r="6" fill="#6F42C1"/>
+      <circle cx="900" cy="350" r="7" fill="#6F42C1"/>
+      <circle cx="1300" cy="200" r="5" fill="#FFC107"/>
+      <circle cx="600" cy="400" r="8" fill="#6F42C1"/>
+      <circle cx="200" cy="450" r="5" fill="#FFC107"/>
+      <circle cx="1200" cy="420" r="7" fill="#6F42C1"/>
+      <!-- Parıltı efektli noktalar -->
+      <circle cx="700" cy="60" r="18" fill="url(#glow1)"/>
+      <circle cx="600" cy="400" r="15" fill="url(#glow2)"/>
+      <defs>
+        <radialGradient id="glow1" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+          <stop offset="0%" stop-color="#6F42C1" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#6F42C1" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glow2" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+          <stop offset="0%" stop-color="#FFC107" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#FFC107" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Çizgiler -->
+      <line x1="120" y1="80" x2="400" y2="120" stroke="#6F42C1" stroke-width="2"/>
+      <line x1="400" y1="120" x2="700" y2="60" stroke="#FFC107" stroke-width="2"/>
+      <line x1="700" y1="60" x2="1100" y2="100" stroke="#6F42C1" stroke-width="2"/>
+      <line x1="400" y1="120" x2="300" y2="300" stroke="#6F42C1" stroke-width="2"/>
+      <line x1="300" y1="300" x2="900" y2="350" stroke="#FFC107" stroke-width="2"/>
+      <line x1="900" y1="350" x2="1300" y2="200" stroke="#6F42C1" stroke-width="2"/>
+      <line x1="1300" y1="200" x2="1200" y2="420" stroke="#FFC107" stroke-width="2"/>
+      <line x1="1200" y1="420" x2="600" y2="400" stroke="#6F42C1" stroke-width="2"/>
+      <line x1="600" y1="400" x2="200" y2="450" stroke="#FFC107" stroke-width="2"/>
+      <line x1="200" y1="450" x2="120" y2="80" stroke="#6F42C1" stroke-width="2"/>
+    </svg>
+    <!-- Hero içerikleri -->
+    <div class="container py-5 d-flex flex-column justify-content-center align-items-center h-100">
+      <h1 class="display-4 fw-bold mb-3" style="color:#6F42C1;min-height:60px;">
+        <span id="typewriter"></span>
+        <span class="typewriter-cursor" style="color:#6F42C1;">|</span>
+      </h1>
+      <div class="hero-slogan mb-3">Geleceğin eğitimini bugünden yaşa!</div>
+      <div class="hero-features d-flex flex-wrap justify-content-center gap-3 mb-4">
+        <div class="feature-badge d-flex align-items-center gap-2"><i class="bi bi-person-badge" style="color:#6F42C1;font-size:1.3rem;"></i> Kişiselleştirilmiş Eğitim</div>
+        <div class="feature-badge d-flex align-items-center gap-2"><i class="bi bi-award" style="color:#FFC107;font-size:1.3rem;"></i> Ücretsiz Sertifika</div>
+        <div class="feature-badge d-flex align-items-center gap-2"><i class="bi bi-robot" style="color:#6F42C1;font-size:1.3rem;"></i> 7/24 AI Destek</div>
+      </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 animate-fadein-delay2 mb-2">
+        <a href="lessons.html" class="btn btn-lg btn-primary px-4 btn-edu-view" style="background:#6F42C1; border:none;">Eğitimleri Görüntüle</a>
+        <a href="register.html" class="btn btn-lg btn-warning px-4 text-white btn-start-now" style="background:#FFC107; border:none;">Hemen Başla</a>
+      </div>
+      <div class="hero-trust mb-4">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <div class="hero-avatars">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="hero-avatar" alt=""/>
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="hero-avatar" alt=""/>
+            <img src="https://randomuser.me/api/portraits/men/65.jpg" class="hero-avatar" alt=""/>
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="hero-avatar" alt=""/>
+          </div>
+          <span class="hero-trust-text">10.000+ öğrenci</span>
+        </div>
+      </div>
+      <div class="scroll-down-cta">
+        <a href="#features" id="scroll-down-btn" aria-label="Aşağı Kaydır">
+          <span class="scroll-down-icon"><i class="bi bi-chevron-double-down"></i></span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:100px;display:block;position:absolute;bottom:0;left:0;"><path d="M0 60 Q 360 120 720 60 T 1440 60 V120 H0Z" fill="#6F42C1" fill-opacity="0.13"/><path d="M0 80 Q 360 20 720 80 T 1440 80 V120 H0Z" fill="#6F42C1" fill-opacity="0.18"/></svg>
+    </div>
+  </section>
+  <!-- Özellikler Bölümü -->
+  <section class="container py-5 animate-fadein-delay3" id="features">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-stars" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">AI Tabanlı Öneriler</h3>
+          <p class="mb-0 text-muted">İlgi alanına göre kişiselleştirilmiş eğitim önerileri.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-bar-chart-line" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">Eğitim Takibi</h3>
+          <p class="mb-0 text-muted">İlerlemeni ve başarılarını kolayca takip et.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-chat-dots" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">Soru Cevap Asistanı</h3>
+          <p class="mb-0 text-muted">Yapay zeka ile 7/24 soru sor, anında yanıt al.</p>
+        </div>
+      </div>
+      <!-- Yeni kartlar -->
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-shield-check" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">Güvenli ve Gizli</h3>
+          <p class="mb-0 text-muted">Verilerin güvenliği ve gizliliği ön planda tutulur.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-clock-history" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">7/24 Erişim</h3>
+          <p class="mb-0 text-muted">İstediğin zaman, istediğin yerden eğitimlere ulaş.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center shadow-sm rounded-4 bg-white">
+          <div class="mb-3"><i class="bi bi-people" style="font-size:2.2rem;color:#6F42C1;"></i></div>
+          <h3 class="h5 mb-2">Topluluk Desteği</h3>
+          <p class="mb-0 text-muted">Aktif topluluk ile birlikte öğren, paylaş ve geliş.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Popüler Eğitimler Bölümü -->
+  <section class="container py-5 animate-fadein-delay4" id="lessons">
+    <h2 class="section-title mb-4 text-center" style="color:#6F42C1;">Popüler Eğitimler</h2>
+    <div class="row g-4">
+      <!-- Kart 1 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Matematik" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-primary mb-2">Matematik</span>
+            <h2 class="h5 mb-2 fw-semibold">Matematik Temelleri</h2>
+            <p class="mb-2 text-muted small">Sayılar, denklemler ve temel matematik kavramları.</p>
+            <a href="lesson-detail.html?id=1" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+      <!-- Kart 2 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Fizik" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-warning text-dark mb-2">Fizik</span>
+            <h2 class="h5 mb-2 fw-semibold">Fizik 101</h2>
+            <p class="mb-2 text-muted small">Hareket, kuvvet ve enerjiye giriş.</p>
+            <a href="lesson-detail.html?id=2" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+      <!-- Kart 3 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" alt="Kimya" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-success mb-2">Kimya</span>
+            <h2 class="h5 mb-2 fw-semibold">Kimya Başlangıç</h2>
+            <p class="mb-2 text-muted small">Maddelerin yapısı ve temel kimya konuları.</p>
+            <a href="lesson-detail.html?id=3" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+      <!-- Kart 4 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Yapay Zeka" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-purple mb-2" style="background:#6F42C1;">Yapay Zeka</span>
+            <h2 class="h5 mb-2 fw-semibold">Yapay Zeka Temelleri</h2>
+            <p class="mb-2 text-muted small">AI kavramları, makine öğrenmesi ve uygulama örnekleri.</p>
+            <a href="lesson-detail.html?id=4" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+      <!-- Kart 5 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Web Programlama" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-info mb-2 text-dark">Web</span>
+            <h2 class="h5 mb-2 fw-semibold">Web Programlama</h2>
+            <p class="mb-2 text-muted small">HTML, CSS, JavaScript ve modern web teknolojileri.</p>
+            <a href="lesson-detail.html?id=5" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+      <!-- Kart 6 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+          <div class="lesson-img-wrap position-relative">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="İngilizce" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-secondary mb-2">Dil</span>
+            <h2 class="h5 mb-2 fw-semibold">İngilizce Başlangıç</h2>
+            <p class="mb-2 text-muted small">Temel İngilizce dil bilgisi ve pratik konuşma.</p>
+            <a href="lesson-detail.html?id=6" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Başarı Hikayeleri / Mezunlar Bölümü -->
+  <section class="container py-5 animate-fadein-delay4" id="success-stories">
+    <div class="row align-items-center g-4 mb-4">
+      <div class="col-md-4">
+        <div class="success-stat-card bg-white shadow-sm rounded-4 p-4 text-center h-100 d-flex flex-column justify-content-center">
+          <div class="stat-icon mb-3">
+            <i class="bi bi-heart-fill" style="color:#6F42C1;font-size:2rem;"></i>
+          </div>
+          <div class="display-5 fw-bold mb-2 stat-number" style="color:#6F42C1;">%98</div>
+          <div class="text-muted stat-label">Memnuniyet Oranı</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="success-stat-card bg-white shadow-sm rounded-4 p-4 text-center h-100 d-flex flex-column justify-content-center">
+          <div class="stat-icon mb-3">
+            <i class="bi bi-mortarboard-fill" style="color:#FFC107;font-size:2rem;"></i>
+          </div>
+          <div class="display-5 fw-bold mb-2 stat-number" style="color:#FFC107;">500+</div>
+          <div class="text-muted stat-label">Mezun Öğrenci</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="success-stat-card bg-white shadow-sm rounded-4 p-4 text-center h-100 d-flex flex-column justify-content-center">
+          <div class="stat-icon mb-3">
+            <i class="bi bi-people-fill" style="color:#6F42C1;font-size:2rem;"></i>
+          </div>
+          <div class="display-5 fw-bold mb-2 stat-number" style="color:#6F42C1;">10.000+</div>
+          <div class="text-muted stat-label">Aktif Öğrenci</div>
+        </div>
+      </div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="success-story-card bg-white shadow p-4 rounded-4 h-100">
+          <div class="story-header d-flex align-items-center mb-3">
+            <div class="story-avatar me-3">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle" style="width:54px;height:54px;object-fit:cover;">
+            </div>
+            <div class="story-info">
+              <div class="fw-semibold story-name">Ali Vural</div>
+              <div class="text-muted small story-title">Yazılım Geliştirici</div>
+            </div>
+          </div>
+          <div class="story-quote">
+            <i class="bi bi-quote quote-icon"></i>
+            <div class="fst-italic text-muted story-text">"Platform sayesinde yazılım alanında iş buldum. Sertifikam CV'mde büyük fark yarattı!"</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="success-story-card bg-white shadow p-4 rounded-4 h-100">
+          <div class="story-header d-flex align-items-center mb-3">
+            <div class="story-avatar me-3">
+              <img src="https://randomuser.me/api/portraits/women/47.jpg" class="rounded-circle" style="width:54px;height:54px;object-fit:cover;">
+            </div>
+            <div class="story-info">
+              <div class="fw-semibold story-name">Zeynep Aksoy</div>
+              <div class="text-muted small story-title">Üniversite Öğrencisi</div>
+            </div>
+          </div>
+          <div class="story-quote">
+            <i class="bi bi-quote quote-icon"></i>
+            <div class="fst-italic text-muted story-text">"Eğitimler çok anlaşılır ve güncel. Mezun olduktan sonra staj bulmam kolaylaştı."</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="success-story-card bg-white shadow p-4 rounded-4 h-100">
+          <div class="story-header d-flex align-items-center mb-3">
+            <div class="story-avatar me-3">
+              <img src="https://randomuser.me/api/portraits/men/53.jpg" class="rounded-circle" style="width:54px;height:54px;object-fit:cover;">
+            </div>
+            <div class="story-info">
+              <div class="fw-semibold story-name">Mehmet Demir</div>
+              <div class="text-muted small story-title">Girişimci</div>
+            </div>
+          </div>
+          <div class="story-quote">
+            <i class="bi bi-quote quote-icon"></i>
+            <div class="fst-italic text-muted story-text">"Aldığım eğitimlerle kendi girişimimi kurdum. Topluluk desteği harika!"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Eğitmenler / Ekip Tanıtımı Bölümü -->
+  <section class="container py-5 animate-fadein-delay5" id="team-showcase">
+    <h2 class="section-title mb-4 text-center" style="color:#6F42C1;">Eğitmenlerimiz ve Ekibimiz</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-md-6">
+        <div class="team-card-advanced d-flex flex-column flex-md-row align-items-center p-4 rounded-4 shadow-lg position-relative bg-white overflow-hidden">
+          <div class="team-img-wrap flex-shrink-0 mb-3 mb-md-0 me-md-4">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle border border-4 border-primary" alt="Eğitmen" style="width:120px;height:120px;object-fit:cover;">
+          </div>
+          <div class="flex-grow-1 text-center text-md-start">
+            <h5 class="mb-1">Dr. Ali Vural</h5>
+            <span class="badge bg-primary mb-2">Matematik Uzmanı</span>
+            <p class="mb-2">10+ yıl deneyimli, yenilikçi eğitimci ve içerik geliştirici. Öğrencilerinin gelişimini birebir takip ediyor.</p>
+            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+              <a href="#" class="fs-4 text-primary team-social"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="fs-4 text-info team-social"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+          <div class="team-bg-gradient"></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="team-card-advanced d-flex flex-column flex-md-row align-items-center p-4 rounded-4 shadow-lg position-relative bg-white overflow-hidden">
+          <div class="team-img-wrap flex-shrink-0 mb-3 mb-md-0 me-md-4">
+            <img src="https://randomuser.me/api/portraits/women/47.jpg" class="rounded-circle border border-4 border-warning" alt="Eğitmen" style="width:120px;height:120px;object-fit:cover;">
+          </div>
+          <div class="flex-grow-1 text-center text-md-start">
+            <h5 class="mb-1">Prof. Zeynep Aksoy</h5>
+            <span class="badge bg-warning text-dark mb-2">Fizik Eğitmeni</span>
+            <p class="mb-2">Ödüllü akademisyen, öğrenci odaklı öğretim yöntemleriyle tanınır. Bilimsel projelerde aktif rol alıyor.</p>
+            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+              <a href="#" class="fs-4 text-primary team-social"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="fs-4 text-info team-social"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+          <div class="team-bg-gradient"></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="team-card-advanced d-flex flex-column flex-md-row align-items-center p-4 rounded-4 shadow-lg position-relative bg-white overflow-hidden">
+          <div class="team-img-wrap flex-shrink-0 mb-3 mb-md-0 me-md-4">
+            <img src="https://randomuser.me/api/portraits/men/53.jpg" class="rounded-circle border border-4 border-success" alt="Eğitmen" style="width:120px;height:120px;object-fit:cover;">
+          </div>
+          <div class="flex-grow-1 text-center text-md-start">
+            <h5 class="mb-1">Mehmet Demir</h5>
+            <span class="badge bg-success mb-2">Kimya Öğretmeni</span>
+            <p class="mb-2">Eğlenceli ve anlaşılır ders anlatımıyla öğrencilerin favorisi. Kimya alanında çeşitli ödüllere sahip.</p>
+            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+              <a href="#" class="fs-4 text-primary team-social"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="fs-4 text-info team-social"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+          <div class="team-bg-gradient"></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="team-card-advanced d-flex flex-column flex-md-row align-items-center p-4 rounded-4 shadow-lg position-relative bg-white overflow-hidden">
+          <div class="team-img-wrap flex-shrink-0 mb-3 mb-md-0 me-md-4">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" class="rounded-circle border border-4 border-info" alt="Eğitmen" style="width:120px;height:120px;object-fit:cover;">
+          </div>
+          <div class="flex-grow-1 text-center text-md-start">
+            <h5 class="mb-1">Elif Yıldız</h5>
+            <span class="badge bg-info text-dark mb-2">Yazılım Eğitmeni</span>
+            <p class="mb-2">Web ve mobil yazılımda uzman, yenilikçi projelerde mentorluk yapıyor. Öğrencilerle birebir ilgileniyor.</p>
+            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+              <a href="#" class="fs-4 text-primary team-social"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="fs-4 text-info team-social"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+          <div class="team-bg-gradient"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Basında Biz / Bizi Tercih Edenler Bölümü -->
+  <section class="container py-5 animate-fadein-delay5" id="press">
+   
+    <div class="bg-white shadow-sm rounded-4 p-4 d-flex flex-wrap justify-content-center align-items-center gap-4">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-newspaper fs-2 text-primary"></i>
+        <span class="fw-semibold">Hürriyet</span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-newspaper fs-2 text-danger"></i>
+        <span class="fw-semibold">Milliyet</span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-broadcast-pin fs-2 text-success"></i>
+        <span class="fw-semibold">TRT</span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-globe2 fs-2 text-warning"></i>
+        <span class="fw-semibold">Webrazzi</span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-award fs-2 text-info"></i>
+        <span class="fw-semibold">Wired</span>
+      </div>
+      <div class="d-flex align-items-center ms-3">
+        <i class="bi bi-trophy-fill text-warning fs-2 me-2"></i>
+        <span class="fw-semibold text-muted">Yılın Eğitim Girişimi</span>
+      </div>
+    </div>
+  </section>
+  <!-- Sıkça Sorulan Sorular (SSS) Bölümü -->
+  <section class="container py-5 animate-fadein-delay5" id="faq">
+    <h2 class="section-title mb-4 text-center" style="color:#6F42C1;"><i class="bi bi-question-circle-fill me-2"></i>Sıkça Sorulan Sorular</h2>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item sss-card">
+        <h2 class="accordion-header" id="faq1-heading">
+          <button class="accordion-button sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+            <i class="bi bi-award-fill text-warning me-2"></i> Sertifikalar ücretsiz mi?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
+          <div class="accordion-body sss-body">Evet, tüm eğitimlerimizi başarıyla tamamlayanlara ücretsiz sertifika veriyoruz.</div>
+        </div>
+      </div>
+      <div class="accordion-item sss-card">
+        <h2 class="accordion-header" id="faq2-heading">
+          <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+            <i class="bi bi-journal-text text-primary me-2"></i> Derslere nasıl kayıt olabilirim?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
+          <div class="accordion-body sss-body">Kayıt ol butonuna tıklayarak ücretsiz bir hesap oluşturabilir ve istediğiniz eğitime hemen başlayabilirsiniz.</div>
+        </div>
+      </div>
+      <div class="accordion-item sss-card">
+        <h2 class="accordion-header" id="faq3-heading">
+          <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+            <i class="bi bi-robot text-purple me-2"></i> Yapay zeka asistanı nasıl çalışıyor?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
+          <div class="accordion-body sss-body">Sorularınızı 7/24 yapay zeka destekli asistanımıza sorabilir, anında yanıt alabilirsiniz.</div>
+        </div>
+      </div>
+      <div class="accordion-item sss-card">
+        <h2 class="accordion-header" id="faq4-heading">
+          <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+            <i class="bi bi-clock-history text-info me-2"></i> Eğitimler ne kadar sürüyor?
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
+          <div class="accordion-body sss-body">Her eğitimin süresi farklıdır, ancak çoğu eğitimi kendi hızınızda tamamlayabilirsiniz.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Footer -->
+  <footer class="modern-footer py-5" style="background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 50%, #A855F7 100%); color:#fff; font-size:1.05rem; margin-top:4rem; position: relative; overflow: hidden;">
+    <!-- Footer Arka Plan Efekti -->
+    <div class="footer-bg-pattern position-absolute top-0 start-0 w-100 h-100" style="opacity: 0.1; pointer-events: none;">
+      <svg viewBox="0 0 1440 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <defs>
+          <pattern id="footer-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="2" fill="#fff"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#footer-dots)"/>
+      </svg>
+    </div>
+    
+    <div class="container position-relative">
+      <!-- Ana Footer İçeriği -->
+      <div class="row g-4 mb-5">
+        <!-- Logo ve Açıklama -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <div class="footer-brand-section">
+            <a class="navbar-brand fw-bold d-flex align-items-center mb-3" href="#" style="color:#fff;font-size:1.8rem;letter-spacing:1px;">
+              <i class="bi bi-lightbulb me-2" style="font-size:2.2rem; color: #FFC107;"></i>Yapay Zeka Eğitim
+            </a>
+            <p class="mb-3" style="opacity: 0.9; line-height: 1.6;">Geleceğin eğitim platformu ile yapay zeka destekli öğrenme deneyimini keşfedin. Kişiselleştirilmiş eğitimler ve 7/24 AI asistan desteği.</p>
+            <div class="footer-stats d-flex gap-4">
+              <div class="stat-item text-center">
+                <div class="stat-number fw-bold" style="color: #FFC107; font-size: 1.5rem;">10K+</div>
+                <div class="stat-label" style="opacity: 0.8; font-size: 0.9rem;">Öğrenci</div>
+              </div>
+              <div class="stat-item text-center">
+                <div class="stat-number fw-bold" style="color: #FFC107; font-size: 1.5rem;">500+</div>
+                <div class="stat-label" style="opacity: 0.8; font-size: 0.9rem;">Eğitim</div>
+              </div>
+              <div class="stat-item text-center">
+                <div class="stat-number fw-bold" style="color: #FFC107; font-size: 1.5rem;">98%</div>
+                <div class="stat-label" style="opacity: 0.8; font-size: 0.9rem;">Memnuniyet</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hızlı Bağlantılar -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+          <div class="footer-links-section">
+            <h5 class="fw-bold mb-3" style="color: #FFC107;">Hızlı Bağlantılar</h5>
+            <ul class="list-unstyled footer-links">
+              <li class="mb-2"><a href="#features" class="footer-link">Hakkımızda</a></li>
+              <li class="mb-2"><a href="lessons.html" class="footer-link">Eğitimler</a></li>
+              <li class="mb-2"><a href="#success-stories" class="footer-link">Başarı Hikayeleri</a></li>
+              <li class="mb-2"><a href="#team-showcase" class="footer-link">Eğitmenler</a></li>
+              <li class="mb-2"><a href="#faq" class="footer-link">SSS</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Destek -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+          <div class="footer-links-section">
+            <h5 class="fw-bold mb-3" style="color: #FFC107;">Destek</h5>
+            <ul class="list-unstyled footer-links">
+              <li class="mb-2"><a href="#" class="footer-link">Yardım Merkezi</a></li>
+              <li class="mb-2"><a href="#" class="footer-link">İletişim</a></li>
+              <li class="mb-2"><a href="#" class="footer-link">Geri Bildirim</a></li>
+              <li class="mb-2"><a href="#" class="footer-link">Topluluk</a></li>
+              <li class="mb-2"><a href="#" class="footer-link">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- İletişim -->
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-contact-section">
+            <h5 class="fw-bold mb-3" style="color: #FFC107;">İletişim</h5>
+            <div class="contact-info mb-3">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-geo-alt-fill me-2" style="color: #FFC107;"></i>
+                <span style="opacity: 0.9;">İstanbul, Türkiye</span>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-envelope-fill me-2" style="color: #FFC107;"></i>
+                <span style="opacity: 0.9;">info@yapayzekaegitim.com</span>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-telephone-fill me-2" style="color: #FFC107;"></i>
+                <span style="opacity: 0.9;">+90 (212) 555 0123</span>
+              </div>
+            </div>
+            
+            <!-- Sosyal Medya -->
+            <div class="social-media-section">
+              <h6 class="fw-semibold mb-2" style="opacity: 0.9;">Bizi Takip Edin</h6>
+              <div class="social-links d-flex gap-3">
+                <a href="#" class="social-link" aria-label="Instagram">
+                  <i class="bi bi-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="YouTube">
+                  <i class="bi bi-youtube"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Facebook">
+                  <i class="bi bi-facebook"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Alt Footer -->
+      <div class="footer-bottom border-top border-white-25 pt-4">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-shield-check me-2" style="color: #FFC107;"></i>
+              <span style="opacity: 0.8;">© 2024 Yapay Zeka Eğitim Platformu. Tüm hakları saklıdır.</span>
+            </div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <div class="d-flex gap-3 justify-content-md-end">
+              <a href="#" class="footer-bottom-link">Gizlilik Politikası</a>
+              <a href="#" class="footer-bottom-link">Kullanım Şartları</a>
+              <a href="#" class="footer-bottom-link">Çerez Politikası</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html> 

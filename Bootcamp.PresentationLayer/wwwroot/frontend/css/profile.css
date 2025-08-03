@@ -1,0 +1,218 @@
+/* Profile Page Styles */
+body { 
+  font-family: 'Poppins', sans-serif; 
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff 100%);
+  min-height: 100vh;
+}
+
+.sticky-top { 
+  z-index: 1030; 
+}
+
+/* Modern Profil Stilleri */
+.profile-hero {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 50%, #A855F7 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 2rem;
+}
+
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 8px 32px rgba(111, 66, 193, 0.3);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+}
+
+.profile-stats {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+  color: white;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FFC107;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.modern-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.modern-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.progress-modern {
+  height: 8px;
+  border-radius: 10px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.progress-modern .progress-bar {
+  background: linear-gradient(90deg, #6F42C1, #8B5CF6);
+  border-radius: 10px;
+}
+
+.lesson-item {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(111, 66, 193, 0.1);
+  transition: all 0.3s ease;
+}
+
+.lesson-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 20px rgba(111, 66, 193, 0.1);
+}
+
+.achievement-badge {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.section-title {
+  color: #6F42C1;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #6F42C1, #8B5CF6);
+  border-radius: 2px;
+}
+
+/* Animasyonlar */
+.animate-fadein {
+  animation: fadeIn 0.8s ease-in-out forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-fadein-delay1 {
+  animation: fadeIn 0.8s ease-in-out 0.2s forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-fadein-delay2 {
+  animation: fadeIn 0.8s ease-in-out 0.4s forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Floating Action Button */
+.floating-action-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6F42C1, #8B5CF6);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 25px rgba(111, 66, 193, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.floating-action-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(111, 66, 193, 0.4);
+}
+
+/* Modern Footer */
+.modern-footer {
+  background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 50%, #A855F7 100%);
+  color: #fff;
+  font-size: 1.05rem;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-hero {
+    padding: 2rem 0 1rem;
+  }
+  
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .floating-action-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 1rem;
+    right: 1rem;
+  }
+} 

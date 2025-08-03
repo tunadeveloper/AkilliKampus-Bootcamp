@@ -1,0 +1,27 @@
+﻿@model List<Bootcamp.EntityLayer.Concrete.Instructor>
+<section class="container py-5 animate-fadein-delay5" id="team-showcase">
+    <h2 class="section-title mb-4 text-center" style="color:#6F42C1;">Eğitmenlerimiz ve Ekibimiz</h2>
+    <div class="row g-4 justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6">
+                <div class="team-card-advanced d-flex flex-column flex-md-row align-items-center p-4 rounded-4 shadow-lg position-relative bg-white overflow-hidden">
+                    <div class="team-img-wrap flex-shrink-0 mb-3 mb-md-0 me-md-4">
+                        <img src="@item.ImageUrl" class="rounded-circle border border-4 border-info" alt="Eğitmen" style="width:120px;height:120px;object-fit:cover;">
+                    </div>
+                    <div class="flex-grow-1 text-center text-md-start">
+                        <h5 class="mb-1">@item.NameSurname</h5>
+                        <span class="badge bg-warning mb-2">@item.Position</span>
+                        <p class="mb-2">@item.Description</p>
+                        <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+                            <a href="@item.LinkedinUrl" class="fs-4 text-primary team-social"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-bg-gradient"></div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</section>

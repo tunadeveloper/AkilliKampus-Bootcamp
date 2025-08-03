@@ -1,0 +1,187 @@
+﻿@model Bootcamp.EntityLayer.Concrete.ApplicationUser
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using Bootcamp.EntityLayer.Concrete
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var statuses = ViewBag.CourseStatuses as List<(Course Course, string Status, int WatchedCount, int TotalCount)>;
+    int completed = ViewBag.CompletedCount ?? 0;
+    int average = ViewBag.TotalAverage ?? 0;
+    int hours = ViewBag.TotalHours ?? 0;
+    int certificates = ViewBag.CertificateCount ?? 0;
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilim | Yapay Zeka Eğitim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/frontend/css/profile.css">
+</head>
+<!-- Hero Section -->
+<section class="profile-hero text-center text-white position-relative">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="animate-fadein">
+                    <img src="@(Model.Gender == "Erkek"
+                        ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                        : Model.Gender == "Kadın"
+                            ? "https://cdn-icons-png.flaticon.com/512/3135/3135789.png"
+                            : "https://cdn-icons-png.flaticon.com/512/4139/4139981.png")"
+                         alt="Kullanıcı"
+                         class="profile-avatar mb-4">
+                    <h1 class="display-5 fw-bold mb-3">Hoşgeldiniz, <span style="color: #FFC107;">@Model.NameSurname</span>!</h1>
+                    <p class="lead mb-4">Eğitim yolculuğunuzu takip edin ve başarılarınızı kutlayın</p>
+
+                    <div class="profile-stats">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="stat-item">
+                                    <div class="stat-number">@completed</div>
+                                    <div class="stat-label">Tamamlanan Eğitim</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-item">
+                                    <div class="stat-number">@average%</div>
+                                    <div class="stat-label">Ortalama Başarı</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-item">
+                                    <div class="stat-number">@hours</div>
+                                    <div class="stat-label">Toplam Saat</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container py-5">
+    <!-- Hızlı Aksiyonlar -->
+    <div class="row g-4 mb-5 animate-fadein-delay1">
+        <div class="col-md-6">
+            <div class="modern-card p-4 h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-play-circle-fill me-3 text-purple fs-2"></i>
+                    <div>
+                        <h3 class="h5 mb-1">Devam Et</h3>
+                        <p class="text-muted small">Kaldığınız yerden devam edin</p>
+                    </div>
+                </div>
+                <a href="/Lesson/Index" class="btn btn-primary w-100">Eğitimlere Git</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="modern-card p-4 h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-trophy-fill me-3 text-warning fs-2"></i>
+                    <div>
+                        <h3 class="h5 mb-1">Sertifikalar</h3>
+                        <p class="text-muted small">Kazandığınız başarıları görün</p>
+                    </div>
+                </div>
+                <a href="/Certificate/Index" class="btn btn-warning text-white w-100">Sertifikalarım</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eğitimler -->
+    <div class="row g-4">
+        <!-- Tamamlanan Eğitimler -->
+        <div class="col-lg-6 animate-fadein-delay1">
+            <div class="modern-card p-4 h-100">
+                <h2 class="section-title"><i class="bi bi-check-circle-fill me-2 text-success"></i> Tamamlanan Eğitimler</h2>
+                <div class="row g-3">
+                    @foreach (var course in statuses.Where(x => x.Status == "Tamamlandı"))
+                    {
+                        <div class="col-12">
+                            <div class="lesson-item d-flex align-items-center">
+                                <img src="@course.Course.ThumbnailUrl" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-semibold">@course.Course.Name</h6>
+                                    <div class="progress-modern mb-2">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <span class="achievement-badge">Başarıyla Tamamlandı</span>
+                                </div>
+                                <i class="bi bi-check-circle-fill text-success fs-4 ms-2"></i>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Devam Edilen Eğitimler -->
+        <div class="col-lg-6 animate-fadein-delay2">
+            <div class="modern-card p-4 h-100">
+                <h2 class="section-title"><i class="bi bi-play-circle-fill me-2 text-purple"></i> Devam Edilen Eğitimler</h2>
+                <div class="row g-3">
+                    @foreach (var course in statuses.Where(x => x.Status == "Devam Ediyor"))
+                    {
+                        var progress = course.TotalCount == 0 ? 0 : (int)(((double)course.WatchedCount / course.TotalCount) * 100);
+                        <div class="col-12">
+                            <div class="lesson-item d-flex align-items-center">
+                                <img src="@course.Course.ThumbnailUrl" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-semibold">@course.Course.Name</h6>
+                                    <div class="progress-modern mb-2">
+                                        <div class="progress-bar" style="width: @progress%"></div>
+                                    </div>
+                                    <small class="text-muted">%@progress tamamlandı • @course.WatchedCount/@course.TotalCount modül</small>
+                                </div>
+                                <a href="/Lesson/Detail/@course.Course.Id" class="btn btn-outline-primary btn-sm">Devam Et</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Başarı İstatistikleri -->
+    <div class="row g-4 mt-4 animate-fadein-delay2">
+        <div class="col-12">
+            <div class="modern-card p-4">
+                <h2 class="section-title"><i class="bi bi-graph-up me-2 text-purple"></i> Başarı İstatistikleriniz</h2>
+                <div class="row g-4">
+                    <div class="col-md-3 col-6 text-center">
+                        <div class="display-6 fw-bold text-primary mb-2">@completed</div>
+                        <div class="text-muted">Tamamlanan Eğitim</div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center">
+                        <div class="display-6 fw-bold text-success mb-2">@average%</div>
+                        <div class="text-muted">Ortalama Başarı</div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center">
+                        <div class="display-6 fw-bold text-warning mb-2">@hours</div>
+                        <div class="text-muted">Toplam Saat</div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center">
+                        <div class="display-6 fw-bold text-info mb-2">@certificates</div>
+                        <div class="text-muted">Sertifika</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<button class="floating-action-btn" title="Hızlı Erişim">
+    <i class="bi bi-plus-lg"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/js/profile.js"></script>

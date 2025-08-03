@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt Ol | Yapay Zeka Eğitim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #F2F2F2; }
+    .sticky-top { z-index: 1030; }
+  </style>
+</head>
+<body>
+  <!-- Sticky Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html" style="color:#6F42C1;">Yapay Zeka Eğitim</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="lessons.html">Eğitimler</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#features">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Giriş Yap</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-2 px-3" href="register.html" style="background:#6F42C1; border:none;">Kayıt Ol</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <div class="login-card bg-white shadow rounded-4 p-4 p-md-5" style="max-width: 400px; width: 100%;">
+      <div class="text-center mb-4">
+        <a href="index.html" class="navbar-brand fw-bold mb-2" style="color:#6F42C1; font-size:1.7rem;">Yapay Zeka Eğitim</a>
+        <div class="mb-2 text-muted" style="font-size:1.1rem;">Hesabınızı oluşturun.</div>
+      </div>
+      <form autocomplete="off">
+        <div class="mb-3">
+          <label for="ad" class="form-label">Ad</label>
+          <input type="text" class="form-control form-control-lg" id="ad" placeholder="Adınız" required>
+        </div>
+        <div class="mb-3">
+          <label for="soyad" class="form-label">Soyad</label>
+          <input type="text" class="form-control form-control-lg" id="soyad" placeholder="Soyadınız" required>
+        </div>
+        <div class="mb-3">
+          <label for="registerEmail" class="form-label">E-posta</label>
+          <input type="email" class="form-control form-control-lg" id="registerEmail" placeholder="E-posta adresiniz" required>
+        </div>
+        <div class="mb-3">
+          <label for="registerSifre" class="form-label">Şifre</label>
+          <input type="password" class="form-control form-control-lg" id="registerSifre" placeholder="Şifreniz" required>
+        </div>
+        <div class="mb-3">
+          <label for="registerSifre2" class="form-label">Şifre Tekrar</label>
+          <input type="password" class="form-control form-control-lg" id="registerSifre2" placeholder="Şifrenizi tekrar girin" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2 login-btn" style="background:#6F42C1; border:none;">Kayıt Ol</button>
+      </form>
+      <div class="text-center mt-3">
+        <span class="text-muted">Zaten hesabınız var mı?</span> <a href="login.html" style="color:#6F42C1;">Giriş Yap</a>
+      </div>
+    </div>
+    <footer class="text-center mt-4 text-muted small">© 2024 Yapay Zeka Eğitim Platformu</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

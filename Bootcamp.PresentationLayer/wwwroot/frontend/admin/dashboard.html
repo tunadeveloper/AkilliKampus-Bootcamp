@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#6F42C1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Admin Panel | Yapay Zeka Eğitim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- Modern Sticky Header -->
+  <nav class="navbar navbar-light navbar-modern sticky-top shadow-sm mb-4">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-modern d-flex align-items-center" href="../index.html">
+        <i class="bi bi-shield-check me-2" style="font-size:1.8rem; color: #FFC107;"></i>
+        <span class="d-none d-sm-inline">Yapay Zeka Eğitim - Admin</span>
+        <span class="d-inline d-sm-none">Admin</span>
+      </a>
+      
+      <!-- Sidebar Toggle Button -->
+      <button class="btn btn-outline-modern sidebar-toggle d-lg-none" type="button" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+      </button>
+      
+      <div class="d-flex align-items-center gap-3">
+        <div class="d-none d-md-flex align-items-center">
+          <i class="bi bi-person-circle me-2" style="font-size:1.5rem; color:#6F42C1;"></i>
+          <span class="fw-semibold">Admin</span>
+        </div>
+        <a href="login.html" class="btn btn-outline-modern">
+          <i class="bi bi-box-arrow-right me-1"></i>
+          <span class="d-none d-sm-inline">Çıkış Yap</span>
+          <span class="d-inline d-sm-none">Çıkış</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <main class="container-fluid py-4">
+    <div class="row g-4">
+      <!-- Modern Sidebar -->
+      <div class="col-lg-2 col-md-3 col-12">
+        <div class="admin-sidebar-modern p-4 h-100" id="adminSidebar">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="mb-0 fw-bold" style="color:#6F42C1;">
+              <i class="bi bi-gear me-2"></i>
+              <span class="d-none d-md-inline">Admin Panel</span>
+              <span class="d-inline d-md-none">Panel</span>
+            </h6>
+            <button class="btn btn-sm btn-outline-modern sidebar-close d-lg-none" id="sidebarClose">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <ul class="nav flex-column nav-pills gap-2">
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern active" href="#">
+                <i class="bi bi-journal-text me-2"></i>
+                <span class="d-none d-md-inline">Eğitimler</span>
+                <span class="d-inline d-md-none">Eğitim</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern" href="#">
+                <i class="bi bi-people me-2"></i>
+                <span class="d-none d-md-inline">Kullanıcılar</span>
+                <span class="d-inline d-md-none">Kullanıcı</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern" href="#">
+                <i class="bi bi-tags me-2"></i>
+                <span class="d-none d-md-inline">Kategoriler</span>
+                <span class="d-inline d-md-none">Kategori</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern" href="#">
+                <i class="bi bi-chat-dots me-2"></i>
+                <span class="d-none d-md-inline">Yorumlar</span>
+                <span class="d-inline d-md-none">Yorum</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern" href="#">
+                <i class="bi bi-graph-up me-2"></i>
+                <span class="d-none d-md-inline">İstatistikler</span>
+                <span class="d-inline d-md-none">İstatistik</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-modern" href="#">
+                <i class="bi bi-gear me-2"></i>
+                <span class="d-none d-md-inline">Ayarlar</span>
+                <span class="d-inline d-md-none">Ayar</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Modern İçerik Alanı -->
+      <div class="col-lg-10 col-md-9 col-12">
+        <div class="admin-content-modern p-4 mb-4">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+            <h1 class="h4 mb-0 mb-md-0" style="color:#6F42C1; font-weight:600;">
+              <i class="bi bi-journal-text me-2"></i>
+              <span class="d-none d-md-inline">Eğitim Yönetimi</span>
+              <span class="d-inline d-md-none">Eğitimler</span>
+            </h1>
+            <button class="btn btn-modern mt-3 mt-md-0">
+              <i class="bi bi-plus-lg me-2"></i>
+              <span class="d-none d-sm-inline">Yeni Eğitim Ekle</span>
+              <span class="d-inline d-sm-none">Yeni Ekle</span>
+            </button>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table table-modern">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Eğitim Adı</th>
+                  <th class="d-none d-md-table-cell">Kategori</th>
+                  <th class="d-none d-md-table-cell">Zorluk</th>
+                  <th>Durum</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1</strong></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=40&q=80" 
+                           class="rounded me-2" style="width:40px;height:40px;object-fit:cover;">
+                      <div>
+                        <div class="fw-semibold">Matematik Temelleri</div>
+                        <small class="text-muted d-none d-sm-inline">2.5 saat • 15 ders</small>
+                        <small class="text-muted d-inline d-sm-none">15 ders</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern">Sayısal</span></td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern badge-success">Başlangıç</span></td>
+                  <td><span class="badge-modern badge-success">Aktif</span></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-modern btn-sm" title="Düzenle">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Görüntüle">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Sil">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>2</strong></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=40&q=80" 
+                           class="rounded me-2" style="width:40px;height:40px;object-fit:cover;">
+                      <div>
+                        <div class="fw-semibold">Fizik 101</div>
+                        <small class="text-muted d-none d-sm-inline">3.2 saat • 18 ders</small>
+                        <small class="text-muted d-inline d-sm-none">18 ders</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern">Sayısal</span></td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern badge-warning">Orta</span></td>
+                  <td><span class="badge-modern badge-success">Aktif</span></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-modern btn-sm" title="Düzenle">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Görüntüle">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Sil">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>3</strong></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=40&q=80" 
+                           class="rounded me-2" style="width:40px;height:40px;object-fit:cover;">
+                      <div>
+                        <div class="fw-semibold">Kimya Başlangıç</div>
+                        <small class="text-muted d-none d-sm-inline">2.8 saat • 12 ders</small>
+                        <small class="text-muted d-inline d-sm-none">12 ders</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern">Fen</span></td>
+                  <td class="d-none d-md-table-cell"><span class="badge-modern badge-success">Başlangıç</span></td>
+                  <td><span class="badge-modern badge-warning">Taslak</span></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-modern btn-sm" title="Düzenle">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Görüntüle">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-outline-modern btn-sm" title="Sil">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Modern İstatistik Kartları -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card-modern">
+              <i class="bi bi-people-fill pulse-animation"></i>
+              <div class="stat-number">1.247</div>
+              <div class="small text-muted">
+                <span class="d-none d-sm-inline">Aktif Kullanıcı</span>
+                <span class="d-inline d-sm-none">Kullanıcı</span>
+              </div>
+              <div class="mt-2">
+                <small class="text-success">
+                  <i class="bi bi-arrow-up"></i> 
+                  <span class="d-none d-sm-inline">+12% bu ay</span>
+                  <span class="d-inline d-sm-none">+12%</span>
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card-modern">
+              <i class="bi bi-journal-text"></i>
+              <div class="stat-number">42</div>
+              <div class="small text-muted">
+                <span class="d-none d-sm-inline">Toplam Eğitim</span>
+                <span class="d-inline d-sm-none">Eğitim</span>
+              </div>
+              <div class="mt-2">
+                <small class="text-success">
+                  <i class="bi bi-arrow-up"></i> 
+                  <span class="d-none d-sm-inline">+3 yeni</span>
+                  <span class="d-inline d-sm-none">+3</span>
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card-modern">
+              <i class="bi bi-bar-chart-line"></i>
+              <div class="stat-number">87%</div>
+              <div class="small text-muted">
+                <span class="d-none d-sm-inline">Tamamlanma Oranı</span>
+                <span class="d-inline d-sm-none">Tamamlanma</span>
+              </div>
+              <div class="mt-2">
+                <small class="text-success">
+                  <i class="bi bi-arrow-up"></i> 
+                  <span class="d-none d-sm-inline">+5% artış</span>
+                  <span class="d-inline d-sm-none">+5%</span>
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card-modern">
+              <i class="bi bi-star-fill"></i>
+              <div class="stat-number">4.8</div>
+              <div class="small text-muted">
+                <span class="d-none d-sm-inline">Ortalama Puan</span>
+                <span class="d-inline d-sm-none">Puan</span>
+              </div>
+              <div class="mt-2">
+                <small class="text-success">
+                  <i class="bi bi-arrow-up"></i> 
+                  <span class="d-none d-sm-inline">+0.2 artış</span>
+                  <span class="d-inline d-sm-none">+0.2</span>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Modern Footer -->
+  <footer class="footer-modern py-4 mt-5">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+            <i class="bi bi-shield-check me-2" style="color: #FFC107;"></i>
+            <span style="opacity: 0.9;" class="d-none d-sm-inline">© 2024 Yapay Zeka Eğitim Platformu - Admin Panel</span>
+            <span style="opacity: 0.9;" class="d-inline d-sm-none">© 2024 Admin Panel</span>
+          </div>
+        </div>
+        <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+          <div class="d-flex gap-3 justify-content-center justify-content-md-end">
+            <a href="#" class="text-white" style="opacity: 0.8; text-decoration: none;">
+              <i class="bi bi-question-circle"></i>
+            </a>
+            <a href="#" class="text-white" style="opacity: 0.8; text-decoration: none;">
+              <i class="bi bi-gear"></i>
+            </a>
+            <a href="#" class="text-white" style="opacity: 0.8; text-decoration: none;">
+              <i class="bi bi-person-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html> 

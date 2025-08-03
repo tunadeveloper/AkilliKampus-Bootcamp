@@ -1,0 +1,23 @@
+﻿@model List<Bootcamp.EntityLayer.Concrete.Course>
+<section class="container py-5 animate-fadein-delay4" id="lessons">
+    <h2 class="section-title mb-4 text-center" style="color:#6F42C1;">Popüler Eğitimler</h2>
+    <div class="row g-4">
+      @foreach(var item in Model){
+   <div class="col-12 col-md-6 col-lg-4">
+            <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+                <div class="lesson-img-wrap position-relative">
+                    <img src="@item.ThumbnailUrl" alt="Yapay Zeka" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+                </div>
+                <div class="p-4">
+                    <span class="badge bg-purple mb-2" style="background:#6F42C1;">@item.Category.Name</span>
+                    <h2 class="h5 mb-2 fw-semibold">@item.Name</h2>
+                    <p class="mb-2 text-muted small">@item.Description</p>
+                        <a href="/Home/CourseDetail/@item.Id" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+                </div>
+            </div>
+        </div>
+      }
+     
+    </div>
+
+</section>

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<!-- Karşılama Bölümü -->
+@await Component.InvokeAsync("_WelcomeComponentPartial")
+<!-- Özellikler Bölümü -->
+@await Component.InvokeAsync("_FeatureComponentPartial")
+<!-- Popüler Eğitimler Bölümü -->
+@await Component.InvokeAsync("_PopularCourseComponentPartial")
+<!-- Başarı Hikayeleri / Mezunlar Bölümü -->
+@await Component.InvokeAsync("_ReferenceComponentPartial")
+<!-- Eğitmenler / Ekip Tanıtımı Bölümü -->
+@await Component.InvokeAsync("_InstructorComponentPartial")
+<!-- Basında Biz / Bizi Tercih Edenler Bölümü -->
+@await Component.InvokeAsync("_SponsorComponentPartial")
+<!-- Sıkça Sorulan Sorular (SSS) Bölümü -->
+@await Component.InvokeAsync("_FAQComponentPartial")

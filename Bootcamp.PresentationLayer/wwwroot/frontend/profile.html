@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profilim | Yapay Zeka Eğitim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+  <!-- Sticky Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html" style="color:#6F42C1;font-size:1.7rem;letter-spacing:1px;">
+        <i class="bi bi-lightbulb me-2" style="font-size:2rem;"></i>Yapay Zeka Eğitim
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link px-3" href="lessons.html">Eğitimler</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="index.html#features">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.html">Giriş Yap</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-2 px-3" href="register.html" style="background:#6F42C1; border:none;">Kayıt Ol</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="profile-hero text-center text-white position-relative">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="animate-fadein" style="opacity: 1; transform: translateY(0);">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profil" class="profile-avatar mb-4">
+            <h1 class="display-5 fw-bold mb-3">Hoşgeldiniz, <span style="color: #FFC107;">Ali Veli</span>!</h1>
+            <p class="lead mb-4" style="opacity: 0.9;">Eğitim yolculuğunuzu takip edin ve başarılarınızı kutlayın</p>
+            
+            <div class="profile-stats">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Tamamlanan Eğitim</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Ortalama Başarı</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-item">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Toplam Saat</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container py-5">
+    <!-- Hızlı Aksiyonlar -->
+    <div class="row g-4 mb-5 animate-fadein-delay1" style="opacity: 1; transform: translateY(0);">
+      <div class="col-md-6">
+        <div class="modern-card p-4 h-100">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-play-circle-fill me-3" style="font-size: 2rem; color: #6F42C1;"></i>
+            <div>
+              <h3 class="h5 mb-1">Devam Et</h3>
+              <p class="text-muted mb-0 small">Kaldığınız yerden devam edin</p>
+            </div>
+          </div>
+          <a href="lessons.html" class="btn btn-primary w-100" style="background:#6F42C1; border:none;">Eğitimlere Git</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="modern-card p-4 h-100">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-trophy-fill me-3" style="font-size: 2rem; color: #FFC107;"></i>
+            <div>
+              <h3 class="h5 mb-1">Sertifikalar</h3>
+              <p class="text-muted mb-0 small">Kazandığınız başarıları görün</p>
+            </div>
+          </div>
+          <a href="#" class="btn btn-warning w-100 text-white" style="background:#FFC107; border:none;">Sertifikalarım</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ana İçerik -->
+    <div class="row g-4">
+      <!-- Tamamlanan Eğitimler -->
+      <div class="col-lg-6 animate-fadein-delay1" style="opacity: 1; transform: translateY(0);">
+        <div class="modern-card p-4 h-100">
+          <h2 class="section-title">
+            <i class="bi bi-check-circle-fill me-2" style="color: #28a745;"></i>
+            Tamamlanan Eğitimler
+          </h2>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=60&q=80" alt="Matematik" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Matematik Temelleri</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <span class="achievement-badge">Başarıyla Tamamlandı</span>
+                  </div>
+                  <i class="bi bi-check-circle-fill text-success ms-2" style="font-size: 1.5rem;"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=60&q=80" alt="Fizik" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Fizik 101</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <span class="achievement-badge">Başarıyla Tamamlandı</span>
+                  </div>
+                  <i class="bi bi-check-circle-fill text-success ms-2" style="font-size: 1.5rem;"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=60&q=80" alt="Yapay Zeka" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Yapay Zeka Temelleri</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <span class="achievement-badge">Başarıyla Tamamlandı</span>
+                  </div>
+                  <i class="bi bi-check-circle-fill text-success ms-2" style="font-size: 1.5rem;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Devam Edilen Eğitimler -->
+      <div class="col-lg-6 animate-fadein-delay2" style="opacity: 1; transform: translateY(0);">
+        <div class="modern-card p-4 h-100">
+          <h2 class="section-title">
+            <i class="bi bi-play-circle-fill me-2" style="color: #6F42C1;"></i>
+            Devam Edilen Eğitimler
+          </h2>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=60&q=80" alt="Kimya" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Kimya Başlangıç</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 40%"></div>
+                    </div>
+                    <small class="text-muted">%40 tamamlandı • 3/8 modül</small>
+                  </div>
+                  <a href="lesson-detail.html?id=3" class="btn btn-outline-primary btn-sm">Devam Et</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=60&q=80" alt="Biyoloji" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Biyolojiye Giriş</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 20%"></div>
+                    </div>
+                    <small class="text-muted">%20 tamamlandı • 1/5 modül</small>
+                  </div>
+                  <a href="lesson-detail.html?id=4" class="btn btn-outline-primary btn-sm">Devam Et</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="lesson-item">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=60&q=80" alt="Web Programlama" class="rounded-3 me-3" style="width:50px;height:50px;object-fit:cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold">Web Programlama</h6>
+                    <div class="progress-modern mb-2">
+                      <div class="progress-bar" style="width: 65%"></div>
+                    </div>
+                    <small class="text-muted">%65 tamamlandı • 6/10 modül</small>
+                  </div>
+                  <a href="lesson-detail.html?id=5" class="btn btn-outline-primary btn-sm">Devam Et</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Başarı İstatistikleri -->
+    <div class="row g-4 mt-4 animate-fadein-delay2" style="opacity: 1; transform: translateY(0);">
+      <div class="col-12">
+        <div class="modern-card p-4">
+          <h2 class="section-title">
+            <i class="bi bi-graph-up me-2" style="color: #6F42C1;"></i>
+            Başarı İstatistikleriniz
+          </h2>
+          <div class="row g-4">
+            <div class="col-md-3 col-6">
+              <div class="text-center">
+                <div class="display-6 fw-bold text-primary mb-2">12</div>
+                <div class="text-muted">Tamamlanan Eğitim</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center">
+                <div class="display-6 fw-bold text-success mb-2">85%</div>
+                <div class="text-muted">Ortalama Başarı</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center">
+                <div class="display-6 fw-bold text-warning mb-2">156</div>
+                <div class="text-muted">Toplam Saat</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center">
+                <div class="display-6 fw-bold text-info mb-2">8</div>
+                <div class="text-muted">Sertifika</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Action Button -->
+  <button class="floating-action-btn" title="Hızlı Erişim">
+    <i class="bi bi-plus-lg"></i>
+  </button>
+
+  <!-- Modern Footer -->
+  <footer class="modern-footer py-5" style="background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 50%, #A855F7 100%); color:#fff; font-size:1.05rem; margin-top:4rem; position: relative; overflow: hidden;">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-shield-check me-2" style="color: #FFC107;"></i>
+            <span style="opacity: 0.8;">© 2024 Yapay Zeka Eğitim Platformu. Tüm hakları saklıdır.</span>
+          </div>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="d-flex gap-3 justify-content-md-end">
+            <a href="#" class="text-white text-decoration-none">Gizlilik Politikası</a>
+            <a href="#" class="text-white text-decoration-none">Kullanım Şartları</a>
+            <a href="#" class="text-white text-decoration-none">Çerez Politikası</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html> 

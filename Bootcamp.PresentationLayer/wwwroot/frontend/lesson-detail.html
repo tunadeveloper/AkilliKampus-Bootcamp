@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eğitim Detay | Yapay Zeka Eğitim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lesson-detail.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+  <!-- Modern Header -->
+  <nav class="navbar navbar-expand-lg navbar-light modern-header sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html" style="color:#667eea;font-size:1.5rem;">
+        <i class="bi bi-lightbulb me-2" style="font-size:1.8rem;"></i>Yapay Zeka Eğitim
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="lessons.html">Eğitimler</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#features">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Giriş Yap</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-2 px-3" href="register.html" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none; border-radius:12px;">Kayıt Ol</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="row g-4">
+      <!-- Ana İçerik -->
+      <div class="col-lg-8">
+        <!-- Hero Section -->
+        <div class="lesson-hero stagger-animation" data-delay="0">
+          <div class="lesson-hero-content">
+            <div class="row align-items-center">
+              <div class="col-md-3">
+                <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Matematik" class="lesson-image img-fluid" style="width:100%;height:120px;object-fit:cover;">
+              </div>
+              <div class="col-md-9">
+                <h1 class="h3 mb-2 fw-bold">Matematik Temelleri</h1>
+                <p class="mb-3 opacity-75">Bu eğitimde temel matematik kavramları, sayılar, denklemler ve problem çözme teknikleri anlatılmaktadır.</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="badge bg-light text-dark">Başlangıç</span>
+                  <span class="badge bg-light text-dark">Sayısal</span>
+                  <span class="badge bg-light text-dark">4 Saat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eğitmen Bilgisi -->
+        <div class="modern-card p-4 mb-4 stagger-animation" data-delay="0.1">
+          <div class="d-flex align-items-center">
+            <div class="me-3">
+              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=150&q=80" alt="Eğitmen" class="rounded-circle" style="width:60px;height:60px;object-fit:cover;">
+            </div>
+            <div class="flex-grow-1">
+              <h5 class="mb-1">Dr. Ayşe Yılmaz</h5>
+              <p class="text-muted mb-0 small">Matematik Uzmanı • 15+ Yıl Deneyim</p>
+            </div>
+            <div class="text-end">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <span class="fw-semibold">4.9</span>
+                <span class="text-muted ms-1">(128 değerlendirme)</span>
+              </div>
+              <div class="small text-muted">500+ Öğrenci</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sekmeler -->
+        <div class="modern-card p-4 stagger-animation" data-delay="0.2">
+          <ul class="nav nav-tabs modern-tabs mb-3" id="lessonTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="hakkinda-tab" data-bs-toggle="tab" data-bs-target="#hakkinda" type="button" role="tab" aria-controls="hakkinda" aria-selected="true">
+                <i class="bi bi-info-circle me-2"></i>Hakkında
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="mufredat-tab" data-bs-toggle="tab" data-bs-target="#mufredat" type="button" role="tab" aria-controls="mufredat" aria-selected="false">
+                <i class="bi bi-list-check me-2"></i>Müfredat
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="yorumlar-tab" data-bs-toggle="tab" data-bs-target="#yorumlar" type="button" role="tab" aria-controls="yorumlar" aria-selected="false">
+                <i class="bi bi-chat-dots me-2"></i>Yorumlar
+              </button>
+            </li>
+          </ul>
+          
+          <div class="tab-content" id="lessonTabContent">
+            <div class="tab-pane fade show active" id="hakkinda" role="tabpanel" aria-labelledby="hakkinda-tab">
+              <div class="row">
+                <div class="col-md-8">
+                  <h5 class="mb-3">Eğitim Hakkında</h5>
+                  <p class="text-muted">Bu eğitimde temel matematik kavramları, sayılar, denklemler ve problem çözme teknikleri anlatılmaktadır. Her seviyeden öğrenci için uygundur.</p>
+                  
+                  <h6 class="mb-2">Bu Eğitimde Öğrenecekleriniz:</h6>
+                  <ul class="text-muted">
+                    <li>Temel matematik kavramları</li>
+                    <li>Sayılar ve özellikleri</li>
+                    <li>Denklem çözme teknikleri</li>
+                    <li>Problem çözme stratejileri</li>
+                    <li>Pratik uygulamalar</li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <div class="bg-light p-3 rounded-3">
+                    <h6 class="mb-3">Eğitim Detayları</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Seviye:</span>
+                      <span class="fw-semibold">Başlangıç</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Süre:</span>
+                      <span class="fw-semibold">4 Saat</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Videolar:</span>
+                      <span class="fw-semibold">10 Adet</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted">Sertifika:</span>
+                      <span class="fw-semibold text-success">Var</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tab-pane fade" id="mufredat" role="tabpanel" aria-labelledby="mufredat-tab">
+              <h5 class="mb-4">Müfredat</h5>
+              <div class="curriculum-list">
+                <div class="curriculum-item d-flex align-items-center">
+                  <div class="lesson-number">1</div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Sayılar ve Özellikleri</h6>
+                    <p class="text-muted mb-0 small">Doğal sayılar, tam sayılar ve rasyonel sayılar</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-success">45 dk</span>
+                  </div>
+                </div>
+                
+                <div class="curriculum-item d-flex align-items-center">
+                  <div class="lesson-number">2</div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Temel Dört İşlem</h6>
+                    <p class="text-muted mb-0 small">Toplama, çıkarma, çarpma ve bölme işlemleri</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-success">60 dk</span>
+                  </div>
+                </div>
+                
+                <div class="curriculum-item d-flex align-items-center">
+                  <div class="lesson-number">3</div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Denklemler</h6>
+                    <p class="text-muted mb-0 small">Birinci dereceden denklemler ve çözümleri</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-success">75 dk</span>
+                  </div>
+                </div>
+                
+                <div class="curriculum-item d-flex align-items-center">
+                  <div class="lesson-number">4</div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Problemler</h6>
+                    <p class="text-muted mb-0 small">Matematik problemleri ve çözüm teknikleri</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-success">90 dk</span>
+                  </div>
+                </div>
+                
+                <div class="curriculum-item d-flex align-items-center">
+                  <div class="lesson-number">5</div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Uygulamalar ve Testler</h6>
+                    <p class="text-muted mb-0 small">Pratik uygulamalar ve değerlendirme testleri</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-success">30 dk</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tab-pane fade" id="yorumlar" role="tabpanel" aria-labelledby="yorumlar-tab">
+              <h5 class="mb-4">Öğrenci Yorumları</h5>
+              <div class="comments-container">
+                <div class="comment-item">
+                  <div class="d-flex align-items-center mb-2">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Kullanıcı" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
+                    <div>
+                      <div class="comment-author">Mehmet T.</div>
+                      <div class="comment-date">2 gün önce</div>
+                    </div>
+                    <div class="ms-auto">
+                      <div class="d-flex">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment-text">Çok açıklayıcı ve anlaşılır bir eğitimdi. Özellikle problem çözme bölümü çok faydalı oldu.</div>
+                </div>
+                
+                <div class="comment-item">
+                  <div class="d-flex align-items-center mb-2">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=50&q=80" alt="Kullanıcı" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
+                    <div>
+                      <div class="comment-author">Elif S.</div>
+                      <div class="comment-date">1 hafta önce</div>
+                    </div>
+                    <div class="ms-auto">
+                      <div class="d-flex">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star text-muted"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment-text">Temel konular için harika bir kaynak. Eğitmen çok iyi anlatıyor.</div>
+                </div>
+              </div>
+              
+              <form class="comment-form mt-4">
+                <h6 class="mb-3">Yorumunuzu Ekleyin</h6>
+                <div class="mb-3">
+                  <label for="commentInput" class="form-label">Yorumunuz</label>
+                  <textarea class="form-control modern-form" id="commentInput" rows="3" placeholder="Bu eğitim hakkında düşüncelerinizi paylaşın..."></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Puanınız</label>
+                  <div class="rating-stars">
+                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary modern-form" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                  <i class="bi bi-send me-2"></i>Yorum Gönder
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="sidebar-card p-4 mb-4 stagger-animation" data-delay="0.3">
+          <h5 class="mb-4">Eğitim Bilgileri</h5>
+          
+          <div class="sidebar-info">
+            <i class="bi bi-clock" style="color:#667eea;"></i>
+            <div>
+              <div class="fw-semibold">Süre</div>
+              <div class="text-muted small">4 Saat</div>
+            </div>
+          </div>
+          
+          <div class="sidebar-info">
+            <i class="bi bi-play-circle" style="color:#667eea;"></i>
+            <div>
+              <div class="fw-semibold">Videolar</div>
+              <div class="text-muted small">10 Adet</div>
+            </div>
+          </div>
+          
+          <div class="sidebar-info">
+            <i class="bi bi-award" style="color:#FFC107;"></i>
+            <div>
+              <div class="fw-semibold">Sertifika</div>
+              <div class="text-muted small">Tamamlandığında</div>
+            </div>
+          </div>
+          
+          <div class="sidebar-info">
+            <i class="bi bi-people" style="color:#667eea;"></i>
+            <div>
+              <div class="fw-semibold">Öğrenci</div>
+              <div class="text-muted small">500+ Kayıtlı</div>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-container mt-4">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-semibold">İlerleme</span>
+              <span class="text-muted">65%</span>
+            </div>
+            <div class="progress" style="height:8px;">
+              <div class="progress-bar" role="progressbar" style="width:65%"></div>
+            </div>
+            <div class="progress-text">3/5 bölüm tamamlandı</div>
+          </div>
+        </div>
+        
+        <div class="sidebar-card p-4 stagger-animation" data-delay="0.4">
+          <h5 class="mb-4">Eğitime Katıl</h5>
+          <p class="text-muted mb-4">Bu eğitime katılarak matematik temellerini öğrenin ve sertifikanızı alın.</p>
+          
+          <button class="btn btn-warning sidebar-btn enroll-btn w-100 mb-3" style="background:linear-gradient(135deg, #FFC107, #FF8C00); border:none; color:white;">
+            <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+          </button>
+          
+          <button class="btn btn-primary sidebar-btn start-lesson-btn w-100" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+            <i class="bi bi-play-circle me-2"></i>Eğitime Başla
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modern Footer -->
+  <footer class="modern-footer text-center py-4 mt-5">
+    <div class="container">
+      <p class="mb-0">© 2024 Yapay Zeka Eğitim Platformu | Tüm hakları saklıdır</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/lesson-detail.js"></script>
+</body>
+</html> 
