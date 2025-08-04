@@ -5,6 +5,7 @@ using Bootcamp.DataAccessLayer.Concrete;
 using Bootcamp.DataAccessLayer.EntityFramework;
 using Bootcamp.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,16 @@ builder.Services.AddScoped<ICourseEnrollmentService, CourseEnrollmentManager>();
 
 builder.Services.AddScoped<IVideoCompletionDal, EfVideoCompletionDal>();
 builder.Services.AddScoped<IVideoCompletionService, VideoCompletionManager>();
+
+// Gemini API servisleri
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IGeminiService>(provider =>
+{
+    var httpClient = provider.GetRequiredService<HttpClient>();
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var apiKey = configuration["GeminiApi:ApiKey"] ?? "YOUR_GEMINI_API_KEY";
+    return new GeminiManager(httpClient, apiKey);
+});
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
     .AddEntityFrameworkStores<Context>()

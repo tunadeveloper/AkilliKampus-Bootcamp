@@ -11,14 +11,16 @@ namespace Bootcamp.PresentationLayer.Controllers
         private readonly ICourseVideoService _courseVideoService;
         private readonly IProgressService _progressService;
         private readonly IVideoCompletionService _videoCompletionService;
+        private readonly IGeminiService _geminiService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CourseController(ICourseService courseService, ICourseVideoService courseVideoService, IProgressService progressService, IVideoCompletionService videoCompletionService, UserManager<ApplicationUser> userManager)
+        public CourseController(ICourseService courseService, ICourseVideoService courseVideoService, IProgressService progressService, IVideoCompletionService videoCompletionService, IGeminiService geminiService, UserManager<ApplicationUser> userManager)
         {
             _courseService = courseService;
             _courseVideoService = courseVideoService;
             _progressService = progressService;
             _videoCompletionService = videoCompletionService;
+            _geminiService = geminiService;
             _userManager = userManager;
         }
 
@@ -159,6 +161,41 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
+        // Video özetleme endpoint'i
+        [HttpPost]
+        public async Task<IActionResult> SummarizeVideo([FromBody] SummarizeVideoRequest request)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
+                }
+
+                if (request == null)
+                {
+                    return Json(new { success = false, message = "Geçersiz istek" });
+                }
+
+                // Video bilgilerini al
+                var video = _courseVideoService.GetByIdBL(request.VideoId);
+                if (video == null)
+                {
+                    return Json(new { success = false, message = "Video bulunamadı" });
+                }
+
+                // Gemini API ile video özetle
+                var summary = await _geminiService.SummarizeVideoAsync(video.VideoUrl, video.Name, video.Description);
+
+                return Json(new { success = true, summary = summary });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Video özetlenirken hata oluştu: " + ex.Message });
+            }
+        }
+
         // YouTube URL'sini embed formatına çeviren yardımcı metod
         private string ConvertToEmbedUrl(string videoUrl)
         {
@@ -185,6 +222,64 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
 
             return videoUrl; // Desteklenmeyen format
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AskQuestion([FromBody] AskQuestionRequest request)
+        {
+            try
+            {
+                Console.WriteLine($"AskQuestion called with request: {request?.VideoId}, Question: {request?.Question}");
+                
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    Console.WriteLine("User not found");
+                    return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
+                }
+
+                if (request == null)
+                {
+                    Console.WriteLine("Request is null");
+                    return Json(new { success = false, message = "Geçersiz istek" });
+                }
+
+                var video = _courseVideoService.GetByIdBL(request.VideoId);
+                if (video == null)
+                {
+                    Console.WriteLine($"Video not found for ID: {request.VideoId}");
+                    return Json(new { success = false, message = "Video bulunamadı" });
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Question))
+                {
+                    Console.WriteLine("Question is empty");
+                    return Json(new { success = false, message = "Soru boş olamaz" });
+                }
+
+                Console.WriteLine($"Calling Gemini API with question: {request.Question}");
+                var answer = await _geminiService.AskQuestionAsync(request.Question, video.Name, video.Description);
+                Console.WriteLine($"Gemini API response: {answer}");
+
+                return Json(new { success = true, answer = answer });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in AskQuestion: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return Json(new { success = false, message = "Soru cevaplanırken hata oluştu: " + ex.Message });
+            }
+        }
+
+        public class AskQuestionRequest
+        {
+            public int VideoId { get; set; }
+            public string Question { get; set; }
+        }
+
+        public class SummarizeVideoRequest
+        {
+            public int VideoId { get; set; }
         }
     }
 }

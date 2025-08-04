@@ -22,14 +22,30 @@
    <style>
      .video-completion-checkbox {
        cursor: pointer;
-       transform: scale(1.2);
+       transform: scale(1.5);
        margin: 0;
+       accent-color: #8B5CF6;
+       border: 2px solid #8B5CF6;
+       border-radius: 4px;
      }
      
      .form-check-label {
        cursor: pointer;
        margin: 0;
        padding: 0;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       width: 24px;
+       height: 24px;
+       border-radius: 4px;
+       background: rgba(139,92,246,0.1);
+       transition: all 0.2s ease;
+     }
+     
+     .form-check-label:hover {
+       background: rgba(139,92,246,0.2);
+       transform: scale(1.1);
      }
      
      .form-check {
@@ -37,11 +53,19 @@
        padding: 0;
        display: flex;
        align-items: center;
+       justify-content: center;
+       min-width: 32px;
+       height: 32px;
      }
      
      .video-item:hover .video-completion-checkbox {
-       transform: scale(1.3);
+       transform: scale(1.6);
        transition: transform 0.2s ease;
+     }
+     
+     .video-item:hover .form-check-label {
+       background: rgba(139,92,246,0.2);
+       transform: scale(1.1);
      }
    </style>
 </head>
@@ -84,10 +108,10 @@
                 </iframe>
                         </div>
                              <div style="padding: 1rem;">
-                 <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 0.5rem;">
+                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                    <h5 style="margin: 0; color: #333; font-weight: 600;">@currentVideo.Name</h5>
                    <button onclick="markVideoAsCompleted(@currentVideo.Id)" class="btn btn-success btn-sm" style="background: linear-gradient(135deg, #28a745, #20c997); border: none; border-radius: 6px;">
-                     <i class="bi bi-check-circle me-1"></i>Tamamlandı
+                     <i class="bi bi-check-circle me-1"></i>Dersi Tamamla
                    </button>
                         </div>
                  <p style="margin: 0; color: #666; font-size: 0.9rem;">@currentVideo.Description</p>
@@ -106,16 +130,14 @@
         <div style="background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
           <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1rem;">
             <h5 style="color:#6F42C1; font-weight:600; margin: 0;">
-              <i class="bi bi-robot me-2"></i>Video Özeti
+              <i class="bi bi-robot me-2"></i>Ders Özeti
             </h5>
-            <button class="btn btn-sm" style="background: linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%); color: white; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.8rem;">
-              <i class="bi bi-play-circle me-1"></i>Özetle
-                            </button>
+        
                                 </div>
           <div id="videoSummary" style="min-height: 200px; border: 2px dashed #e0e0e0; border-radius: 8px; padding: 1rem; background: #fafafa;">
             <div style="color: #999; text-align: center; padding: 2rem 0;">
               <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
-              <p style="margin: 0;">Video özeti burada görünecek...</p>
+              <p style="margin: 0;">Ders özeti burada görünecek...</p>
               <small>Gemini AI ile otomatik özetleme</small>
                                 </div>
                             </div>
@@ -140,7 +162,23 @@
             <h6 class="mb-3" style="color:#6F42C1; font-weight:600;">
               <i class="bi bi-play-circle me-2"></i>Video Listesi
             </h6>
-            <div class="video-list">
+            <div class="video-list" style="max-height: 400px; overflow-y: auto; overflow-x: hidden; padding-right: 8px;">
+              <style>
+                .video-list::-webkit-scrollbar {
+                  width: 6px;
+                }
+                .video-list::-webkit-scrollbar-track {
+                  background: rgba(139,92,246,0.1);
+                  border-radius: 3px;
+                }
+                .video-list::-webkit-scrollbar-thumb {
+                  background: #8B5CF6;
+                  border-radius: 3px;
+                }
+                .video-list::-webkit-scrollbar-thumb:hover {
+                  background: #7C3AED;
+                }
+              </style>
                              @foreach (var video in ViewBag.VideoList as List<Bootcamp.EntityLayer.Concrete.CourseVideo>)
                {
                                        // Video tamamlanma durumunu kontrol et
@@ -157,13 +195,13 @@
                         completedVideoIds = new List<int>();
                     }
                    
-                   <div class="video-item d-flex align-items-center p-2 mb-2" 
-                       style="border-radius:0.8rem; background:rgba(111,66,193,0.05); cursor:pointer; @(isCompleted ? "border-left: 4px solid #28a745;" : "")"
+                   <div class="video-item d-flex align-items-center p-3 mb-2" 
+                       style="border-radius:0.8rem; background:rgba(111,66,193,0.05); cursor:pointer; @(isCompleted ? "border-left: 4px solid #28a745;" : ""); transition: all 0.2s ease;"
                        data-video-url="@video.VideoUrl"
                        data-video-name="@video.Name"
                        data-video-description="@video.Description"
                        data-video-id="@video.Id">
-                                       <div class="me-3">
+                                       <div class="me-3" style="min-width: 40px;">
                       <div class="form-check">
                         <input class="form-check-input video-completion-checkbox" type="checkbox" 
                                value="@video.Id" 
@@ -171,22 +209,22 @@
                                @(isCompleted ? "checked" : "")
                                onchange="toggleVideoCompletion(@video.Id, this.checked)">
                         <label class="form-check-label" for="video_@video.Id">
-                          <i class="bi @(isCompleted ? "bi-check-circle-fill text-success" : "bi-play-circle-fill")" style="color:@(isCompleted ? "#28a745" : "#6F42C1");"></i>
+                          <i class="bi @(isCompleted ? "bi-check-circle-fill" : "bi-play-circle-fill")" style="color:@(isCompleted ? "#28a745" : "#8B5CF6"); font-size: 14px;"></i>
                         </label>
                                     </div>
                                 </div>
-                                    <div class="flex-grow-1">
-                     <div class="fw-semibold small @(isCompleted ? "text-success" : "")">@video.Name</div>
-                     <div class="text-muted small">@video.Description</div>
+                                    <div class="flex-grow-1" style="min-width: 0; max-width: 200px;">
+                     <div class="fw-semibold small @(isCompleted ? "text-success" : "")" style="margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@video.Name</div>
+                     <div class="text-muted small" style="line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">@video.Description</div>
                                     </div>
-                   <div class="ms-2">
+                   <div class="ms-2" style="min-width: 60px; text-align: right;">
                      @if (isCompleted)
                      {
-                         <span class="badge bg-success">Tamamlandı</span>
+                         <span class="badge bg-success" style="font-size: 0.7rem;">Dersi Tamamla</span>
                      }
                      else
                      {
-                         <span class="badge bg-secondary">@video.Duration.FormatDuration()</span>
+                         <span class="badge bg-secondary" style="font-size: 0.7rem;">@video.Duration.FormatDuration()</span>
                      }
                                     </div>
                                 </div>
@@ -196,32 +234,26 @@
         }
         
         <!-- AI Asistan Chat -->
-        <div class="ai-chat-modern p-4 mb-4">
+        <div class="ai-chat-modern p-4 mb-4" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: none;">
           <div class="d-flex align-items-center mb-3">
             <div class="me-3 pulse-animation">
-              <i class="bi bi-robot" style="font-size:1.5rem; color:#6F42C1;"></i>
+              <i class="bi bi-robot" style="font-size:1.5rem; color:#667eea;"></i>
                                     </div>
             <div>
-              <h2 class="h6 mb-0" style="color:#6F42C1; font-weight:600;">AI Asistan</h2>
+              <h2 class="h6 mb-0" style="color:#667eea; font-weight:600;">AI Asistan</h2>
               <small class="text-muted">7/24 Aktif</small>
                             </div>
                         </div>
 
-          <div class="chat-messages mb-3">
-            <div class="message ai">
-              <strong>AI:</strong> Merhaba! @Model.Name eğitimi hakkında hangi konuda yardımcı olabilirim?
+          <div class="chat-messages mb-3" id="chatMessages" style="max-height: 300px; overflow-y: auto; background: white; border-radius: 12px; padding: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); border: 2px solid #e0e0e0;">
+            <div class="message ai" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px; border-radius: 15px; margin-bottom: 10px; max-width: 80%;">
+              <strong>AI:</strong> Merhaba! @Model.Name eğitimi hakkında hangi konuda yardımcı olabilirim? Dersle ilgili herhangi bir sorunuz varsa sorabilirsiniz! 🤖
                                         </div>
-            <div class="message user">
-              <strong>Sen:</strong> Bu konu hakkında örnek verir misin?
-                                            </div>
-            <div class="message ai">
-              <strong>AI:</strong> Tabii! @Model.Description konusunda size yardımcı olabilirim...
-                                </div>
                             </div>
 
-          <form class="d-flex gap-2">
-            <input type="text" class="form-control" placeholder="Sorunu yaz..." style="border-radius:0.8rem; border:1px solid rgba(111,66,193,0.2);">
-            <button class="btn btn-primary" style="background:linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%); border:none; border-radius:0.8rem; width:50px;">
+          <form class="d-flex gap-2" id="questionForm">
+            <input type="text" id="questionInput" class="form-control" placeholder="Dersle ilgili sorunuzu yazın..." style="border-radius:0.8rem; border:1px solid rgba(102, 126, 234, 0.3);">
+            <button type="submit" class="btn btn-primary" id="sendQuestionBtn" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none; border-radius:0.8rem; width:50px;">
               <i class="bi bi-send"></i>
                                 </button>
                             </form>
@@ -258,16 +290,51 @@
                  // Video değiştirme fonksiyonu (YouTube iframe için)
         function changeVideo(videoUrl, videoName, videoDescription, videoId) {
           const iframe = document.getElementById('courseVideo');
-          const videoInfo = document.querySelector('.video-info');
           
           // Iframe src'sini güncelle (URL zaten embed formatında)
           iframe.src = videoUrl;
           
-          // Video bilgilerini güncelle
-          if (videoInfo) {
-            videoInfo.innerHTML = `
-              <h5 class="mb-2">${videoName}</h5>
-              <p class="text-muted mb-0">${videoDescription}</p>
+          // Video başlığını güncelle
+          const videoTitle = document.querySelector('h5');
+          if (videoTitle) {
+            videoTitle.textContent = videoName;
+          }
+          
+          // Video açıklamasını güncelle
+          const videoDesc = document.querySelector('p[style*="color: #666"]');
+          if (videoDesc) {
+            videoDesc.textContent = videoDescription;
+          }
+          
+          // Tamamlandı butonunu güncelle
+          const completeButton = document.querySelector('button[onclick*="markVideoAsCompleted"]');
+          if (completeButton) {
+            completeButton.setAttribute('onclick', `markVideoAsCompleted(${videoId})`);
+            
+            // Butonun durumunu kontrol et ve güncelle
+            const completedVideoIds = window.completedVideoIds || [];
+            const isCompleted = completedVideoIds.includes(parseInt(videoId));
+            
+            if (isCompleted) {
+              completeButton.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Tamamlandı!';
+              completeButton.style.background = 'linear-gradient(135deg, #198754, #146c43)';
+              completeButton.disabled = true;
+            } else {
+              completeButton.innerHTML = '<i class="bi bi-check-circle me-1"></i>Dersi Tamamla';
+              completeButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+              completeButton.disabled = false;
+            }
+          }
+          
+          // Video özetini temizle
+          const summaryArea = document.getElementById('videoSummary');
+          if (summaryArea) {
+            summaryArea.innerHTML = `
+              <div style="color: #999; text-align: center; padding: 2rem 0;">
+                <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                <p style="margin: 0;">Ders özeti burada görünecek...</p>
+                <small>Gemini AI ile otomatik özetleme</small>
+              </div>
             `;
           }
           
@@ -328,6 +395,13 @@
               updateVideoItemStyle(videoId, true);
             }
             
+            // completedVideoIds listesine ekle
+            const completedVideoIds = window.completedVideoIds || [];
+            if (!completedVideoIds.includes(videoId)) {
+              completedVideoIds.push(videoId);
+            }
+            window.completedVideoIds = completedVideoIds;
+            
             // 2 saniye sonra bir sonraki videoya geç
             setTimeout(() => {
               navigateVideo('next');
@@ -335,7 +409,7 @@
           } else {
             // Hata durumunda butonu eski haline getir
             button.disabled = false;
-            button.innerHTML = '<i class="bi bi-check-circle me-1"></i>Tamamlandı';
+            button.innerHTML = '<i class="bi bi-check-circle me-1"></i>Dersi Tamamla';
             button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
             alert('Video tamamlandı olarak işaretlenemedi: ' + data.message);
           }
@@ -344,7 +418,7 @@
           console.error('Hata:', error);
           // Hata durumunda butonu eski haline getir
           button.disabled = false;
-          button.innerHTML = '<i class="bi bi-check-circle me-1"></i>Tamamlandı';
+          button.innerHTML = '<i class="bi bi-check-circle me-1"></i>Dersi Tamamla';
           button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
           alert('Bir hata oluştu. Lütfen tekrar deneyin.');
         });
@@ -507,41 +581,90 @@
      function summarizeVideo() {
        const summaryArea = document.getElementById('videoSummary');
        
+       // Mevcut video ID'sini al
+       const currentVideoId = getCurrentVideoId();
+       if (!currentVideoId) {
+         alert('Ders bilgisi bulunamadı. Lütfen sayfayı yenileyin.');
+         return;
+       }
+       
        // Loading durumu göster
        summaryArea.innerHTML = `
          <div style="color: #6F42C1; text-align: center; padding: 2rem 0;">
            <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
-           <p style="margin: 0;">Video özetleniyor...</p>
+           <p style="margin: 0;">Ders özetleniyor...</p>
            <small>Gemini AI çalışıyor</small>
                         </div>
        `;
        
-       // Simüle edilmiş API çağrısı (gelecekte Gemini API ile değiştirilecek)
-       setTimeout(() => {
+       // Gemini API çağrısı
+       fetch('/Course/SummarizeVideo', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ videoId: parseInt(currentVideoId) })
+       })
+       .then(response => response.json())
+       .then(data => {
+         if (data.success) {
+           // Başarılı özet
+           summaryArea.innerHTML = `
+             <div style="color: #333;">
+               <h6 style="color: #6F42C1; margin-bottom: 1rem;">
+                 <i class="bi bi-robot me-2"></i>Ders Özeti
+               </h6>
+               <div style="background: #f8f9fa; border-radius: 8px; padding: 1rem; white-space: pre-line;">
+                 ${data.summary}
+               </div>
+             </div>
+           `;
+         } else {
+           // Hata durumu
+           summaryArea.innerHTML = `
+             <div style="color: #dc3545; text-align: center; padding: 2rem 0;">
+               <i class="bi bi-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+               <p style="margin: 0;">Ders özetlenirken hata oluştu</p>
+               <small>${data.message}</small>
+             </div>
+           `;
+         }
+       })
+       .catch(error => {
+         console.error('Hata:', error);
          summaryArea.innerHTML = `
-           <div style="color: #333;">
-             <h6 style="color: #6F42C1; margin-bottom: 1rem;">
-               <i class="bi bi-robot me-2"></i>Video Özeti
-             </h6>
-             <div style="background: #f8f9fa; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-               <h6 style="color: #495057; margin-bottom: 0.5rem;">📝 Ana Konular:</h6>
-               <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
-                 <li>Matematik temelleri ve kavramlar</li>
-                 <li>Pratik uygulama örnekleri</li>
-                 <li>Problem çözme teknikleri</li>
-               </ul>
-                        </div>
-             <div style="background: #e8f5e8; border-radius: 8px; padding: 1rem;">
-               <h6 style="color: #28a745; margin-bottom: 0.5rem;">✅ Önemli Noktalar:</h6>
-               <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
-                 <li>Temel formüller ve kurallar</li>
-                 <li>Dikkat edilmesi gereken hatalar</li>
-                 <li>İleri seviye konulara hazırlık</li>
-               </ul>
-                    </div>
-                </div>
+           <div style="color: #dc3545; text-align: center; padding: 2rem 0;">
+             <i class="bi bi-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+             <p style="margin: 0;">Bağlantı hatası</p>
+             <small>Lütfen internet bağlantınızı kontrol edin</small>
+           </div>
          `;
-       }, 2000); // 2 saniye sonra sonucu göster
+       });
+     }
+     
+     // Mevcut video ID'sini al
+     function getCurrentVideoId() {
+       // Önce aktif video item'ını bul
+       const activeVideoItem = document.querySelector('.video-item[style*="background: rgba(111,66,193,0.2)"]');
+       if (activeVideoItem) {
+         return activeVideoItem.getAttribute('data-video-id');
+       }
+       
+       // Eğer aktif video bulunamazsa, currentVideoIndex'e göre al
+       const videoItems = document.querySelectorAll('.video-item');
+       if (videoItems.length > 0 && typeof currentVideoIndex !== 'undefined') {
+         if (currentVideoIndex >= 0 && currentVideoIndex < videoItems.length) {
+           return videoItems[currentVideoIndex].getAttribute('data-video-id');
+         }
+       }
+       
+       // Son çare olarak ilk videoyu al
+       const firstVideoItem = document.querySelector('.video-item');
+       if (firstVideoItem) {
+         return firstVideoItem.getAttribute('data-video-id');
+       }
+       
+       return null;
      }
      
            // Video navigasyon fonksiyonu
@@ -565,7 +688,17 @@
        
        // Video listesindeki ilgili item'ı tıkla
        if (videoItems[currentVideoIndex]) {
-         videoItems[currentVideoIndex].click();
+         // Aktif video item'ını güncelle
+         videoItems.forEach(v => v.style.background = 'rgba(111,66,193,0.05)');
+         videoItems[currentVideoIndex].style.background = 'rgba(111,66,193,0.2)';
+         
+         // Video bilgilerini al ve değiştir
+         const videoUrl = videoItems[currentVideoIndex].getAttribute('data-video-url');
+         const videoName = videoItems[currentVideoIndex].getAttribute('data-video-name');
+         const videoDescription = videoItems[currentVideoIndex].getAttribute('data-video-description');
+         const videoId = videoItems[currentVideoIndex].getAttribute('data-video-id');
+         
+         changeVideo(videoUrl, videoName, videoDescription, videoId);
        }
        
        // Buton durumlarını güncelle
@@ -588,6 +721,158 @@
        
        // Sonraki buton durumu
        nextBtn.disabled = currentVideoIndex === videoItems.length - 1;
+     }
+     
+     // AI Asistan Fonksiyonları
+     document.addEventListener('DOMContentLoaded', function() {
+       const questionForm = document.getElementById('questionForm');
+       const questionInput = document.getElementById('questionInput');
+       const sendQuestionBtn = document.getElementById('sendQuestionBtn');
+       const chatMessages = document.getElementById('chatMessages');
+       
+       // Form submit olayını dinle
+       questionForm.addEventListener('submit', function(e) {
+         e.preventDefault();
+         askQuestion();
+       });
+       
+       // Enter tuşu ile gönderme
+       questionInput.addEventListener('keypress', function(e) {
+         if (e.key === 'Enter') {
+           e.preventDefault();
+           askQuestion();
+         }
+       });
+     });
+     
+     function askQuestion() {
+       const questionInput = document.getElementById('questionInput');
+       const sendQuestionBtn = document.getElementById('sendQuestionBtn');
+       const chatMessages = document.getElementById('chatMessages');
+       const question = questionInput.value.trim();
+       
+       if (!question) {
+         return;
+       }
+       
+       // Kullanıcı mesajını ekle
+       addMessage('user', question);
+       
+       // Input'u temizle ve butonu devre dışı bırak
+       questionInput.value = '';
+       sendQuestionBtn.disabled = true;
+       sendQuestionBtn.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+       
+       // Loading mesajı ekle
+       const loadingMessageId = addMessage('ai', 'Düşünüyorum... 🤔', true);
+       
+       // Mevcut video ID'sini al
+       const videoId = getCurrentVideoId();
+       
+       if (!videoId) {
+         // Loading mesajını kaldır - sadece loading mesajını kaldır
+         if (loadingMessageId) {
+           const loadingMessage = document.getElementById(loadingMessageId);
+           if (loadingMessage && loadingMessage.textContent.includes('Düşünüyorum')) {
+             loadingMessage.remove();
+           }
+         }
+         addMessage('ai', 'Video bilgisi bulunamadı. Lütfen sayfayı yenileyin.');
+         sendQuestionBtn.disabled = false;
+         sendQuestionBtn.innerHTML = '<i class="bi bi-send"></i>';
+         return;
+       }
+       
+       // API'ye soru gönder
+       fetch('/Course/AskQuestion', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+           videoId: parseInt(videoId),
+           question: question
+         })
+       })
+       .then(response => {
+         console.log('Response status:', response.status);
+         return response.json();
+       })
+       .then(data => {
+         console.log('Response data:', data);
+         // Loading mesajını kaldır - sadece loading mesajını kaldır
+         if (loadingMessageId) {
+           const loadingMessage = document.getElementById(loadingMessageId);
+           if (loadingMessage && loadingMessage.textContent.includes('Düşünüyorum')) {
+             loadingMessage.remove();
+           }
+         }
+         
+         if (data.success) {
+           addMessage('ai', data.answer);
+         } else {
+           addMessage('ai', data.message || 'Üzgünüm, sorunuzu cevaplayamadım. Lütfen daha sonra tekrar deneyin.');
+         }
+       })
+       .catch(error => {
+         console.error('Hata:', error);
+         // Loading mesajını kaldır - sadece loading mesajını kaldır
+         if (loadingMessageId) {
+           const loadingMessage = document.getElementById(loadingMessageId);
+           if (loadingMessage && loadingMessage.textContent.includes('Düşünüyorum')) {
+             loadingMessage.remove();
+           }
+         }
+         addMessage('ai', 'Bağlantı hatası oluştu. Lütfen internet bağlantınızı kontrol edin.');
+       })
+       .finally(() => {
+         sendQuestionBtn.disabled = false;
+         sendQuestionBtn.innerHTML = '<i class="bi bi-send"></i>';
+       });
+     }
+     
+     function addMessage(sender, message, isTemporary = false) {
+       const chatMessages = document.getElementById('chatMessages');
+       const messageDiv = document.createElement('div');
+       const messageId = 'msg_' + Date.now();
+       
+       messageDiv.id = messageId;
+       messageDiv.className = `message ${sender}`;
+       
+       if (sender === 'user') {
+         messageDiv.innerHTML = `<strong>Sen:</strong> ${message}`;
+         messageDiv.style.textAlign = 'right';
+         messageDiv.style.marginLeft = 'auto';
+         messageDiv.style.maxWidth = '80%';
+         messageDiv.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
+         messageDiv.style.color = '#333';
+         messageDiv.style.padding = '10px';
+         messageDiv.style.borderRadius = '15px';
+         messageDiv.style.marginBottom = '10px';
+         messageDiv.style.boxShadow = '0 2px 8px rgba(255, 215, 0, 0.3)';
+       } else {
+         messageDiv.innerHTML = `<strong>AI:</strong> ${message}`;
+         messageDiv.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+         messageDiv.style.color = 'white';
+         messageDiv.style.padding = '10px';
+         messageDiv.style.borderRadius = '15px';
+         messageDiv.style.marginBottom = '10px';
+         messageDiv.style.maxWidth = '80%';
+       }
+       
+       chatMessages.appendChild(messageDiv);
+       
+       // Scroll'u en alta kaydır
+       chatMessages.scrollTop = chatMessages.scrollHeight;
+       
+       return messageId;
+     }
+     
+     function removeMessage(messageId) {
+       const message = document.getElementById(messageId);
+       if (message) {
+         message.remove();
+       }
      }
      
 
