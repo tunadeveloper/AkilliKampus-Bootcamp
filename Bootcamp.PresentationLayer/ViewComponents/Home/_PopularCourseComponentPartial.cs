@@ -14,7 +14,9 @@ namespace Bootcamp.PresentationLayer.ViewComponents.Home
 
         public IViewComponentResult Invoke()
         {
-            var values = _courseService.GetCoursesWithCategoryBL();
+            var values = _courseService.GetCoursesWithCategoryBL()
+                .Where(x=>x.IsPopuler == true)
+                .ToList();
             return View(values);
         }
 

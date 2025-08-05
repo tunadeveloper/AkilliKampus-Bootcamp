@@ -87,5 +87,54 @@ namespace Bootcamp.PresentationLayer.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateApiKey(string apiKey)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı bulunamadı." });
+                }
+
+                // API anahtarını güncelle
+                user.GeminiApiKey = apiKey;
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return Json(new { success = true, message = "API anahtarı başarıyla güncellendi." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "API anahtarı güncellenirken hata oluştu." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Hata: {ex.Message}" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetApiKey()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı bulunamadı." });
+                }
+
+                return Json(new { success = true, apiKey = user.GeminiApiKey ?? "" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Hata: {ex.Message}" });
+            }
+        }
+
     }
 }

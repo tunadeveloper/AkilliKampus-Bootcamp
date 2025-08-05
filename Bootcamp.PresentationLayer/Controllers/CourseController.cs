@@ -196,6 +196,143 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
+        // PDF indirme endpoint'i
+        [HttpPost]
+        public async Task<IActionResult> DownloadPdf([FromBody] DownloadPdfRequest request)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
+                }
+
+                if (request == null || string.IsNullOrEmpty(request.Summary))
+                {
+                    return Json(new { success = false, message = "Geçersiz istek veya özet bulunamadı" });
+                }
+
+                // Video bilgilerini al
+                var video = _courseVideoService.GetByIdBL(request.VideoId);
+                if (video == null)
+                {
+                    return Json(new { success = false, message = "Video bulunamadı" });
+                }
+
+                // Kurs bilgilerini al
+                var course = _courseService.GetByIdBL(request.CourseId);
+                if (course == null)
+                {
+                    return Json(new { success = false, message = "Kurs bulunamadı" });
+                }
+
+                // PDF oluştur
+                var pdfBytes = await _geminiService.GeneratePdfFromSummaryAsync(
+                    request.Summary, 
+                    course.Name, 
+                    video.Name
+                );
+
+                // PDF'i dosya olarak döndür
+                string fileName = $"{course.Name}_{video.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                fileName = fileName.Replace(" ", "_").Replace("/", "_").Replace("\\", "_");
+
+                return File(pdfBytes, "application/pdf", fileName);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "PDF oluşturulurken hata oluştu: " + ex.Message });
+            }
+        }
+
+        // API kullanım durumunu kontrol eden endpoint
+        [HttpGet]
+        public async Task<IActionResult> GetApiUsage()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
+                }
+
+                var (used, total) = await _geminiService.GetApiUsageAsync();
+                var remaining = total - used;
+
+                return Json(new { 
+                    success = true, 
+                    used = used, 
+                    total = total, 
+                    remaining = remaining,
+                    percentage = Math.Round((double)used / total * 100, 1)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
+            }
+        }
+
+        // API limit durumunu kontrol eden endpoint
+        [HttpGet]
+        public async Task<IActionResult> CheckApiLimit()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
+                }
+
+                // Test isteği gönder
+                var testRequest = new
+                {
+                    contents = new[]
+                    {
+                        new
+                        {
+                            parts = new[]
+                            {
+                                new
+                                {
+                                    text = "Merhaba"
+                                }
+                            }
+                        }
+                    }
+                };
+
+                var json = System.Text.Json.JsonSerializer.Serialize(testRequest);
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                using var httpClient = new HttpClient();
+                var apiKey = "YOUR_API_KEY"; // Bu değeri appsettings.json'dan almalısınız
+                var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+
+                var response = await httpClient.PostAsync($"{apiUrl}?key={apiKey}", content);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { success = true, message = "API kullanılabilir" });
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+                {
+                    return Json(new { success = false, message = "API limit aşıldı", limitExceeded = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "API hatası", limitExceeded = false });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
+            }
+        }
+
         // YouTube URL'sini embed formatına çeviren yardımcı metod
         private string ConvertToEmbedUrl(string videoUrl)
         {
@@ -280,6 +417,13 @@ namespace Bootcamp.PresentationLayer.Controllers
         public class SummarizeVideoRequest
         {
             public int VideoId { get; set; }
+        }
+
+        public class DownloadPdfRequest
+        {
+            public int VideoId { get; set; }
+            public int CourseId { get; set; }
+            public string Summary { get; set; }
         }
     }
 }

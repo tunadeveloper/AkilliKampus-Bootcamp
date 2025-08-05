@@ -7,5 +7,8 @@ namespace Bootcamp.BusinessLayer.Abstract
         Task<string> SummarizeVideoAsync(string videoUrl, string videoTitle, string videoDescription);
         Task<string> GenerateVideoSummaryAsync(string videoContent);
         Task<string> AskQuestionAsync(string question, string videoTitle, string videoDescription);
+        Task<byte[]> GeneratePdfFromSummaryAsync(string summary, string courseName, string videoTitle);
+        Task<string> SummarizePdfContentAsync(string pdfContent, string fileName);
+        Task<(int used, int total)> GetApiUsageAsync();
     }
 } 

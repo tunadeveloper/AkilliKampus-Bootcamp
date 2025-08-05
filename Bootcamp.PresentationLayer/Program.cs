@@ -37,13 +37,19 @@ builder.Services.AddScoped<IVideoCompletionDal, EfVideoCompletionDal>();
 builder.Services.AddScoped<IVideoCompletionService, VideoCompletionManager>();
 
 // Gemini API servisleri
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("GeminiClient", client =>
+{
+    client.Timeout = TimeSpan.FromMinutes(5); // 5 dakika timeout
+    client.DefaultRequestHeaders.Add("User-Agent", "AkilliKampus-Bootcamp/1.0");
+});
 builder.Services.AddScoped<IGeminiService>(provider =>
 {
-    var httpClient = provider.GetRequiredService<HttpClient>();
+    var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient("GeminiClient");
     var configuration = provider.GetRequiredService<IConfiguration>();
     var apiKey = configuration["GeminiApi:ApiKey"] ?? "YOUR_GEMINI_API_KEY";
-    return new GeminiManager(httpClient, apiKey);
+    var userManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
+    var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+    return new GeminiManager(httpClient, apiKey, userManager, httpContextAccessor);
 });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()

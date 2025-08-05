@@ -11,6 +11,7 @@ namespace Bootcamp.EntityLayer.Concrete
     {
         public string NameSurname { get; set; }
         public string Gender { get; set; }
+        public string? GeminiApiKey { get; set; }
 
         public ICollection<Progress> Progresses { get; set; }
         public ICollection<Comment> Comments { get; set; }

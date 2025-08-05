@@ -134,13 +134,18 @@
             </h5>
         
                                 </div>
-          <div id="videoSummary" style="min-height: 200px; border: 2px dashed #e0e0e0; border-radius: 8px; padding: 1rem; background: #fafafa;">
-            <div style="color: #999; text-align: center; padding: 2rem 0;">
-              <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
-              <p style="margin: 0;">Ders özeti burada görünecek...</p>
-              <small>Gemini AI ile otomatik özetleme</small>
-                                </div>
-                            </div>
+                     <div id="videoSummary" style="min-height: 375px; max-height: 375px; border: 2px dashed #e0e0e0; border-radius: 8px; padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; overflow-y: auto;">
+             <div style="color: #999; text-align: center;">
+               <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+               <p style="margin: 0;">Ders özeti burada görünecek...</p>
+               <small>Gemini AI ile otomatik özetleme</small>
+             </div>
+           </div>
+           <div id="pdfDownloadSection" style="display: none; margin-top: 1rem; text-align: center;">
+             <button class="btn btn-success" id="downloadPdfBtn" onclick="downloadPdf()" style="background: linear-gradient(135deg, #28a745, #20c997); border: none; border-radius: 8px; padding: 10px 20px;">
+               <i class="bi bi-file-earmark-pdf me-2"></i>PDF Olarak İndir
+             </button>
+           </div>
                         </div>
 
                  <div class="d-flex gap-3">
@@ -279,6 +284,31 @@
              </button>
                         </div>
                     </div>
+                    
+        <!-- API Kullanım Durumu -->
+        <div class="ai-chat-modern p-4" style="margin-top: 1rem;">
+          <div class="p-3" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 8px; border: 1px solid #2196f3;">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <i class="bi bi-speedometer2 me-2" style="color: #2196f3;"></i>
+                <span style="font-weight: 600; color: #1976d2;">API Kullanım Durumu</span>
+              </div>
+              <div id="apiUsageDisplay" style="text-align: right;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #1976d2;">
+                  <span id="usedCount">-</span>/<span id="totalCount">50</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #666;">
+                  <span id="remainingText">Yükleniyor...</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <div class="progress" style="height: 6px; background-color: #e0e0e0;">
+                <div id="usageProgressBar" class="progress-bar" style="background: linear-gradient(135deg, #4caf50, #8bc34a); width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
                 </div>
             </div>
   </main>
@@ -328,15 +358,27 @@
           
           // Video özetini temizle
           const summaryArea = document.getElementById('videoSummary');
+          const pdfDownloadSection = document.getElementById('pdfDownloadSection');
           if (summaryArea) {
+            summaryArea.style.display = 'flex';
+            summaryArea.style.alignItems = 'center';
+            summaryArea.style.justifyContent = 'center';
             summaryArea.innerHTML = `
-              <div style="color: #999; text-align: center; padding: 2rem 0;">
+              <div style="color: #999; text-align: center;">
                 <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
                 <p style="margin: 0;">Ders özeti burada görünecek...</p>
                 <small>Gemini AI ile otomatik özetleme</small>
               </div>
             `;
           }
+          
+          // PDF indirme bölümünü gizle
+          if (pdfDownloadSection) {
+            pdfDownloadSection.style.display = 'none';
+          }
+          
+          // Global özet değişkenini temizle
+          window.currentSummary = null;
           
           // İlerleme kaydetme kaldırıldı - sadece video geçişi yapıyor
         }
@@ -575,11 +617,61 @@
        
        // Sayfa yüklendiğinde navigasyon butonlarını güncelle
        updateNavigationButtons();
+       
+       // Sayfa yüklendiğinde API kullanım durumunu güncelle
+       updateApiUsage();
      });
+     
+     // API kullanım durumunu güncelle
+     function updateApiUsage() {
+       fetch('/Course/GetApiUsage')
+         .then(response => response.json())
+         .then(data => {
+           if (data.success) {
+             const usedCount = document.getElementById('usedCount');
+             const totalCount = document.getElementById('totalCount');
+             const remainingText = document.getElementById('remainingText');
+             const progressBar = document.getElementById('usageProgressBar');
+             
+             usedCount.textContent = data.used;
+             totalCount.textContent = data.total;
+             
+             const remaining = data.remaining;
+             const percentage = data.percentage;
+             
+             // Kalan istek sayısını göster
+             if (remaining > 0) {
+               remainingText.textContent = `Yapay zekadan yardım almak için ${remaining} istek hakkınız kaldı`;
+               remainingText.style.color = '#4caf50';
+             } else {
+               remainingText.textContent = 'Günlük limit aşıldı';
+               remainingText.style.color = '#f44336';
+             }
+             
+             // Progress bar'ı güncelle
+             progressBar.style.width = `${percentage}%`;
+             
+             // Progress bar rengini ayarla
+             if (percentage < 50) {
+               progressBar.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
+             } else if (percentage < 80) {
+               progressBar.style.background = 'linear-gradient(135deg, #ff9800, #ffc107)';
+             } else {
+               progressBar.style.background = 'linear-gradient(135deg, #f44336, #e91e63)';
+             }
+           }
+         })
+         .catch(error => {
+           console.error('API kullanım durumu hatası:', error);
+         });
+     }
+     
+
      
      // Video özetleme fonksiyonu
      function summarizeVideo() {
        const summaryArea = document.getElementById('videoSummary');
+       const pdfDownloadSection = document.getElementById('pdfDownloadSection');
        
        // Mevcut video ID'sini al
        const currentVideoId = getCurrentVideoId();
@@ -594,8 +686,11 @@
            <i class="bi bi-robot" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
            <p style="margin: 0;">Ders özetleniyor...</p>
            <small>Gemini AI çalışıyor</small>
-                        </div>
+         </div>
        `;
+       
+       // PDF indirme bölümünü gizle
+       pdfDownloadSection.style.display = 'none';
        
        // Gemini API çağrısı
        fetch('/Course/SummarizeVideo', {
@@ -609,8 +704,11 @@
        .then(data => {
          if (data.success) {
            // Başarılı özet
+           summaryArea.style.display = 'block';
+           summaryArea.style.alignItems = 'flex-start';
+           summaryArea.style.justifyContent = 'flex-start';
            summaryArea.innerHTML = `
-             <div style="color: #333;">
+             <div style="color: #333; width: 100%;">
                <h6 style="color: #6F42C1; margin-bottom: 1rem;">
                  <i class="bi bi-robot me-2"></i>Ders Özeti
                </h6>
@@ -619,10 +717,22 @@
                </div>
              </div>
            `;
+           
+           // PDF indirme bölümünü göster
+           pdfDownloadSection.style.display = 'block';
+           
+           // Özeti global değişkende sakla
+           window.currentSummary = data.summary;
+           
+           // API kullanım durumunu güncelle
+           updateApiUsage();
          } else {
            // Hata durumu
+           summaryArea.style.display = 'flex';
+           summaryArea.style.alignItems = 'center';
+           summaryArea.style.justifyContent = 'center';
            summaryArea.innerHTML = `
-             <div style="color: #dc3545; text-align: center; padding: 2rem 0;">
+             <div style="color: #dc3545; text-align: center;">
                <i class="bi bi-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
                <p style="margin: 0;">Ders özetlenirken hata oluştu</p>
                <small>${data.message}</small>
@@ -632,8 +742,11 @@
        })
        .catch(error => {
          console.error('Hata:', error);
+         summaryArea.style.display = 'flex';
+         summaryArea.style.alignItems = 'center';
+         summaryArea.style.justifyContent = 'center';
          summaryArea.innerHTML = `
-           <div style="color: #dc3545; text-align: center; padding: 2rem 0;">
+           <div style="color: #dc3545; text-align: center;">
              <i class="bi bi-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
              <p style="margin: 0;">Bağlantı hatası</p>
              <small>Lütfen internet bağlantınızı kontrol edin</small>
@@ -810,6 +923,9 @@
          
          if (data.success) {
            addMessage('ai', data.answer);
+           
+           // API kullanım durumunu güncelle
+           updateApiUsage();
          } else {
            addMessage('ai', data.message || 'Üzgünüm, sorunuzu cevaplayamadım. Lütfen daha sonra tekrar deneyin.');
          }
@@ -873,6 +989,79 @@
        if (message) {
          message.remove();
        }
+     }
+     
+     // PDF indirme fonksiyonu
+     function downloadPdf() {
+       const currentVideoId = getCurrentVideoId();
+       const courseId = @Model.Id;
+       
+       if (!currentVideoId) {
+         alert('Video bilgisi bulunamadı. Lütfen sayfayı yenileyin.');
+         return;
+       }
+       
+       if (!window.currentSummary) {
+         alert('Önce ders özetini oluşturun.');
+         return;
+       }
+       
+       // Butonu devre dışı bırak
+       const downloadBtn = document.getElementById('downloadPdfBtn');
+       const originalText = downloadBtn.innerHTML;
+       downloadBtn.disabled = true;
+       downloadBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>PDF Oluşturuluyor...';
+       
+       // PDF indirme isteği
+       fetch('/Course/DownloadPdf', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+           videoId: parseInt(currentVideoId),
+           courseId: courseId,
+           summary: window.currentSummary
+         })
+       })
+       .then(response => {
+         if (response.ok) {
+           // PDF dosyasını indir
+           return response.blob();
+         } else {
+           return response.json().then(data => {
+             throw new Error(data.message || 'PDF oluşturulamadı');
+           });
+         }
+       })
+       .then(blob => {
+         // Dosya adını oluştur
+         const videoName = document.querySelector('h5').textContent;
+         const courseName = '@Model.Name';
+         const fileName = `${courseName}_${videoName}_${new Date().toISOString().slice(0, 10)}.pdf`;
+         
+         // Dosyayı indir
+         const url = window.URL.createObjectURL(blob);
+         const a = document.createElement('a');
+         a.href = url;
+         a.download = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
+         document.body.appendChild(a);
+         a.click();
+         window.URL.revokeObjectURL(url);
+         document.body.removeChild(a);
+         
+         // Başarı mesajı
+         alert('PDF başarıyla indirildi!');
+       })
+       .catch(error => {
+         console.error('PDF indirme hatası:', error);
+         alert('PDF indirilemedi: ' + error.message);
+       })
+       .finally(() => {
+         // Butonu eski haline getir
+         downloadBtn.disabled = false;
+         downloadBtn.innerHTML = originalText;
+       });
      }
      
 

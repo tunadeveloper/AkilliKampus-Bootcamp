@@ -155,6 +155,41 @@
         </div>
     </div>
 
+    <!-- API Anahtarı Yönetimi -->
+    <div class="row g-4 mt-4 animate-fadein-delay2">
+        <div class="col-12">
+            <div class="modern-card p-4">
+                <h2 class="section-title"><i class="bi bi-key-fill me-2 text-warning"></i> Gemini AI API Anahtarı</h2>
+                <div class="row g-4">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="apiKeyInput" class="form-label fw-semibold">API Anahtarınız</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="apiKeyInput" placeholder="API anahtarınızı buraya yapıştırın">
+                                <button class="btn btn-outline-secondary" type="button" id="toggleApiKey">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Kendi Gemini AI API anahtarınızı ekleyerek sınırsız AI özelliklerinden yararlanın.
+                                <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-decoration-none">
+                                    <i class="bi bi-external-link me-1"></i>API Anahtarı Al
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button class="btn btn-warning w-100" id="saveApiKey">
+                            <i class="bi bi-save me-2"></i>Kaydet
+                        </button>
+                    </div>
+                </div>
+                <div id="apiKeyMessage" class="mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Başarı İstatistikleri -->
     <div class="row g-4 mt-4 animate-fadein-delay2">
         <div class="col-12">
@@ -189,3 +224,82 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/js/profile.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const toggleApiKey = document.getElementById('toggleApiKey');
+    const saveApiKey = document.getElementById('saveApiKey');
+    const apiKeyMessage = document.getElementById('apiKeyMessage');
+
+    // Mevcut API anahtarını yükle
+    loadApiKey();
+
+    // API anahtarını göster/gizle
+    toggleApiKey.addEventListener('click', function() {
+        const type = apiKeyInput.type === 'password' ? 'text' : 'password';
+        apiKeyInput.type = type;
+        toggleApiKey.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+    });
+
+    // API anahtarını kaydet
+    saveApiKey.addEventListener('click', function() {
+        const apiKey = apiKeyInput.value.trim();
+        
+        if (!apiKey) {
+            showMessage('Lütfen bir API anahtarı girin.', 'warning');
+            return;
+        }
+
+        saveApiKey.disabled = true;
+        saveApiKey.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Kaydediliyor...';
+
+        fetch('/UserProfile/UpdateApiKey', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `apiKey=${encodeURIComponent(apiKey)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showMessage(data.message, 'success');
+            } else {
+                showMessage(data.message, 'danger');
+            }
+        })
+        .catch(error => {
+            showMessage('Bir hata oluştu: ' + error.message, 'danger');
+        })
+        .finally(() => {
+            saveApiKey.disabled = false;
+            saveApiKey.innerHTML = '<i class="bi bi-save me-2"></i>Kaydet';
+        });
+    });
+
+    function loadApiKey() {
+        fetch('/UserProfile/GetApiKey')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.apiKey) {
+                    apiKeyInput.value = data.apiKey;
+                }
+            })
+            .catch(error => {
+                console.error('API anahtarı yüklenirken hata:', error);
+            });
+    }
+
+    function showMessage(message, type) {
+        apiKeyMessage.innerHTML = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'x-circle'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        apiKeyMessage.style.display = 'block';
+    }
+});
+</script>

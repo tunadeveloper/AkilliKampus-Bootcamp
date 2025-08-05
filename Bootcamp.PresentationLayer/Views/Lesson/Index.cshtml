@@ -1,0 +1,105 @@
+﻿@model List<Bootcamp.EntityLayer.Concrete.Course>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitimler | Yapay Zeka Eğitim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/frontend/css/lessons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <main class="container py-4">
+        <!-- Hero Section -->
+        <section class="hero-section text-center animate-fade-in">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-3" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                    <i class="bi bi-book-open me-3"></i>Eğitimler
+                </h1>
+                <p class="lead mb-4" style="opacity: 0.9;">
+                    Yapay zeka destekli kişiselleştirilmiş eğitim deneyimi
+                </p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <div class="d-flex align-items-center gap-2 animate-pulse">
+                        <i class="bi bi-check-circle-fill" style="color:#4CAF50;"></i>
+                        <span style="opacity: 0.9;">500+ Eğitim</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 animate-pulse" style="animation-delay: 0.5s;">
+                        <i class="bi bi-people-fill" style="color:#2196F3;"></i>
+                        <span style="opacity: 0.9;">10K+ Öğrenci</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 animate-pulse" style="animation-delay: 1s;">
+                        <i class="bi bi-star-fill" style="color:#FFC107;"></i>
+                        <span style="opacity: 0.9;">4.9/5 Puan</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section animate-fade-in">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Eğitim</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Öğrenci</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Memnuniyet</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Destek</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modern Lesson Cards -->
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="lesson-card p-0 h-100 shadow-sm rounded-4 bg-white position-relative overflow-hidden lesson-card-anim">
+                        <div class="lesson-img-wrap position-relative">
+                            <img src="@item.ThumbnailUrl" alt="Yapay Zeka" class="img-fluid rounded-top-4 lesson-img" style="height:160px;object-fit:cover;width:100%;">
+                        </div>
+                        <div class="p-4">
+                            <span class="badge bg-purple mb-2" style="background:#6F42C1;">@item.Category.Name</span>
+                            <h2 class="h5 mb-2 fw-semibold">@item.Name</h2>
+                            <p class="mb-2 text-muted small">@item.Description</p>
+                            <a href="/Home/CourseDetail/@item.Id" class="btn btn-outline-primary w-100 lesson-btn">Detay</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+     
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/frontend/js/lessons.js"></script>
+</body>
+</html>
+
