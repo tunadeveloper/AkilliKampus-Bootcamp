@@ -19,7 +19,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
 
         public IActionResult Settings()
         {
-            // Varsayılan ayarları oluştur
             CreateDefaultSettings();
             
             ViewBag.SEOSettings = _siteSettingService.GetByGroup("SEO");
@@ -61,28 +60,23 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
         {
             var defaultSettings = new List<SiteSetting>
             {
-                // SEO Ayarları
                 new SiteSetting { Key = "SiteTitle", Value = "Yapay Zeka Destekli Eğitim Platformu", Description = "Site Başlığı", Group = "SEO" },
                 new SiteSetting { Key = "SiteDescription", Value = "Geleceğin eğitimini bugünden yaşa!", Description = "Site Açıklaması", Group = "SEO" },
                 new SiteSetting { Key = "SiteKeywords", Value = "yapay zeka, eğitim, online kurs, sertifika", Description = "Site Anahtar Kelimeleri", Group = "SEO" },
                 new SiteSetting { Key = "SiteAuthor", Value = "Akıllı Kampus", Description = "Site Sahibi", Group = "SEO" },
                 
-                // Logo Ayarları
                 new SiteSetting { Key = "LogoText", Value = "Yapay Zeka Eğitim", Description = "Logo Metni", Group = "Logo" },
                 new SiteSetting { Key = "LogoIcon", Value = "bi-lightbulb", Description = "Logo İkonu", Group = "Logo" },
                 new SiteSetting { Key = "LogoColor", Value = "#6F42C1", Description = "Logo Rengi", Group = "Logo" },
                 
-                // Genel Ayarlar
                 new SiteSetting { Key = "SiteName", Value = "Akıllı Kampus", Description = "Site Adı", Group = "General" },
                 new SiteSetting { Key = "SiteSlogan", Value = "Geleceğin eğitimini bugünden yaşa!", Description = "Site Sloganı", Group = "General" },
                 new SiteSetting { Key = "CopyrightText", Value = "© 2025 Akıllı Kampus. Tüm hakları saklıdır.", Description = "Telif Hakkı Metni", Group = "General" },
                 
-                // İletişim Ayarları
                 new SiteSetting { Key = "ContactEmail", Value = "info@akillikampus.com", Description = "İletişim E-posta", Group = "Contact" },
                 new SiteSetting { Key = "ContactPhone", Value = "+90 555 123 45 67", Description = "İletişim Telefon", Group = "Contact" },
                 new SiteSetting { Key = "ContactAddress", Value = "İstanbul, Türkiye", Description = "İletişim Adres", Group = "Contact" },
                 
-                // Sosyal Medya Ayarları
                 new SiteSetting { Key = "FacebookUrl", Value = "", Description = "Facebook URL", Group = "Social" },
                 new SiteSetting { Key = "TwitterUrl", Value = "", Description = "Twitter URL", Group = "Social" },
                 new SiteSetting { Key = "InstagramUrl", Value = "", Description = "Instagram URL", Group = "Social" },
@@ -100,7 +94,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
             }
         }
 
-        // CRUD Actions
         public IActionResult Index()
         {
             var settings = _siteSettingService.GetListBL();

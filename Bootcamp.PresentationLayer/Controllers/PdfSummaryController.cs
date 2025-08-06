@@ -35,12 +35,11 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Sadece PDF dosyaları kabul edilir." });
                 }
 
-                if (pdfFile.Length > 10 * 1024 * 1024) // 10MB limit
+                if (pdfFile.Length > 10 * 1024 * 1024) 
                 {
                     return Json(new { success = false, message = "PDF dosyası 10MB'dan büyük olamaz." });
                 }
 
-                // PDF içeriğini oku
                 using var stream = pdfFile.OpenReadStream();
                 var pdfContent = await ExtractTextFromPdf(stream);
 
@@ -49,7 +48,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "PDF'den metin çıkarılamadı. Dosyanın metin içerdiğinden emin olun." });
                 }
 
-                // Gemini ile özetle
                 var summary = await _geminiService.SummarizePdfContentAsync(pdfContent, pdfFile.FileName);
 
                 return Json(new { success = true, summary = summary });

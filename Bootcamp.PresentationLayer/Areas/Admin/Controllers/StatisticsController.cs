@@ -46,7 +46,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
         {
             var statistics = new StatisticsViewModel
             {
-                // Genel İstatistikler
                 TotalUsers = _userManager.Users.Count(),
                 TotalCourses = _courseService.GetListBL().Count,
                 TotalComments = _commentService.GetListBL().Count,
@@ -55,7 +54,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                 TotalInstructors = _instructorService.GetListBL().Count,
                 TotalOutcomes = _outcomeService.GetListBL().Count,
 
-                // Popüler Kurslar (En çok yorum alan)
                 PopularCourses = _context.Courses
                     .Include(c => c.Comments)
                     .Include(c => c.Category)
@@ -69,7 +67,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                     })
                     .ToList(),
 
-                // Kategori Dağılımı
                 CategoryDistribution = _context.CourseCategories
                     .Include(cc => cc.Courses)
                     .Select(cc => new CategoryDistributionViewModel
@@ -79,7 +76,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                     })
                     .ToList(),
 
-                // Seviye Dağılımı
                 LevelDistribution = _context.CourseLevels
                     .Include(cl => cl.Courses)
                     .Select(cl => new LevelDistributionViewModel
@@ -89,7 +85,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                     })
                     .ToList(),
 
-                // Eğitmen Performansı
                 InstructorPerformance = _context.Instructors
                     .Include(i => i.Courses)
                     .Select(i => new InstructorPerformanceViewModel
@@ -102,7 +97,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                     .Take(5)
                     .ToList(),
 
-                // Son Yorumlar
                 RecentComments = _context.Comments
                     .Include(c => c.ApplicationUser)
                     .Include(c => c.Course)
@@ -117,7 +111,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                     })
                     .ToList(),
 
-                // Platform İstatistikleri
                 MonthlyStats = GetPlatformStatistics()
             };
 
@@ -128,7 +121,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
         {
             var platformStats = new List<MonthlyStatViewModel>();
 
-            // Popüler Kategoriler
             var popularCategories = _context.CourseCategories
                 .Include(cc => cc.Courses)
                 .OrderByDescending(cc => cc.Courses.Count)
@@ -146,7 +138,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
                 });
             }
 
-            // Popüler Seviyeler
             var popularLevels = _context.CourseLevels
                 .Include(cl => cl.Courses)
                 .OrderByDescending(cl => cl.Courses.Count)

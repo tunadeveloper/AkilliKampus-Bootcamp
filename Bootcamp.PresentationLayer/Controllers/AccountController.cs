@@ -41,7 +41,6 @@ namespace Bootcamp.PresentationLayer.Controllers
 
             if (result.Succeeded)
             {
-                // Otomatik olarak User rolü ata
                 await _userManager.AddToRoleAsync(user, "User");
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");

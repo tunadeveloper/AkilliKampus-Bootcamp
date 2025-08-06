@@ -13,16 +13,18 @@ namespace Bootcamp.PresentationLayer.Controllers
         private readonly IProgressService _progressService;
         private readonly ICourseEnrollmentService _courseEnrollmentService;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ICourseVideoService _courseVideoService; // Added for AddSampleVideoDurations
+        private readonly ICourseVideoService _courseVideoService;
+        private readonly IVideoCompletionService _videoCompletionService;
 
-        public HomeController(ICourseService courseService, ICommentService commentService, IProgressService progressService, ICourseEnrollmentService courseEnrollmentService, UserManager<ApplicationUser> userManager, ICourseVideoService courseVideoService)
+        public HomeController(ICourseService courseService, ICommentService commentService, IProgressService progressService, ICourseEnrollmentService courseEnrollmentService, UserManager<ApplicationUser> userManager, ICourseVideoService courseVideoService, IVideoCompletionService videoCompletionService)
         {
             _courseService = courseService;
             _commentService = commentService;
             _progressService = progressService;
             _courseEnrollmentService = courseEnrollmentService;
             _userManager = userManager;
-            _courseVideoService = courseVideoService; // Initialize for AddSampleVideoDurations
+            _courseVideoService = courseVideoService; 
+            _videoCompletionService = videoCompletionService;
         }
 
         public IActionResult Index()
@@ -38,18 +40,15 @@ namespace Bootcamp.PresentationLayer.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            // Kullanıcının bu eğitime kayıtlı olup olmadığını kontrol et
             bool isRegistered = false;
             int lastWatchedVideoId = 0;
             if (user != null)
             {
-                // Önce enrollment kontrolü
                 var enrollment = _courseEnrollmentService.GetListBL()
                     .FirstOrDefault(e => e.UserId == user.Id && e.CourseId == id);
                 
                 isRegistered = enrollment != null;
                 
-                // Eğer kayıtlıysa, son izlenen videoyu bul
                 if (isRegistered && course.CourseVideos != null)
                 {
                     var userProgresses = _progressService.GetListBL()
@@ -67,10 +66,33 @@ namespace Bootcamp.PresentationLayer.Controllers
             ViewBag.IsRegistered = isRegistered;
             ViewBag.LastWatchedVideoId = lastWatchedVideoId;
 
+            int courseEnrollmentCount = _courseEnrollmentService.GetEnrollmentCountByCourseId(id);
+            ViewBag.CourseEnrollmentCount = courseEnrollmentCount;
+
+            int instructorEnrollmentCount = _courseEnrollmentService.GetEnrollmentCountByInstructorId(course.InstructorId);
+            ViewBag.InstructorEnrollmentCount = instructorEnrollmentCount;
+
+            int videoCount = course.CourseVideos?.Count ?? 0;
+            ViewBag.VideoCount = videoCount;
+
+            int completedVideos = 0;
+            int totalVideos = videoCount;
+            double progressPercentage = 0;
+
+            if (user != null && isRegistered && totalVideos > 0)
+            {
+                var userVideoCompletions = _videoCompletionService.GetUserVideoCompletions(user.Id, id);
+                completedVideos = userVideoCompletions.Count(vc => vc.IsCompleted);
+                progressPercentage = (double)completedVideos / totalVideos * 100;
+            }
+
+            ViewBag.CompletedVideos = completedVideos;
+            ViewBag.TotalVideos = totalVideos;
+            ViewBag.ProgressPercentage = Math.Round(progressPercentage, 1);
+
             return View(course);
         }
 
-        // Eğitime kayıt olma action'ı
         [HttpPost]
         public async Task<IActionResult> EnrollToCourse(int courseId)
         {
@@ -88,7 +110,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Eğitim bulunamadı" });
                 }
 
-                // Kullanıcının zaten kayıtlı olup olmadığını kontrol et
                 var existingEnrollment = _courseEnrollmentService.GetListBL()
                     .FirstOrDefault(e => e.UserId == user.Id && e.CourseId == courseId);
 
@@ -97,7 +118,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Bu eğitime zaten kayıtlısınız" });
                 }
 
-                // Eğitime kayıt ol
                 var newEnrollment = new CourseEnrollment
                 {
                     UserId = user.Id,
@@ -114,7 +134,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // Örnek video süreleri eklemek için (sadece geliştirme amaçlı)
         [HttpPost]
         public IActionResult AddSampleVideoDurations()
         {
@@ -122,8 +141,7 @@ namespace Bootcamp.PresentationLayer.Controllers
             {
                 var courseVideos = _courseVideoService.GetListBL();
                 
-                // Örnek süreler (saniye cinsinden)
-                var durations = new int[] { 1800, 2400, 2100, 2700, 1950, 2250, 2550, 1800, 2400, 2100 }; // 30dk, 40dk, 35dk, 45dk, 32.5dk, 37.5dk, 42.5dk, 30dk, 40dk, 35dk
+                var durations = new int[] { 1800, 2400, 2100, 2700, 1950, 2250, 2550, 1800, 2400, 2100 }; 
                 
                 for (int i = 0; i < courseVideos.Count && i < durations.Length; i++)
                 {
@@ -136,6 +154,55 @@ namespace Bootcamp.PresentationLayer.Controllers
             catch (Exception ex)
             {
                 return Json(new { success = false, message = "Hata: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendComment(int courseId, string commentText)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Giriş yapmanız gerekiyor" });
+            }
+
+            if (string.IsNullOrWhiteSpace(commentText))
+            {
+                return Json(new { success = false, message = "Yorum metni boş olamaz" });
+            }
+
+            try
+            {
+                var course = _courseService.GetCourseWithAllBL(courseId);
+                if (course == null)
+                {
+                    return Json(new { success = false, message = "Eğitim bulunamadı" });
+                }
+
+                var newComment = new Comment
+                {
+                    Text = commentText,
+                    CourseId = courseId,
+                    ApplicationUserId = user.Id,
+                    CreatedAt = DateTime.Now
+                };
+
+                _commentService.InsertBL(newComment);
+
+                return Json(new { 
+                    success = true, 
+                    message = "Yorumunuz başarıyla gönderildi",
+                    comment = new {
+                        text = newComment.Text,
+                        userName = user.NameSurname,
+                        userGender = user.Gender,
+                        createdAt = newComment.CreatedAt.ToString("dd MMMM yyyy")
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
             }
         }
 

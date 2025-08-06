@@ -1,0 +1,80 @@
+@model Bootcamp.EntityLayer.Concrete.CourseVideo
+
+@{
+    ViewData["Title"] = "Yeni Video Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Yeni Video Ekle</h1>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Video Bilgileri</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Video Adı</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Açıklama</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="VideoUrl" class="control-label">Video URL</label>
+                    <input asp-for="VideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." />
+                    <span asp-validation-for="VideoUrl" class="text-danger"></span>
+                    <small class="form-text text-muted">YouTube veya diğer video platformlarından URL ekleyin</small>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Summary" class="control-label">Özet</label>
+                    <textarea asp-for="Summary" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Summary" class="text-danger"></span>
+                    <small class="form-text text-muted">Video içeriğinin kısa özeti</small>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label">Süre (saniye)</label>
+                    <input asp-for="Duration" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                    <small class="form-text text-muted">Video süresini saniye cinsinden girin (örn: 1800 = 30 dakika)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="CourseID" class="control-label">Kurs</label>
+                    <select asp-for="CourseID" class="form-control" asp-items="ViewBag.Courses">
+                        <option value="">Kurs Seçin</option>
+                    </select>
+                    <span asp-validation-for="CourseID" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Kaydet
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> İptal
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

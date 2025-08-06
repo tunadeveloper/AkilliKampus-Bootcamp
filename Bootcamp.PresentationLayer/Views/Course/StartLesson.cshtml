@@ -79,11 +79,11 @@
             <i class="bi bi-play-circle-fill me-2"></i>@Model.Name - Ders 1
           </h4>
           <span class="badge bg-primary px-3 py-2" style="background:linear-gradient(135deg, #6F42C1 0%, #8B5CF6 100%); border:none;">
-            %25 Tamamlandı
+            %@ViewBag.ProgressPercentage Tamamlandı
           </span>
         </div>
         <div class="progress-modern">
-          <div class="progress-bar-modern" style="width: 25%"></div>
+          <div class="progress-bar-modern" style="width: @ViewBag.ProgressPercentage%"></div>
                         </div>
                     </div>
                 </div>

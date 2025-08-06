@@ -25,7 +25,6 @@ namespace Bootcamp.PresentationLayer.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            // Kullanıcının kayıtlı olduğu kursları al
             var userEnrollments = _courseEnrollmentService.GetListBL()
                 .Where(e => e.UserId == user.Id)
                 .ToList();
@@ -43,14 +42,11 @@ namespace Bootcamp.PresentationLayer.Controllers
                 {
                     int totalVideos = course.CourseVideos?.Count ?? 0;
                     
-                    // Bu kurs için kullanıcının video tamamlanma durumlarını bul
                     var courseVideoCompletions = userVideoCompletions.Where(vc => vc.CourseId == course.Id && vc.IsCompleted).ToList();
                     int watchedVideos = courseVideoCompletions.Count;
 
-                    // Yüzde hesapla
                     double percentage = totalVideos > 0 ? (double)watchedVideos / totalVideos * 100 : 0;
                     
-                    // Durum belirle
                     string status;
                     if (totalVideos == 0)
                     {
@@ -80,7 +76,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                 }
             }
 
-            // Yüzdeye göre sırala
             courseStatuses = courseStatuses.OrderByDescending(x => x.Percentage).ToList();
 
             ViewBag.CourseStatuses = courseStatuses;
@@ -98,7 +93,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Kullanıcı bulunamadı." });
                 }
 
-                // API anahtarını güncelle
                 user.GeminiApiKey = apiKey;
                 var result = await _userManager.UpdateAsync(user);
 

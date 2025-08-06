@@ -46,12 +46,10 @@ namespace Bootcamp.BusinessLayer.Concrete
         {
             try
             {
-                // Description alanındaki konu başlıklarına göre ders anlatımı oluştur
                 return await CreateLessonFromDescription(videoTitle, videoDescription);
             }
             catch (Exception ex)
             {
-                // API limit hatası kontrolü
                 if (ex.Message.Contains("429") || ex.Message.Contains("Too Many Requests") || ex.Message.Contains("RESOURCE_EXHAUSTED"))
                 {
                     return "🤖 API Kullanım Limiti Aşıldı\n\n" +
@@ -145,7 +143,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
 
                 var userApiKey = await GetUserApiKeyAsync();
                 
-                // Debug bilgisi
                 Console.WriteLine($"API Key kullanılıyor: {userApiKey.Substring(0, Math.Min(10, userApiKey.Length))}...");
                 Console.WriteLine($"API URL: {_apiUrl}");
                 
@@ -178,7 +175,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     
-                    // API limit hatası kontrolü
                     if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
                         errorContent.Contains("429") || 
                         errorContent.Contains("Too Many Requests") || 
@@ -202,7 +198,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                                "🔄 Yarın tekrar AI özeti alabilirsiniz!";
                     }
                     
-                                         // Service Unavailable hatası kontrolü
                      if (response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable || 
                          errorContent.Contains("503") || 
                          errorContent.Contains("overloaded") ||
@@ -225,7 +220,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                                 "🔄 Birkaç dakika sonra tekrar deneyin!";
                      }
                      
-                     // API anahtarı geçersiz hatası kontrolü
                      if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || 
                          errorContent.Contains("400") || 
                          errorContent.Contains("API key not valid") ||
@@ -259,7 +253,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
             }
             catch (Exception ex)
             {
-                // Timeout hatası kontrolü
                 if (ex.Message.Contains("timeout") || ex.Message.Contains("Timeout") || ex.Message.Contains("canceled"))
                 {
                     return "⏰ API Yanıt Süresi Aşıldı\n\n" +
@@ -283,7 +276,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                            "🔄 Sorun çözülünce tekrar deneyin!";
                 }
                 
-                // API limit hatası kontrolü
                 if (ex.Message.Contains("429") || ex.Message.Contains("Too Many Requests") || ex.Message.Contains("RESOURCE_EXHAUSTED") || ex.Message.Contains("quota"))
                 {
                     return "🤖 Günlük API Kullanım Limiti Aşıldı\n\n" +
@@ -303,7 +295,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                            "🔄 Yarın tekrar AI özeti alabilirsiniz!";
                 }
                 
-                                 // Service Unavailable hatası kontrolü
                  if (ex.Message.Contains("503") || ex.Message.Contains("overloaded") || ex.Message.Contains("UNAVAILABLE") || ex.Message.Contains("Service Unavailable"))
                  {
                      return "🤖 AI Servisi Meşgul\n\n" +
@@ -323,7 +314,6 @@ Not: Her alt konu için emoji ile başlayan başlık ve detaylı maddeler halind
                             "🔄 Birkaç dakika sonra tekrar deneyin!";
                  }
                  
-                 // API anahtarı geçersiz hatası kontrolü
                  if (ex.Message.Contains("400") || ex.Message.Contains("Bad Request") || ex.Message.Contains("API key not valid") || ex.Message.Contains("INVALID_ARGUMENT") || ex.Message.Contains("API_KEY_INVALID"))
                  {
                      return "🔑 API Anahtarınızda Sorun Var\n\n" +
@@ -444,7 +434,6 @@ Not: Sadece normal metin olarak yaz, hiçbir markdown formatlaması kullanma.
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     
-                    // API limit hatası kontrolü
                     if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
                         errorContent.Contains("429") || 
                         errorContent.Contains("Too Many Requests") || 
@@ -475,7 +464,6 @@ Not: Sadece normal metin olarak yaz, hiçbir markdown formatlaması kullanma.
             }
             catch (Exception ex)
             {
-                // API limit hatası kontrolü
                 if (ex.Message.Contains("429") || ex.Message.Contains("Too Many Requests") || ex.Message.Contains("RESOURCE_EXHAUSTED") || ex.Message.Contains("quota"))
                 {
                     return "🤖 Günlük API Kullanım Limiti Aşıldı\n\n" +
@@ -593,7 +581,6 @@ Not: Chat mesajı formatında, çok kısa ve öz cevap ver. Uzun açıklamalar y
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     
-                    // API limit hatası kontrolü
                     if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
                         errorContent.Contains("429") || 
                         errorContent.Contains("Too Many Requests") || 
@@ -617,7 +604,6 @@ Not: Chat mesajı formatında, çok kısa ve öz cevap ver. Uzun açıklamalar y
             }
             catch (Exception ex)
             {
-                // API limit hatası kontrolü
                 if (ex.Message.Contains("429") || ex.Message.Contains("Too Many Requests") || ex.Message.Contains("RESOURCE_EXHAUSTED") || ex.Message.Contains("quota"))
                 {
                     return "🤖 Günlük API Kullanım Limiti Aşıldı\n\n" +
@@ -647,53 +633,43 @@ Not: Chat mesajı formatında, çok kısa ve öz cevap ver. Uzun açıklamalar y
 
                     document.Open();
 
-                    // Türkçe karakterleri destekleyen font ayarları
                     string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
                     BaseFont baseFont;
                     
                     try
                     {
-                        // Arial font dosyasını yüklemeye çalış
                         baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                     }
                     catch
                     {
-                        // Arial bulunamazsa varsayılan font kullan
                         baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                     }
-
-                    // Font tanımları
                     Font titleFont = new Font(baseFont, 18, Font.BOLD, BaseColor.DARK_GRAY);
                     Font subtitleFont = new Font(baseFont, 14, Font.BOLD, BaseColor.GRAY);
                     Font normalFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.BLACK);
                     Font smallFont = new Font(baseFont, 10, Font.NORMAL, BaseColor.GRAY);
 
-                    // Başlık
                     Paragraph title = new Paragraph($"📚 {courseName}", titleFont);
                     title.Alignment = Element.ALIGN_CENTER;
                     title.SpacingAfter = 20f;
                     document.Add(title);
 
-                    // Alt başlık
                     Paragraph subtitle = new Paragraph($"📖 {videoTitle}", subtitleFont);
                     subtitle.Alignment = Element.ALIGN_CENTER;
                     subtitle.SpacingAfter = 30f;
                     document.Add(subtitle);
 
-                    // Tarih
                     Paragraph date = new Paragraph($"📅 Oluşturulma Tarihi: {DateTime.Now.ToString("dd.MM.yyyy HH:mm")}", smallFont);
                     date.Alignment = Element.ALIGN_RIGHT;
                     date.SpacingAfter = 20f;
                     document.Add(date);
 
-                    // Ayırıcı çizgi
                     LineSeparator line = new LineSeparator();
                     line.LineWidth = 1f;
                     line.LineColor = BaseColor.LIGHT_GRAY;
                     document.Add(line);
                     document.Add(new Paragraph(" ", normalFont));
 
-                    // Özet içeriği
                     string[] lines = summary.Split('\n');
                     foreach (string lineText in lines)
                     {
@@ -705,7 +681,6 @@ Not: Chat mesajı formatında, çok kısa ve öz cevap ver. Uzun açıklamalar y
                         }
                     }
 
-                    // Alt bilgi
                     document.Add(new Paragraph(" ", normalFont));
                     document.Add(line);
                     Paragraph footer = new Paragraph("🤖 Bu özet Gemini AI tarafından otomatik olarak oluşturulmuştur.", smallFont);
@@ -820,7 +795,6 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     
-                    // API limit hatası kontrolü
                     if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
                         errorContent.Contains("429") || 
                         errorContent.Contains("Too Many Requests") || 
@@ -843,7 +817,6 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                                "🔄 Yarın tekrar AI özeti alabilirsiniz!";
                     }
                     
-                    // API anahtarı geçersiz hatası kontrolü
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || 
                         errorContent.Contains("400") || 
                         errorContent.Contains("API key not valid") ||
@@ -869,7 +842,6 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
             }
             catch (Exception ex)
             {
-                // Timeout hatası kontrolü
                 if (ex.Message.Contains("timeout") || ex.Message.Contains("Timeout") || ex.Message.Contains("canceled"))
                 {
                     return "⏰ API Yanıt Süresi Aşıldı\n\n" +
@@ -885,7 +857,6 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                            "🔄 Sorun çözülünce tekrar deneyin!";
                 }
                 
-                // API limit hatası kontrolü
                 if (ex.Message.Contains("429") || ex.Message.Contains("Too Many Requests") || ex.Message.Contains("RESOURCE_EXHAUSTED") || ex.Message.Contains("quota"))
                 {
                     return "🤖 Günlük API Kullanım Limiti Aşıldı\n\n" +
@@ -912,7 +883,6 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
         {
             try
             {
-                // Test isteği gönder
                 var testRequest = new
                 {
                     contents = new[]
@@ -938,14 +908,12 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Başarılı istek - kullanım sayısını artır
-                    return (1, 50); // Varsayılan değer
+                    return (1, 50); 
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     
-                    // Quota bilgisini parse et
                     if (errorContent.Contains("quotaValue"))
                     {
                         try
@@ -965,7 +933,7 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                                                 var total = quotaValue.GetString();
                                                 if (int.TryParse(total, out int totalValue))
                                                 {
-                                                    return (totalValue, totalValue); // Limit aşıldı
+                                                    return (totalValue, totalValue); 
                                                 }
                                             }
                                         }
@@ -975,20 +943,19 @@ Not: PDF'in türüne göre (ders notu, makale, rapor vb.) uygun özet formatı k
                         }
                         catch
                         {
-                            // Parse hatası durumunda varsayılan değer
                         }
                     }
                     
-                    return (50, 50); // Limit aşıldı
+                    return (50, 50);
                 }
                 else
                 {
-                    return (0, 50); // Hata durumu
+                    return (0, 50); 
                 }
             }
             catch (Exception)
             {
-                return (0, 50); // Hata durumu
+                return (0, 50);
             }
         }
     }

@@ -32,23 +32,19 @@ namespace Bootcamp.PresentationLayer.Controllers
                 return NotFound();
             }
 
-            // Kullanıcının giriş yapıp yapmadığını kontrol et
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            // ViewBag'e video bilgilerini ekle
             if (course.CourseVideos != null && course.CourseVideos.Any())
             {
-                // Kullanıcının bu eğitimdeki video tamamlanma durumlarını bul
                 var userVideoCompletions = _videoCompletionService.GetUserVideoCompletions(user.Id, id);
 
                 CourseVideo currentVideo;
                 if (userVideoCompletions.Any())
                 {
-                    // Son tamamlanan videoyu bul
                     var lastCompletedVideo = userVideoCompletions
                         .Where(vc => vc.IsCompleted)
                         .OrderByDescending(vc => vc.CompletedAt)
@@ -62,36 +58,30 @@ namespace Bootcamp.PresentationLayer.Controllers
                         {
                             var lastCompletedIndex = course.CourseVideos.ToList().IndexOf(lastCompletedVideoEntity);
                             
-                            // Eğer son video değilse, bir sonraki videoyu al
                             if (lastCompletedIndex < course.CourseVideos.Count - 1)
                             {
                                 currentVideo = course.CourseVideos.ElementAt(lastCompletedIndex + 1);
                             }
                             else
                             {
-                                // Son videoyu tekrar göster
                                 currentVideo = lastCompletedVideoEntity;
                             }
                         }
                         else
                         {
-                            // Video bulunamadıysa ilk videoyu göster
                             currentVideo = course.CourseVideos.First();
                         }
                     }
                     else
                     {
-                        // Hiç tamamlanmış video yoksa ilk videoyu göster
                         currentVideo = course.CourseVideos.First();
                     }
                 }
                 else
                 {
-                    // Hiç video tamamlanma kaydı yoksa ilk videoyu göster
                     currentVideo = course.CourseVideos.First();
                 }
 
-                // YouTube URL'sini embed formatına çevir
                 currentVideo.VideoUrl = ConvertToEmbedUrl(currentVideo.VideoUrl);
                 ViewBag.CurrentVideo = currentVideo;
                 
@@ -102,20 +92,25 @@ namespace Bootcamp.PresentationLayer.Controllers
                 }
                 ViewBag.VideoList = videoList;
                 
-                // Kullanıcının tamamladığı video ID'lerini ViewBag'e ekle
                 var completedVideoIds = userVideoCompletions
                     .Where(vc => vc.IsCompleted)
                     .Select(vc => vc.CourseVideoId)
                     .ToList();
                 ViewBag.CompletedVideoIds = completedVideoIds;
-                
+
+                int totalVideos = course.CourseVideos.Count;
+                int completedVideos = completedVideoIds.Count;
+                double progressPercentage = totalVideos > 0 ? (double)completedVideos / totalVideos * 100 : 0;
+
+                ViewBag.TotalVideos = totalVideos;
+                ViewBag.CompletedVideos = completedVideos;
+                ViewBag.ProgressPercentage = Math.Round(progressPercentage, 1);
 
             }
 
             return View(course);
         }
 
-        // Video tamamlanma durumunu kaydet
         [HttpPost]
         public async Task<IActionResult> SaveProgress(int courseId, int videoId)
         {
@@ -127,7 +122,6 @@ namespace Bootcamp.PresentationLayer.Controllers
 
             try
             {
-                // Video tamamlanma durumunu kaydet
                 _videoCompletionService.MarkVideoAsCompleted(user.Id, courseId, videoId);
 
                 return Json(new { success = true, message = "Video tamamlandı olarak işaretlendi" });
@@ -138,7 +132,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // Video tamamlanma durumunu kaldır
         [HttpPost]
         public async Task<IActionResult> RemoveProgress(int courseId, int videoId)
         {
@@ -150,7 +143,6 @@ namespace Bootcamp.PresentationLayer.Controllers
 
             try
             {
-                // Video tamamlanma durumunu kaldır
                 _videoCompletionService.MarkVideoAsIncomplete(user.Id, courseId, videoId);
 
                 return Json(new { success = true, message = "Video tamamlanma durumu kaldırıldı" });
@@ -161,7 +153,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // Video özetleme endpoint'i
         [HttpPost]
         public async Task<IActionResult> SummarizeVideo([FromBody] SummarizeVideoRequest request)
         {
@@ -178,14 +169,12 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Geçersiz istek" });
                 }
 
-                // Video bilgilerini al
                 var video = _courseVideoService.GetByIdBL(request.VideoId);
                 if (video == null)
                 {
                     return Json(new { success = false, message = "Video bulunamadı" });
                 }
 
-                // Gemini API ile video özetle
                 var summary = await _geminiService.SummarizeVideoAsync(video.VideoUrl, video.Name, video.Description);
 
                 return Json(new { success = true, summary = summary });
@@ -196,7 +185,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // PDF indirme endpoint'i
         [HttpPost]
         public async Task<IActionResult> DownloadPdf([FromBody] DownloadPdfRequest request)
         {
@@ -213,28 +201,24 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Geçersiz istek veya özet bulunamadı" });
                 }
 
-                // Video bilgilerini al
                 var video = _courseVideoService.GetByIdBL(request.VideoId);
                 if (video == null)
                 {
                     return Json(new { success = false, message = "Video bulunamadı" });
                 }
 
-                // Kurs bilgilerini al
                 var course = _courseService.GetByIdBL(request.CourseId);
                 if (course == null)
                 {
                     return Json(new { success = false, message = "Kurs bulunamadı" });
                 }
 
-                // PDF oluştur
                 var pdfBytes = await _geminiService.GeneratePdfFromSummaryAsync(
                     request.Summary, 
                     course.Name, 
                     video.Name
                 );
 
-                // PDF'i dosya olarak döndür
                 string fileName = $"{course.Name}_{video.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
                 fileName = fileName.Replace(" ", "_").Replace("/", "_").Replace("\\", "_");
 
@@ -246,7 +230,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // API kullanım durumunu kontrol eden endpoint
         [HttpGet]
         public async Task<IActionResult> GetApiUsage()
         {
@@ -275,7 +258,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // API limit durumunu kontrol eden endpoint
         [HttpGet]
         public async Task<IActionResult> CheckApiLimit()
         {
@@ -287,7 +269,6 @@ namespace Bootcamp.PresentationLayer.Controllers
                     return Json(new { success = false, message = "Kullanıcı giriş yapmamış" });
                 }
 
-                // Test isteği gönder
                 var testRequest = new
                 {
                     contents = new[]
@@ -309,7 +290,7 @@ namespace Bootcamp.PresentationLayer.Controllers
                 var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                 using var httpClient = new HttpClient();
-                var apiKey = "YOUR_API_KEY"; // Bu değeri appsettings.json'dan almalısınız
+                var apiKey = "YOUR_API_KEY"; 
                 var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
                 var response = await httpClient.PostAsync($"{apiUrl}?key={apiKey}", content);
@@ -333,7 +314,6 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
         }
 
-        // YouTube URL'sini embed formatına çeviren yardımcı metod
         private string ConvertToEmbedUrl(string videoUrl)
         {
             if (string.IsNullOrEmpty(videoUrl))
@@ -355,10 +335,10 @@ namespace Bootcamp.PresentationLayer.Controllers
             }
             else if (videoUrl.Contains("youtube.com/embed/"))
             {
-                return videoUrl; // Zaten embed formatında
+                return videoUrl; 
             }
 
-            return videoUrl; // Desteklenmeyen format
+            return videoUrl;
         }
 
         [HttpPost]

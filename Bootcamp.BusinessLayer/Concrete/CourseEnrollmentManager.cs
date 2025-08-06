@@ -37,5 +37,15 @@ namespace Bootcamp.BusinessLayer.Concrete
         {
             _courseEnrollmentDal.Update(t);
         }
+
+        public int GetEnrollmentCountByCourseId(int courseId)
+        {
+            return _courseEnrollmentDal.GetEnrollmentCountByCourseId(courseId);
+        }
+
+        public int GetEnrollmentCountByInstructorId(int instructorId)
+        {
+            return _courseEnrollmentDal.GetEnrollmentCountByInstructorId(instructorId);
+        }
     }
 } 

@@ -22,11 +22,10 @@
                         </div>
                         <div class="col-md-9">
                             <h1 class="h3 mb-2 fw-bold">@Model.Name</h1>
-                            <p class="mb-3 opacity-75">Bu eğitimde temel matematik kavramları, sayılar, denklemler ve problem çözme teknikleri anlatılmaktadır.</p>
+                            <p class="mb-3 opacity-75">@Model.Description</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge bg-light text-dark">@Model.CourseLevel.Name</span>
                                 <span class="badge bg-light text-dark">@Model.Category.Name</span>
-                                <span class="badge bg-light text-dark">4 Saat</span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +46,7 @@
                         <div class="d-flex align-items-center mb-1">
                             <span class="text-muted ms-1">@commentsCount değerlendirme</span>
                         </div>
-                        <div class="small text-muted">500+ Öğrenci</div>
+                        <div class="small text-muted">@ViewBag.InstructorEnrollmentCount+ Öğrenci</div>
                     </div>
                 </div>
             </div>
@@ -99,21 +98,14 @@
                                 <div class="bg-light p-3 rounded-3">
                                     <h6 class="mb-3">Eğitim Detayları</h6>
                                     
-                                    <!-- Test butonu (sadece geliştirme amaçlı) -->
-                                    <button onclick="addSampleDurations()" class="btn btn-sm btn-outline-secondary mb-2">
-                                        <i class="bi bi-clock me-1"></i>Örnek Süreler Ekle
-                                    </button>
+                                 
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="text-muted">Seviye:</span>
                                         <span class="fw-semibold">@Model.CourseLevel.Name</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
-                                        <span class="text-muted">Süre:</span>
-                                        <span class="fw-semibold">4 Saat</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
                                         <span class="text-muted">Videolar:</span>
-                                        <span class="fw-semibold">10 Adet</span>
+                                        <span class="fw-semibold">@ViewBag.VideoCount Adet</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <span class="text-muted">Sertifika:</span>
@@ -180,23 +172,13 @@
                           
                         </div>
 
-                        <form class="comment-form mt-4">
+                        <form class="comment-form mt-4" id="commentForm">
                             <h6 class="mb-3">Yorumunuzu Ekleyin</h6>
                             <div class="mb-3">
                                 <label for="commentInput" class="form-label">Yorumunuz</label>
                                 <textarea class="form-control modern-form" id="commentInput" rows="3" placeholder="Bu eğitim hakkında düşüncelerinizi paylaşın..."></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Puanınız</label>
-                                <div class="rating-stars">
-                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
-                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
-                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
-                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
-                                    <i class="bi bi-star rating-star" style="font-size:1.5rem;cursor:pointer;color:#e9ecef;"></i>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary modern-form" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
+                            <button type="submit" class="btn btn-primary modern-form" id="submitComment" style="background:linear-gradient(135deg, #667eea, #764ba2); border:none;">
                                 <i class="bi bi-send me-2"></i>Yorum Gönder
                             </button>
                         </form>
@@ -210,19 +192,12 @@
             <div class="sidebar-card p-4 mb-4 stagger-animation" data-delay="0.3">
                 <h5 class="mb-4">Eğitim Bilgileri</h5>
 
-                <div class="sidebar-info">
-                    <i class="bi bi-clock" style="color:#667eea;"></i>
-                    <div>
-                        <div class="fw-semibold">Süre</div>
-                        <div class="text-muted small">4 Saat</div>
-                    </div>
-                </div>
 
                 <div class="sidebar-info">
                     <i class="bi bi-play-circle" style="color:#667eea;"></i>
                     <div>
                         <div class="fw-semibold">Videolar</div>
-                        <div class="text-muted small">10 Adet</div>
+                        <div class="text-muted small">@ViewBag.VideoCount Adet</div>
                     </div>
                 </div>
 
@@ -238,20 +213,28 @@
                     <i class="bi bi-people" style="color:#667eea;"></i>
                     <div>
                         <div class="fw-semibold">Öğrenci</div>
-                        <div class="text-muted small">500+ Kayıtlı</div>
+                        <div class="text-muted small">@ViewBag.CourseEnrollmentCount+ Kayıtlı</div>
                     </div>
                 </div>
 
-                <!-- Progress Bar -->
-                <div class="progress-container mt-4">
+                <!-- Custom Progress Bar -->
+                <div class="custom-progress-container mt-4">
                     <div class="d-flex justify-content-between mb-2">
                         <span class="fw-semibold">İlerleme</span>
-                        <span class="text-muted">65%</span>
+                        <span class="text-muted" id="customProgressPercentage">@(ViewBag.ProgressPercentage ?? 0)%</span>
                     </div>
-                    <div class="progress" style="height:8px;">
-                        <div class="progress-bar" role="progressbar" style="width:65%"></div>
+                    <div class="custom-progress-track" style="height: 8px; background-color: #e9ecef; border-radius: 4px; overflow: hidden; position: relative;">
+                        <div class="custom-progress-fill" id="customProgressFill" 
+                             style="height: 100%; 
+                                    background: linear-gradient(135deg, #667eea, #764ba2); 
+                                    border-radius: 4px; 
+                                    transition: width 0.3s ease; 
+                                    width: @(ViewBag.ProgressPercentage ?? 0)%; 
+                                    position: absolute; 
+                                    top: 0; 
+                                    left: 0;"></div>
                     </div>
-                    <div class="progress-text">3/5 bölüm tamamlandı</div>
+                    <div class="custom-progress-text" id="customProgressText">@(ViewBag.CompletedVideos ?? 0)/@(ViewBag.TotalVideos ?? 0) bölüm tamamlandı</div>
                 </div>
             </div>
 
@@ -259,9 +242,6 @@
                 <h5 class="mb-4">Eğitime Katıl</h5>
                 <p class="text-muted mb-4">Bu eğitime katılarak matematik temellerini öğrenin ve sertifikanızı alın.</p>
 
-                <button class="btn btn-warning sidebar-btn enroll-btn w-100 mb-3" style="background:linear-gradient(135deg, #FFC107, #FF8C00); border:none; color:white;">
-                    <i class="bi bi-person-plus me-2"></i>Kayıt Ol
-                </button>
 
                 @if (SignInManager.IsSignedIn(User))
                 {
@@ -359,6 +339,209 @@
             console.error('Hata:', error);
             alert('Bir hata oluştu. Lütfen tekrar deneyin.');
         });
+    }
+    
+    // Custom progress bar CSS - çakışmaları önle
+    const customProgressCSS = `
+        .custom-progress-container {
+            margin-top: 1.5rem;
+        }
+        .custom-progress-track {
+            height: 8px !important;
+            background-color: #e9ecef !important;
+            border-radius: 4px !important;
+            overflow: hidden !important;
+            position: relative !important;
+        }
+        .custom-progress-fill {
+            height: 100% !important;
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            border-radius: 4px !important;
+            transition: width 0.3s ease !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+        }
+        .custom-progress-text {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+    `;
+    
+    // CSS'i sayfaya ekle
+    const style = document.createElement('style');
+    style.textContent = customProgressCSS;
+    document.head.appendChild(style);
+    
+    // Custom progress bar'ı dinamik olarak güncelle
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeCustomProgressBar();
+        initializeCommentForm();
+    });
+    
+    function initializeCustomProgressBar() {
+        const progressFill = document.getElementById('customProgressFill');
+        const progressPercentage = document.getElementById('customProgressPercentage');
+        const progressText = document.getElementById('customProgressText');
+        
+        if (progressFill && progressPercentage && progressText) {
+            // ViewBag değerlerini al
+            const completedVideos = @(ViewBag.CompletedVideos ?? 0);
+            const totalVideos = @(ViewBag.TotalVideos ?? 0);
+            const progressPercent = @(ViewBag.ProgressPercentage ?? 0);
+            
+            // Progress fill genişliğini ayarla
+            progressFill.style.width = progressPercent + '%';
+            
+            // Progress yüzdesini güncelle
+            progressPercentage.textContent = progressPercent + '%';
+            
+            // Progress metnini güncelle
+            progressText.textContent = completedVideos + '/' + totalVideos + ' bölüm tamamlandı';
+            
+            // Progress bar'ı kilitle - başka scriptlerin etkilemesini önle
+            Object.defineProperty(progressFill.style, 'width', {
+                value: progressPercent + '%',
+                writable: false,
+                configurable: false
+            });
+        }
+    }
+    
+    // Yorum formu işlemleri
+    function initializeCommentForm() {
+        const commentForm = document.getElementById('commentForm');
+        const commentInput = document.getElementById('commentInput');
+        const submitButton = document.getElementById('submitComment');
+        
+        if (commentForm && commentInput && submitButton) {
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const commentText = commentInput.value.trim();
+                if (!commentText) {
+                    alert('Lütfen bir yorum yazın.');
+                    return;
+                }
+                
+                // Butonu devre dışı bırak
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Gönderiliyor...';
+                submitButton.disabled = true;
+                
+                // Yorumu gönder
+                fetch('/Home/SendComment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `courseId=@Model.Id&commentText=${encodeURIComponent(commentText)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Yeni yorumu sayfaya ekle
+                        addCommentToPage(data.comment);
+                        
+                        // Formu temizle
+                        commentInput.value = '';
+                        
+                        // Başarı mesajı göster
+                        showCommentMessage(data.message, 'success');
+                    } else {
+                        showCommentMessage(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    showCommentMessage('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+                })
+                .finally(() => {
+                    // Butonu eski haline getir
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                });
+            });
+        }
+    }
+    
+    // Yeni yorumu sayfaya ekle
+    function addCommentToPage(comment) {
+        const commentsContainer = document.querySelector('.comments-container');
+        if (!commentsContainer) return;
+        
+        // Kullanıcı görselini belirle
+        const userImage = comment.userGender === "Erkek"
+            ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            : comment.userGender === "Kadın"
+                ? "https://cdn-icons-png.flaticon.com/512/3135/3135789.png"
+                : "https://cdn-icons-png.flaticon.com/512/4139/4139981.png";
+        
+        // Yeni yorum HTML'i
+        const newCommentHTML = `
+            <div class="comment-item">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="${userImage}"
+                         alt="Kullanıcı"
+                         class="rounded-circle me-2"
+                         style="width:40px;height:40px;object-fit:cover;">
+                    <div>
+                        <div class="comment-author">${comment.userName}</div>
+                        <div class="comment-date">${comment.createdAt}</div>
+                    </div>
+                </div>
+                <div class="comment-text">${comment.text}</div>
+            </div>
+        `;
+        
+        // Yorumu sayfanın başına ekle
+        commentsContainer.insertAdjacentHTML('afterbegin', newCommentHTML);
+        
+        // Yorum sayısını güncelle
+        updateCommentCount();
+    }
+    
+    // Yorum sayısını güncelle
+    function updateCommentCount() {
+        const commentsContainer = document.querySelector('.comments-container');
+        const commentCountElement = document.querySelector('.text-muted.ms-1');
+        
+        if (commentsContainer && commentCountElement) {
+            const commentCount = commentsContainer.querySelectorAll('.comment-item').length;
+            commentCountElement.textContent = commentCount + ' değerlendirme';
+        }
+    }
+    
+    // Yorum mesajı göster
+    function showCommentMessage(message, type) {
+        // Mevcut mesajı temizle
+        const existingMessage = document.querySelector('.comment-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Yeni mesaj oluştur
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show comment-message mt-3`;
+        messageDiv.innerHTML = `
+            <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        // Mesajı forma ekle
+        const commentForm = document.getElementById('commentForm');
+        if (commentForm) {
+            commentForm.appendChild(messageDiv);
+        }
+        
+        // 3 saniye sonra mesajı otomatik kaldır
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 3000);
     }
 </script>
 

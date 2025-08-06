@@ -93,7 +93,6 @@ namespace Bootcamp.PresentationLayer.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             var course = _courseService.GetByIdBL(id);
-            // Eğer ilişkili veriler null geliyorsa, gerekirse burada tekrar çekilebilir.
             return View(course);
         }
 
