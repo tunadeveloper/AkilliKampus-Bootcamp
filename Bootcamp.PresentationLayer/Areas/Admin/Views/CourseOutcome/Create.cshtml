@@ -1,0 +1,36 @@
+@model Bootcamp.EntityLayer.Concrete.CourseOutcome
+@{
+    ViewData["Title"] = "Yeni Kazanım";
+    var courses = ViewBag.Courses as List<Bootcamp.EntityLayer.Concrete.Course>;
+}
+<div class="page-header">
+    <h1 class="page-title">Yeni Kazanım Ekle</h1>
+    <p class="page-subtitle">Yeni bir kurs kazanımı ekleyin.</p>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Kazanım Başlığı</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CourseId" class="form-label">Kurs</label>
+                <select asp-for="CourseId" class="form-control">
+                    <option value="" disabled selected>Kurs Seçiniz</option>
+                    @if (courses != null)
+                    {
+                        foreach (var course in courses)
+                        {
+                            <option value="@course.Id">@course.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

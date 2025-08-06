@@ -1,0 +1,100 @@
+@model IEnumerable<Bootcamp.EntityLayer.Concrete.Comment>
+@{
+    ViewData["Title"] = "Yorumlar";
+    int count = 0;
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Yorumlar</h1>
+            <p class="page-subtitle">Kullanıcı yorumlarını yönetin ve düzenleyin.</p>
+        </div>
+        <a href="@Url.Action("Create", "Comment", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Yorum
+        </a>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-chat-dots me-2"></i>
+            Yorum Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kullanıcı</th>
+                            <th>Kurs</th>
+                            <th>Yorum</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var comment in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>@(comment.ApplicationUser?.NameSurname ?? "-")</td>
+                                <td>@(comment.Course?.Name ?? "-")</td>
+                                <td>
+                                    @if (comment.Text?.Length > 50)
+                                    {
+                                        @(comment.Text.Substring(0, 50) + "...")
+                                    }
+                                    else
+                                    {
+                                        @comment.Text
+                                    }
+                                </td>
+                                <td>@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("Edit", "Comment", new { area = "Admin", id = comment.Id })" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Comment", new { area = "Admin", id = comment.Id })" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                        <a href="@Url.Action("Details", "Comment", new { area = "Admin", id = comment.Id })" class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-chat-dots text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h5 class="text-muted mb-3">Henüz yorum bulunmuyor</h5>
+                <p class="text-muted mb-4">İlk yorumu ekleyerek başlayın.</p>
+                <a href="@Url.Action("Create", "Comment", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk Yorumu Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div> 

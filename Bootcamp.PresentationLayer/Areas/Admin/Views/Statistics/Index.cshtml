@@ -1,0 +1,371 @@
+@model Bootcamp.PresentationLayer.Areas.Admin.Models.StatisticsViewModel
+@{
+    ViewData["Title"] = "İstatistikler";
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">İstatistikler</h1>
+            <p class="page-subtitle">Platform genelinde detaylı istatistikler ve analizler.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary" onclick="window.print()">
+                <i class="bi bi-printer me-2"></i>
+                Yazdır
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Genel İstatistikler -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="admin-card stat-card">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-primary-custom">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3 class="stat-number">@Model.TotalUsers</h3>
+                <p class="stat-label">Toplam Kullanıcı</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="admin-card stat-card">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-success-custom">
+                    <i class="bi bi-book"></i>
+                </div>
+                <h3 class="stat-number">@Model.TotalCourses</h3>
+                <p class="stat-label">Toplam Kurs</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="admin-card stat-card">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-info-custom">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+                <h3 class="stat-number">@Model.TotalComments</h3>
+                <p class="stat-label">Toplam Yorum</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="admin-card stat-card">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-warning-custom">
+                    <i class="bi bi-person-badge"></i>
+                </div>
+                <h3 class="stat-number">@Model.TotalInstructors</h3>
+                <p class="stat-label">Toplam Eğitmen</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Popüler Kurslar -->
+    <div class="col-md-6 mb-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-star me-2"></i>
+                    Popüler Kurslar
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.PopularCourses.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kurs</th>
+                                    <th>Kategori</th>
+                                    <th>Yorum Sayısı</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var course in Model.PopularCourses)
+                                {
+                                    <tr>
+                                        <td>@course.CourseName</td>
+                                        <td><span class="badge bg-secondary">@course.CategoryName</span></td>
+                                        <td><span class="badge bg-primary">@course.CommentCount</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center">Henüz popüler kurs bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Yorumlar -->
+    <div class="col-md-6 mb-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-clock me-2"></i>
+                    Son Yorumlar
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentComments.Any())
+                {
+                    @foreach (var comment in Model.RecentComments)
+                    {
+                        <div class="comment-item mb-3 p-3 border rounded">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong>@comment.UserName</strong>
+                                    <small class="text-muted d-block">@comment.CourseName</small>
+                                    <p class="mb-1 mt-2">@comment.CommentText</p>
+                                </div>
+                                <small class="text-muted">@comment.CreatedAt.ToString("dd.MM.yyyy")</small>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center">Henüz yorum bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Kategori Dağılımı -->
+    <div class="col-md-4 mb-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-pie-chart me-2"></i>
+                    Kategori Dağılımı
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.CategoryDistribution.Any())
+                {
+                    @foreach (var category in Model.CategoryDistribution)
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>@category.CategoryName</span>
+                            <span class="badge bg-primary">@category.CourseCount</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 8px;">
+                            @{
+                                var percentage = Model.TotalCourses > 0 ? (category.CourseCount * 100.0 / Model.TotalCourses) : 0;
+                            }
+                            <div class="progress-bar" style="width: @percentage%"></div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center">Kategori verisi bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Seviye Dağılımı -->
+    <div class="col-md-4 mb-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    Seviye Dağılımı
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.LevelDistribution.Any())
+                {
+                    @foreach (var level in Model.LevelDistribution)
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>@level.LevelName</span>
+                            <span class="badge bg-success">@level.CourseCount</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 8px;">
+                            @{
+                                var percentage = Model.TotalCourses > 0 ? (level.CourseCount * 100.0 / Model.TotalCourses) : 0;
+                            }
+                            <div class="progress-bar bg-success" style="width: @percentage%"></div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center">Seviye verisi bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Eğitmen Performansı -->
+    <div class="col-md-4 mb-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-trophy me-2"></i>
+                    Eğitmen Performansı
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.InstructorPerformance.Any())
+                {
+                    @foreach (var instructor in Model.InstructorPerformance)
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <strong>@instructor.InstructorName</strong>
+                                <small class="text-muted d-block">@instructor.Position</small>
+                            </div>
+                            <span class="badge bg-warning">@instructor.CourseCount</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 8px;">
+                            @{
+                                var maxCourses = Model.InstructorPerformance.Max(i => i.CourseCount);
+                                var percentage = maxCourses > 0 ? (instructor.CourseCount * 100.0 / maxCourses) : 0;
+                            }
+                            <div class="progress-bar bg-warning" style="width: @percentage%"></div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center">Eğitmen verisi bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Aylık İstatistikler -->
+<div class="row">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-graph-up me-2"></i>
+                    Platform İstatistikleri
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.MonthlyStats.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kategori/Seviye</th>
+                                    <th>Kurs Sayısı</th>
+                                    <th>Yorum Sayısı</th>
+                                    <th>Kullanıcı Sayısı</th>
+                                    <th>Toplam Aktivite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var stat in Model.MonthlyStats)
+                                {
+                                    var totalActivity = stat.NewUsers + stat.NewComments + stat.NewCourses;
+                                    <tr>
+                                        <td><strong>@stat.Month</strong></td>
+                                        <td><span class="badge bg-success">@stat.NewCourses</span></td>
+                                        <td><span class="badge bg-info">@stat.NewComments</span></td>
+                                        <td><span class="badge bg-primary">@stat.NewUsers</span></td>
+                                        <td><span class="badge bg-dark">@totalActivity</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center">Aylık istatistik verisi bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stat-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 1.5rem;
+    }
+    
+    .bg-primary-custom {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+    }
+    
+    .bg-success-custom {
+        background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .bg-info-custom {
+        background: linear-gradient(135deg, #06b6d4, #0891b2);
+    }
+    
+    .bg-warning-custom {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+    
+    .stat-label {
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+    
+    .comment-item {
+        background-color: #f8fafc;
+        border-color: #e2e8f0 !important;
+    }
+    
+    .comment-item:hover {
+        background-color: #f1f5f9;
+    }
+    
+    .progress {
+        background-color: #e2e8f0;
+        border-radius: 10px;
+    }
+    
+    .progress-bar {
+        border-radius: 10px;
+    }
+</style>

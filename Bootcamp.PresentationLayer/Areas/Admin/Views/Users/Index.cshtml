@@ -1,0 +1,104 @@
+@model IEnumerable<Bootcamp.PresentationLayer.Areas.Admin.Models.UserWithRolesViewModel>
+@{
+    ViewData["Title"] = "Kullanıcılar";
+    int count = 0;
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Kullanıcılar</h1>
+            <p class="page-subtitle">Kullanıcıları yönetin ve düzenleyin.</p>
+        </div>
+        <a href="@Url.Action("Create", "Users", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Kullanıcı
+        </a>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-people me-2"></i>
+            Kullanıcı Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ad Soyad</th>
+                            <th>Email</th>
+                            <th>Cinsiyet</th>
+                            <th>Roller</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>@user.NameSurname</td>
+                                <td>@user.Email</td>
+                                <td>@user.Gender</td>
+                                <td>
+                                    @if (user.Roles != null && user.Roles.Any())
+                                    {
+                                        foreach (var role in user.Roles)
+                                        {
+                                            var badgeClass = role == "Admin" ? "bg-success" : role == "User" ? "bg-danger" : "bg-info";
+                                            <span class="badge @badgeClass me-1">@role</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("Edit", "Users", new { area = "Admin", id = user.Id })" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Users", new { area = "Admin", id = user.Id })" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                        <a href="@Url.Action("Details", "Users", new { area = "Admin", id = user.Id })" class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-people text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h5 class="text-muted mb-3">Henüz kullanıcı bulunmuyor</h5>
+                <p class="text-muted mb-4">İlk kullanıcıyı ekleyerek başlayın.</p>
+                <a href="@Url.Action("Create", "Users", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk Kullanıcıyı Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

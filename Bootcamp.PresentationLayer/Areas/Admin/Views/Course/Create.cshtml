@@ -1,0 +1,72 @@
+@model Bootcamp.EntityLayer.Concrete.Course
+@{
+    ViewData["Title"] = "Yeni Kurs";
+}
+<div class="page-header">
+    <h1 class="page-title">Yeni Kurs Ekle</h1>
+    <p class="page-subtitle">Yeni bir kurs ekleyin.</p>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Kurs Adı</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Açıklama</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ThumbnailUrl" class="form-label">Kapak Görseli URL</label>
+                <input asp-for="ThumbnailUrl" class="form-control" />
+                <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsPopuler" class="form-label">Popüler mi?</label>
+                <select asp-for="IsPopuler" class="form-control">
+                    <option value="false">Hayır</option>
+                    <option value="true">Evet</option>
+                </select>
+                <span asp-validation-for="IsPopuler" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Kategori</label>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="" disabled selected>Kategori Seçiniz</option>
+                    @foreach (var category in ViewBag.Categories as List<Bootcamp.EntityLayer.Concrete.CourseCategory>)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CourseLevelId" class="form-label">Seviye</label>
+                <select asp-for="CourseLevelId" class="form-control">
+                    <option value="" disabled selected>Seviye Seçiniz</option>
+                    @foreach (var level in ViewBag.Levels as List<Bootcamp.EntityLayer.Concrete.CourseLevel>)
+                    {
+                        <option value="@level.Id">@level.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CourseLevelId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="InstructorId" class="form-label">Eğitmen</label>
+                <select asp-for="InstructorId" class="form-control">
+                    <option value="" disabled selected>Eğitmen Seçiniz</option>
+                    @foreach (var instructor in ViewBag.Instructors as List<Bootcamp.EntityLayer.Concrete.Instructor>)
+                    {
+                        <option value="@instructor.Id">@instructor.NameSurname</option>
+                    }
+                </select>
+                <span asp-validation-for="InstructorId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

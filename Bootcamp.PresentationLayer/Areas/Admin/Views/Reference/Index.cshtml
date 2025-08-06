@@ -1,0 +1,127 @@
+@model IEnumerable<Bootcamp.EntityLayer.Concrete.Reference>
+@{
+    ViewData["Title"] = "Referanslar Yönetimi";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Referanslar Yönetimi</h1>
+            <p class="page-subtitle">Müşteri referanslarını yönetin.</p>
+        </div>
+        <a href="@Url.Action("Create", "Reference", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Referans Ekle
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-star me-2"></i>
+            Referanslar Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ad Soyad</th>
+                            <th>Pozisyon</th>
+                            <th>Resim</th>
+                            <th>Yorum</th>
+                            <th>Sıra</th>
+                            <th>Durum</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reference in Model)
+                        {
+                            <tr>
+                                <td>@reference.Id</td>
+                                <td>@reference.NameSurname</td>
+                                <td>@reference.PositionName</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(reference.ImageUrl))
+                                    {
+                                        <img src="@reference.ImageUrl" alt="@reference.NameSurname" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                                            <i class="bi bi-person text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (reference.Comment.Length > 50)
+                                    {
+                                        @(reference.Comment.Substring(0, 50) + "...")
+                                    }
+                                    else
+                                    {
+                                        @reference.Comment
+                                    }
+                                </td>
+                                <td>@reference.Order</td>
+                                <td>
+                                    @if (reference.IsActive)
+                                    {
+                                        <span class="badge bg-success">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Pasif</span>
+                                    }
+                                </td>
+                                <td>@reference.CreatedAt.ToString("dd.MM.yyyy")</td>
+                                <td>
+                                    <div class="d-flex gap-2" role="group">
+                                        <a href="@Url.Action("Details", "Reference", new { area = "Admin", id = reference.Id })"
+                                           class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", "Reference", new { area = "Admin", id = reference.Id })"
+                                           class="btn btn-sm btn-outline-warning">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Reference", new { area = "Admin", id = reference.Id })"
+                                           class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-4">
+                <i class="bi bi-star text-muted" style="font-size: 3rem;"></i>
+                <p class="text-muted mt-3">Henüz referans bulunmuyor.</p>
+                <a href="@Url.Action("Create", "Reference", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk Referansı Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

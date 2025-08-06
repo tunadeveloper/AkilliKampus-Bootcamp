@@ -19,6 +19,15 @@ namespace Bootcamp.DataAccessLayer.EntityFramework
             _context = context;
         }
 
+        public override List<Course> GetList()
+        {
+            return _context.Courses
+                .Include(x => x.Category)
+                .Include(x => x.CourseLevel)
+                .Include(x => x.Instructor)
+                .ToList();
+        }
+
         public List<Course> GetCoursesWithCategory()
         {
             return _context.Courses

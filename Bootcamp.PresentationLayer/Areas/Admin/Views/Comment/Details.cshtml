@@ -1,0 +1,62 @@
+@model Bootcamp.EntityLayer.Concrete.Comment
+@{
+    ViewData["Title"] = "Yorum Detayı";
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Yorum Detayı</h1>
+            <p class="page-subtitle">Yorum bilgilerini görüntüleyin.</p>
+        </div>
+        <a href="@Url.Action("Index", "Comment", new { area = "Admin" })" class="btn btn-secondary-custom">
+            <i class="bi bi-arrow-left me-2"></i>
+            Geri Dön
+        </a>
+    </div>
+</div>
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-info-circle me-2"></i>
+            Yorum Bilgileri
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label class="form-label">Kullanıcı</label>
+                    <input type="text" class="form-control" value="@(Model.ApplicationUser?.NameSurname ?? "-")" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label class="form-label">Kurs</label>
+                    <input type="text" class="form-control" value="@(Model.Course?.Name ?? "-")" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Yorum Metni</label>
+            <textarea class="form-control" rows="4" readonly>@Model.Text</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Oluşturulma Tarihi</label>
+            <input type="text" class="form-control" value="@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")" readonly />
+        </div>
+        <div class="d-flex gap-2">
+            <a href="@Url.Action("Edit", "Comment", new { area = "Admin", id = Model.Id })" class="btn btn-primary-custom">
+                <i class="bi bi-pencil me-2"></i>
+                Düzenle
+            </a>
+            <a href="@Url.Action("Delete", "Comment", new { area = "Admin", id = Model.Id })" class="btn btn-danger-custom">
+                <i class="bi bi-trash me-2"></i>
+                Sil
+            </a>
+            <a href="@Url.Action("Index", "Comment", new { area = "Admin" })" class="btn btn-secondary-custom">
+                <i class="bi bi-list me-2"></i>
+                Listeye Dön
+            </a>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,29 @@
+@model Bootcamp.EntityLayer.Concrete.ApplicationUser
+@{
+    ViewData["Title"] = "Kullanıcı Sil";
+}
+<div class="page-header">
+    <h1 class="page-title">Kullanıcı Sil</h1>
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="alert alert-danger">
+                <strong>Uyarı:</strong> Bu kullanıcıyı silmek istediğinize emin misiniz?
+            </div>
+            <dl class="row">
+                <dt class="col-sm-3">Id</dt>
+                <dd class="col-sm-9">@Model.Id</dd>
+                <dt class="col-sm-3">Ad Soyad</dt>
+                <dd class="col-sm-9">@Model.NameSurname</dd>
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+                <dt class="col-sm-3">Cinsiyet</dt>
+                <dd class="col-sm-9">@Model.Gender</dd>
+            </dl>
+            <button type="submit" class="btn btn-danger">Sil</button>
+        </form>
+    </div>
+</div>

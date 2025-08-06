@@ -1,0 +1,237 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Hoş Geldiniz!</h1>
+    <p class="page-subtitle">Admin panelinize hoş geldiniz. Aşağıdaki istatistikleri inceleyebilir ve yönetim işlemlerinizi gerçekleştirebilirsiniz.</p>
+</div>
+
+<div class="row g-4">
+    <!-- İstatistik Kartları -->
+    <div class="col-xl-3 col-md-6">
+        <div class="admin-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-gradient rounded-circle p-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-book text-white fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mb-1">24</h4>
+                        <p class="text-muted mb-0">Toplam Kurs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="admin-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="bg-success bg-gradient rounded-circle p-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-people text-white fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mb-1">156</h4>
+                        <p class="text-muted mb-0">Aktif Kullanıcı</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="admin-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="bg-warning bg-gradient rounded-circle p-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-tags text-white fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mb-1">8</h4>
+                        <p class="text-muted mb-0">Kategori</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="admin-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="bg-info bg-gradient rounded-circle p-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-chat-dots text-white fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mb-1">42</h4>
+                        <p class="text-muted mb-0">Yorum</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <!-- Hızlı İşlemler -->
+    <div class="col-lg-8">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-lightning me-2"></i>
+                    Hızlı İşlemler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Create", "CourseCategory", new { area = "Admin" })" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Yeni Kategori Ekle
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Index", "CourseCategory", new { area = "Admin" })" class="btn btn-success-custom w-100">
+                            <i class="bi bi-list me-2"></i>
+                            Kategorileri Görüntüle
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-warning w-100">
+                            <i class="bi bi-book me-2"></i>
+                            Yeni Kurs Ekle
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-info w-100">
+                            <i class="bi bi-people me-2"></i>
+                            Kullanıcıları Yönet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Aktiviteler -->
+    <div class="col-lg-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-clock-history me-2"></i>
+                    Son Aktiviteler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-success rounded-circle p-2 me-3">
+                        <i class="bi bi-plus text-white"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-semibold">Yeni kategori eklendi</p>
+                        <small class="text-muted">2 saat önce</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary rounded-circle p-2 me-3">
+                        <i class="bi bi-person text-white"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-semibold">Yeni kullanıcı kaydoldu</p>
+                        <small class="text-muted">4 saat önce</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-warning rounded-circle p-2 me-3">
+                        <i class="bi bi-chat text-white"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-semibold">Yeni yorum yapıldı</p>
+                        <small class="text-muted">6 saat önce</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="bg-info rounded-circle p-2 me-3">
+                        <i class="bi bi-book text-white"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-semibold">Kurs güncellendi</p>
+                        <small class="text-muted">1 gün önce</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <!-- Sistem Durumu -->
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-gear me-2"></i>
+                    Sistem Durumu
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle p-2 me-3">
+                                <i class="bi bi-check-circle text-white"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-semibold">Veritabanı</p>
+                                <small class="text-success">Çalışıyor</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle p-2 me-3">
+                                <i class="bi bi-check-circle text-white"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-semibold">API Servisleri</p>
+                                <small class="text-success">Aktif</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle p-2 me-3">
+                                <i class="bi bi-check-circle text-white"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-semibold">Dosya Sistemi</p>
+                                <small class="text-success">Normal</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle p-2 me-3">
+                                <i class="bi bi-check-circle text-white"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-semibold">Güvenlik</p>
+                                <small class="text-success">Güvenli</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

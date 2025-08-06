@@ -10,7 +10,7 @@ namespace Bootcamp.DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        private readonly Context _context;
+        protected readonly Context _context;
 
         public GenericRepository(Context context)
         {
@@ -23,12 +23,12 @@ namespace Bootcamp.DataAccessLayer.Repository
             _context.SaveChanges();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
          return _context.Set<T>().Find(id);
         }
 
-        public List<T> GetList()
+        public virtual List<T> GetList()
         {
             return _context.Set<T>().ToList();
         }

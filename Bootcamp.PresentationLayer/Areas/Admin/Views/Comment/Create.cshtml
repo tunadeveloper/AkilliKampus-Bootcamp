@@ -1,0 +1,86 @@
+@model Bootcamp.EntityLayer.Concrete.Comment
+@{
+    ViewData["Title"] = "Yeni Yorum";
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Yeni Yorum</h1>
+            <p class="page-subtitle">Yeni bir yorum ekleyin.</p>
+        </div>
+        <a href="@Url.Action("Index", "Comment", new { area = "Admin" })" class="btn btn-secondary-custom">
+            <i class="bi bi-arrow-left me-2"></i>
+            Geri Dön
+        </a>
+    </div>
+</div>
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yorum Bilgileri
+        </h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="ApplicationUserId" class="form-label">Kullanıcı</label>
+                        <select asp-for="ApplicationUserId" class="form-control">
+                            <option value="" disabled selected>Kullanıcı Seçiniz</option>
+                            @if (ViewBag.Users != null)
+                            {
+                                foreach (var item in ViewBag.Users)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState["ApplicationUserId"]?.Errors.Count > 0)
+                        {
+                            <span class="text-danger">@ViewData.ModelState["ApplicationUserId"].Errors.First().ErrorMessage</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="CourseId" class="form-label">Kurs</label>
+                        <select asp-for="CourseId" class="form-control">
+                            <option value="" disabled selected>Kurs Seçiniz</option>
+                            @if (ViewBag.Courses != null)
+                            {
+                                foreach (var item in ViewBag.Courses)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState["CourseId"]?.Errors.Count > 0)
+                        {
+                            <span class="text-danger">@ViewData.ModelState["CourseId"].Errors.First().ErrorMessage</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Text" class="form-label">Yorum Metni</label>
+                <textarea asp-for="Text" class="form-control" rows="4" placeholder="Yorum metnini buraya yazın..."></textarea>
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Text"]?.Errors.Count > 0)
+                {
+                    <span class="text-danger">@ViewData.ModelState["Text"].Errors.First().ErrorMessage</span>
+                }
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary-custom">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Kaydet
+                </button>
+                <a href="@Url.Action("Index", "Comment", new { area = "Admin" })" class="btn btn-secondary-custom">
+                    <i class="bi bi-x-circle me-2"></i>
+                    İptal
+                </a>
+            </div>
+        </form>
+    </div>
+</div> 

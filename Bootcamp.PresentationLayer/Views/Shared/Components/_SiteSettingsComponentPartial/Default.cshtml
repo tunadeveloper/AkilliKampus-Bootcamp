@@ -1,0 +1,60 @@
+@{
+    // ViewBag'i doğru tipe cast et
+    var seoSettings = ViewBag.SEOSettings as List<Bootcamp.EntityLayer.Concrete.SiteSetting> ?? new List<Bootcamp.EntityLayer.Concrete.SiteSetting>();
+    var logoSettings = ViewBag.LogoSettings as List<Bootcamp.EntityLayer.Concrete.SiteSetting> ?? new List<Bootcamp.EntityLayer.Concrete.SiteSetting>();
+    var generalSettings = ViewBag.GeneralSettings as List<Bootcamp.EntityLayer.Concrete.SiteSetting> ?? new List<Bootcamp.EntityLayer.Concrete.SiteSetting>();
+    var contactSettings = ViewBag.ContactSettings as List<Bootcamp.EntityLayer.Concrete.SiteSetting> ?? new List<Bootcamp.EntityLayer.Concrete.SiteSetting>();
+    var socialSettings = ViewBag.SocialSettings as List<Bootcamp.EntityLayer.Concrete.SiteSetting> ?? new List<Bootcamp.EntityLayer.Concrete.SiteSetting>();
+    
+    // SEO Ayarları
+    var siteTitle = seoSettings.FirstOrDefault(s => s.Key == "SiteTitle")?.Value ?? "Yapay Zeka Destekli Eğitim Platformu";
+    var siteDescription = seoSettings.FirstOrDefault(s => s.Key == "SiteDescription")?.Value ?? "Geleceğin eğitimini bugünden yaşa!";
+    var siteKeywords = seoSettings.FirstOrDefault(s => s.Key == "SiteKeywords")?.Value ?? "yapay zeka, eğitim, online kurs, sertifika";
+    var siteAuthor = seoSettings.FirstOrDefault(s => s.Key == "SiteAuthor")?.Value ?? "Akıllı Kampus";
+    
+    // Logo Ayarları
+    var logoText = logoSettings.FirstOrDefault(s => s.Key == "LogoText")?.Value ?? "Yapay Zeka Eğitim";
+    var logoIcon = logoSettings.FirstOrDefault(s => s.Key == "LogoIcon")?.Value ?? "bi-lightbulb";
+    var logoColor = logoSettings.FirstOrDefault(s => s.Key == "LogoColor")?.Value ?? "#6F42C1";
+    
+    // Genel Ayarlar
+    var siteName = generalSettings.FirstOrDefault(s => s.Key == "SiteName")?.Value ?? "Akıllı Kampus";
+    var siteSlogan = generalSettings.FirstOrDefault(s => s.Key == "SiteSlogan")?.Value ?? "Geleceğin eğitimini bugünden yaşa!";
+    var copyrightText = generalSettings.FirstOrDefault(s => s.Key == "CopyrightText")?.Value ?? "© 2025 Akıllı Kampus. Tüm hakları saklıdır.";
+    
+    // İletişim Ayarları
+    var contactEmail = contactSettings.FirstOrDefault(s => s.Key == "ContactEmail")?.Value ?? "info@akillikampus.com";
+    var contactPhone = contactSettings.FirstOrDefault(s => s.Key == "ContactPhone")?.Value ?? "+90 555 123 45 67";
+    var contactAddress = contactSettings.FirstOrDefault(s => s.Key == "ContactAddress")?.Value ?? "İstanbul, Türkiye";
+    
+    // Sosyal Medya Ayarları
+    var facebookUrl = socialSettings.FirstOrDefault(s => s.Key == "FacebookUrl")?.Value ?? "";
+    var twitterUrl = socialSettings.FirstOrDefault(s => s.Key == "TwitterUrl")?.Value ?? "";
+    var instagramUrl = socialSettings.FirstOrDefault(s => s.Key == "InstagramUrl")?.Value ?? "";
+    var linkedinUrl = socialSettings.FirstOrDefault(s => s.Key == "LinkedInUrl")?.Value ?? "";
+    var youtubeUrl = socialSettings.FirstOrDefault(s => s.Key == "YouTubeUrl")?.Value ?? "";
+}
+
+<script>
+    // Site ayarlarını global değişkenler olarak tanımla
+    window.siteSettings = {
+        title: '@Html.Raw(siteTitle)',
+        description: '@Html.Raw(siteDescription)',
+        keywords: '@Html.Raw(siteKeywords)',
+        author: '@Html.Raw(siteAuthor)',
+        logoText: '@Html.Raw(logoText)',
+        logoIcon: '@Html.Raw(logoIcon)',
+        logoColor: '@Html.Raw(logoColor)',
+        siteName: '@Html.Raw(siteName)',
+        siteSlogan: '@Html.Raw(siteSlogan)',
+        copyrightText: '@Html.Raw(copyrightText)',
+        contactEmail: '@Html.Raw(contactEmail)',
+        contactPhone: '@Html.Raw(contactPhone)',
+        contactAddress: '@Html.Raw(contactAddress)',
+        facebookUrl: '@Html.Raw(facebookUrl)',
+        twitterUrl: '@Html.Raw(twitterUrl)',
+        instagramUrl: '@Html.Raw(instagramUrl)',
+        linkedinUrl: '@Html.Raw(linkedinUrl)',
+        youtubeUrl: '@Html.Raw(youtubeUrl)'
+    };
+</script> 

@@ -1,0 +1,102 @@
+@model IEnumerable<Bootcamp.EntityLayer.Concrete.Instructor>
+@{
+    ViewData["Title"] = "Eğitmenler";
+    int count = 0;
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Eğitmenler</h1>
+            <p class="page-subtitle">Eğitmenleri yönetin ve düzenleyin.</p>
+        </div>
+        <a href="@Url.Action("Create", "Instructor", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Eğitmen
+        </a>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger-custom alert-custom">
+        <i class="bi bi-x-circle me-2"></i>
+        @TempData["Error"]
+    </div>
+}
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-person-badge me-2"></i>
+            Eğitmen Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ad Soyad</th>
+                            <th>Pozisyon</th>
+                            <th>Kurs Sayısı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var instructor in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-gradient rounded-circle p-2 me-3">
+                                            <i class="bi bi-person-badge text-white"></i>
+                                        </div>
+                                        <span class="fw-semibold">@instructor.NameSurname</span>
+                                    </div>
+                                </td>
+                                <td>@instructor.Position</td>
+                                <td>
+                                    <span class="badge bg-secondary">@(instructor.Courses?.Count ?? 0) kurs</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("Edit", "Instructor", new { area = "Admin", id = instructor.Id })" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Instructor", new { area = "Admin", id = instructor.Id })" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-person-badge text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h5 class="text-muted mb-3">Henüz eğitmen bulunmuyor</h5>
+                <p class="text-muted mb-4">İlk eğitmeni ekleyerek başlayın.</p>
+                <a href="@Url.Action("Create", "Instructor", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk Eğitmeni Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

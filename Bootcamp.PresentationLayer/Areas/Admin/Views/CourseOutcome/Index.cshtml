@@ -1,0 +1,84 @@
+@model IEnumerable<Bootcamp.EntityLayer.Concrete.CourseOutcome>
+@{
+    ViewData["Title"] = "Kurs Kazanımları";
+    int count = 0;
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Kurs Kazanımları</h1>
+            <p class="page-subtitle">Kurs kazanımlarını yönetin ve düzenleyin.</p>
+        </div>
+        <a href="@Url.Action("Create", "CourseOutcome", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Kazanım
+        </a>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-lightbulb me-2"></i>
+            Kazanım Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kazanım Başlığı</th>
+                            <th>Kurs</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var outcome in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>@outcome.Title</td>
+                                <td>@(outcome.Course != null ? outcome.Course.Name : "-")</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("Edit", "CourseOutcome", new { area = "Admin", id = outcome.Id })" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "CourseOutcome", new { area = "Admin", id = outcome.Id })" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-lightbulb text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h5 class="text-muted mb-3">Henüz kazanım bulunmuyor</h5>
+                <p class="text-muted mb-4">İlk kazanımı ekleyerek başlayın.</p>
+                <a href="@Url.Action("Create", "CourseOutcome", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk Kazanımı Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

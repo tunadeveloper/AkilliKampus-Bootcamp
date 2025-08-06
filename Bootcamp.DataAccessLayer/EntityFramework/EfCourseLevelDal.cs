@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp.DataAccessLayer.EntityFramework
 {
@@ -14,5 +15,16 @@ namespace Bootcamp.DataAccessLayer.EntityFramework
     {
         public EfCourseLevelDal(Context context) : base(context)
         { }
+
+        private Context Context => (Context)_context;
+        public CourseLevel GetById(int id)
+        {
+            return Context.CourseLevels.Include(cl => cl.Courses).FirstOrDefault(cl => cl.Id == id);
+        }
+
+        public override List<CourseLevel> GetList()
+        {
+            return Context.CourseLevels.Include(cl => cl.Courses).ToList();
+        }
     }
 }

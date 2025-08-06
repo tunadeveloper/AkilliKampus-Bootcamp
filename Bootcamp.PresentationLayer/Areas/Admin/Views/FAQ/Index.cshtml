@@ -1,0 +1,103 @@
+@model IEnumerable<Bootcamp.EntityLayer.Concrete.FAQ>
+@{
+    ViewData["Title"] = "SSS Yönetimi";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">SSS Yönetimi</h1>
+            <p class="page-subtitle">Sıkça sorulan soruları yönetin.</p>
+        </div>
+        <a href="@Url.Action("Create", "FAQ", new { area = "Admin" })" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni SSS Ekle
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-question-circle me-2"></i>
+            SSS Listesi
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Başlık</th>
+                            <th>İkon</th>
+                            <th>Sıra</th>
+                            <th>Durum</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var faq in Model)
+                        {
+                            <tr>
+                                <td>@faq.Id</td>
+                                <td>@faq.Title</td>
+                                <td><i class="@faq.Icon"></i></td>
+                                <td>@faq.Order</td>
+                                <td>
+                                    @if (faq.IsActive)
+                                    {
+                                        <span class="badge bg-success">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Pasif</span>
+                                    }
+                                </td>
+                                <td>@faq.CreatedAt.ToString("dd.MM.yyyy")</td>
+                                <td>
+                                    <div class="d-flex gap-2" role="group">
+                                        <a href="@Url.Action("Details", "FAQ", new { area = "Admin", id = faq.Id })" 
+                                           class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", "FAQ", new { area = "Admin", id = faq.Id })" 
+                                           class="btn btn-sm btn-outline-warning">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "FAQ", new { area = "Admin", id = faq.Id })" 
+                                           class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-4">
+                <i class="bi bi-question-circle text-muted" style="font-size: 3rem;"></i>
+                <p class="text-muted mt-3">Henüz SSS bulunmuyor.</p>
+                <a href="@Url.Action("Create", "FAQ", new { area = "Admin" })" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    İlk SSS'yi Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div> 

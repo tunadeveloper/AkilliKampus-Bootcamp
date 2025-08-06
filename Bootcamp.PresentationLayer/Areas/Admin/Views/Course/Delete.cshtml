@@ -1,0 +1,93 @@
+@model Bootcamp.EntityLayer.Concrete.Course
+@{
+    ViewData["Title"] = "Kurs Sil";
+}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Kurs Sil</h1>
+            <p class="page-subtitle">Bu kursu silmek istediğinizden emin misiniz?</p>
+        </div>
+        <a href="@Url.Action("Index", "Course", new { area = "Admin" })" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Geri Dön
+        </a>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="admin-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Silme Onayı
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger-custom alert-custom mb-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle me-3" style="font-size: 1.5rem;"></i>
+                        <div>
+                            <h6 class="mb-1">Dikkat!</h6>
+                            <p class="mb-0">Bu işlem geri alınamaz. Kurs silindiğinde, bu kursa ait tüm veriler de etkilenecektir.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="admin-card">
+                            <div class="card-body text-center">
+                                <div class="bg-danger bg-gradient rounded-circle p-3 mx-auto mb-3" style="width: 80px; height: 80px;">
+                                    <i class="bi bi-book text-white fs-1"></i>
+                                </div>
+                                <h5 class="mb-2">@Model.Name</h5>
+                                <p class="text-muted mb-0">Kurs ID: @Model.Id</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-card">
+                            <div class="card-body">
+                                <h6 class="mb-3">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Kurs Detayları
+                                </h6>
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <i class="bi bi-book me-2 text-primary"></i>
+                                        <strong>Kurs Adı:</strong> @Model.Name
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-tags me-2 text-warning"></i>
+                                        <strong>Kategori:</strong> @(Model.Category != null ? Model.Category.Name : "-")
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-bar-chart me-2 text-info"></i>
+                                        <strong>Seviye:</strong> @(Model.CourseLevel != null ? Model.CourseLevel.Name : "-")
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-person-badge me-2 text-success"></i>
+                                        <strong>Eğitmen:</strong> @(Model.Instructor != null ? Model.Instructor.NameSurname : "-")
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-danger-custom">
+                            <i class="bi bi-trash me-2"></i>
+                            Kursu Sil
+                        </button>
+                        <a href="@Url.Action("Index", "Course", new { area = "Admin" })" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle me-2"></i>
+                            İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

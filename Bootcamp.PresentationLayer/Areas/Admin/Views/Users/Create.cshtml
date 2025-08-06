@@ -1,0 +1,56 @@
+@model Bootcamp.PresentationLayer.Areas.Admin.Models.UserCreateViewModel
+@{
+    ViewData["Title"] = "Yeni Kullanıcı";
+    var allRoles = ViewBag.AllRoles as IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole<int>>;
+}
+<div class="page-header">
+    <h1 class="page-title">Yeni Kullanıcı Ekle</h1>
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="NameSurname" class="form-label">Ad Soyad</label>
+                <input asp-for="NameSurname" class="form-control" />
+                <span asp-validation-for="NameSurname" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Gender" class="form-label">Cinsiyet</label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="" disabled selected>Cinsiyet Seçiniz</option>
+                    <option value="Erkek">Erkek</option>
+                    <option value="Kadın">Kadın</option>
+                    <option value="Diğer">Diğer</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Şifre</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Roller</label>
+                <select asp-for="SelectedRoles" class="form-control" multiple>
+                    @if (allRoles != null)
+                    {
+                        foreach (var role in allRoles)
+                        {
+                            <option value="@role.Name">@role.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Kaydet</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

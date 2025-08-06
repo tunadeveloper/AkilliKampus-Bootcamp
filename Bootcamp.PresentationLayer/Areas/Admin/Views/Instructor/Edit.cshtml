@@ -1,0 +1,42 @@
+@model Bootcamp.EntityLayer.Concrete.Instructor
+@{
+    ViewData["Title"] = "Eğitmen Güncelle";
+}
+<div class="page-header">
+    <h1 class="page-title">Eğitmen Güncelle</h1>
+    <p class="page-subtitle">Eğitmen bilgilerini düzenleyin.</p>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="NameSurname" class="form-label">Ad Soyad</label>
+                <input asp-for="NameSurname" class="form-control" />
+                <span asp-validation-for="NameSurname" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Position" class="form-label">Pozisyon</label>
+                <input asp-for="Position" class="form-control" />
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Açıklama</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LinkedinUrl" class="form-label">LinkedIn</label>
+                <input asp-for="LinkedinUrl" class="form-control" />
+                <span asp-validation-for="LinkedinUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label">Resim URL</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Güncelle</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

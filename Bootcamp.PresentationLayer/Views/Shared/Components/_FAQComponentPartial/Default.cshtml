@@ -1,46 +1,30 @@
-﻿<section class="container py-5 animate-fadein-delay5" id="faq">
+﻿@model IEnumerable<Bootcamp.EntityLayer.Concrete.FAQ>
+
+<section class="container py-5 animate-fadein-delay5" id="faq">
     <h2 class="section-title mb-4 text-center" style="color:#6F42C1;"><i class="bi bi-question-circle-fill me-2"></i>Sıkça Sorulan Sorular</h2>
     <div class="accordion" id="faqAccordion">
-        <div class="accordion-item sss-card">
-            <h2 class="accordion-header" id="faq1-heading">
-                <button class="accordion-button sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                    <i class="bi bi-award-fill text-warning me-2"></i> Sertifikalar ücretsiz mi?
-                </button>
-            </h2>
-            <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body sss-body">Evet, tüm eğitimlerimizi başarıyla tamamlayanlara ücretsiz sertifika veriyoruz.</div>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var faq in Model.OrderBy(f => f.Order))
+            {
+                <div class="accordion-item sss-card">
+                    <h2 class="accordion-header" id="faq@(faq.Id)-heading">
+                        <button class="accordion-button sss-header @(faq.Order == 1 ? "" : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#faq@(faq.Id)" aria-expanded="@(faq.Order == 1 ? "true" : "false")" aria-controls="faq@(faq.Id)">
+                            <i class="@faq.Icon me-2"></i> @faq.Title
+                        </button>
+                    </h2>
+                    <div id="faq@(faq.Id)" class="accordion-collapse collapse @(faq.Order == 1 ? "show" : "")" aria-labelledby="faq@(faq.Id)-heading" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body sss-body">@faq.Description</div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center py-4">
+                <i class="bi bi-question-circle text-muted" style="font-size: 3rem;"></i>
+                <p class="text-muted mt-3">Henüz SSS bulunmuyor.</p>
             </div>
-        </div>
-        <div class="accordion-item sss-card">
-            <h2 class="accordion-header" id="faq2-heading">
-                <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                    <i class="bi bi-journal-text text-primary me-2"></i> Derslere nasıl kayıt olabilirim?
-                </button>
-            </h2>
-            <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body sss-body">Kayıt ol butonuna tıklayarak ücretsiz bir hesap oluşturabilir ve istediğiniz eğitime hemen başlayabilirsiniz.</div>
-            </div>
-        </div>
-        <div class="accordion-item sss-card">
-            <h2 class="accordion-header" id="faq3-heading">
-                <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                    <i class="bi bi-robot text-purple me-2"></i> Yapay zeka asistanı nasıl çalışıyor?
-                </button>
-            </h2>
-            <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body sss-body">Sorularınızı 7/24 yapay zeka destekli asistanımıza sorabilir, anında yanıt alabilirsiniz.</div>
-            </div>
-        </div>
-        <div class="accordion-item sss-card">
-            <h2 class="accordion-header" id="faq4-heading">
-                <button class="accordion-button collapsed sss-header" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                    <i class="bi bi-clock-history text-info me-2"></i> Eğitimler ne kadar sürüyor?
-                </button>
-            </h2>
-            <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                <div class="accordion-body sss-body">Her eğitimin süresi farklıdır, ancak çoğu eğitimi kendi hızınızda tamamlayabilirsiniz.</div>
-            </div>
-        </div>
+        }
     </div>
-
 </section>

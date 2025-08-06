@@ -1,0 +1,22 @@
+@model Bootcamp.EntityLayer.Concrete.CourseLevel
+@{
+    ViewData["Title"] = "Seviye Güncelle";
+}
+<div class="page-header">
+    <h1 class="page-title">Seviye Güncelle</h1>
+    <p class="page-subtitle">Kurs seviyesini düzenleyin.</p>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Seviye Adı</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Güncelle</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

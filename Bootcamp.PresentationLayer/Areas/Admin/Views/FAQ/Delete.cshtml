@@ -1,0 +1,93 @@
+@model Bootcamp.EntityLayer.Concrete.FAQ
+@{
+    ViewData["Title"] = "SSS Sil";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">SSS Sil</h1>
+            <p class="page-subtitle">Bu SSS'yi silmek istediğinizden emin misiniz?</p>
+        </div>
+        <a href="@Url.Action("Index", "FAQ", new { area = "Admin" })" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Geri Dön
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Silme Onayı
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <strong>Dikkat!</strong> Bu işlem geri alınamaz.
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h6>SSS Detayları</h6>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>ID:</strong></td>
+                        <td>@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Başlık:</strong></td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td><strong>İkon:</strong></td>
+                        <td><i class="@Model.Icon"></i> @Model.Icon</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sıra:</strong></td>
+                        <td>@Model.Order</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Durum:</strong></td>
+                        <td>
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Pasif</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Oluşturulma:</strong></td>
+                        <td>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h6>Açıklama</h6>
+                <div class="border rounded p-3 bg-light">
+                    @Model.Description
+                </div>
+            </div>
+        </div>
+        
+        <form asp-action="Delete" method="post" class="mt-4">
+            <input asp-for="Id" type="hidden" />
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger-custom">
+                    <i class="bi bi-trash me-2"></i>
+                    Evet, Sil
+                </button>
+                <a href="@Url.Action("Index", "FAQ", new { area = "Admin" })" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-2"></i>
+                    İptal
+                </a>
+            </div>
+        </form>
+    </div>
+</div> 

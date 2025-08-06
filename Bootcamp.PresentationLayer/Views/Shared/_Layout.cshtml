@@ -1,18 +1,40 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Bootcamp.PresentationLayer</title>
+    
+    @await Component.InvokeAsync("_SiteSettingsComponentPartial")
+    
+    <title>@ViewData["Title"] - <script>document.write(window.siteSettings?.title || 'Yapay Zeka Destekli Eğitim Platformu')</script></title>
+    <meta name="description" content="<script>document.write(window.siteSettings?.description || 'Geleceğin eğitimini bugünden yaşa!')</script>" />
+    <meta name="keywords" content="<script>document.write(window.siteSettings?.keywords || 'yapay zeka, eğitim, online kurs, sertifika')</script>" />
+    <meta name="author" content="<script>document.write(window.siteSettings?.author || 'Akıllı Kampus')</script>" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<script>document.write(window.siteSettings?.title || 'Yapay Zeka Destekli Eğitim Platformu')</script>" />
+    <meta property="og:description" content="<script>document.write(window.siteSettings?.description || 'Geleceğin eğitimini bugünden yaşa!')</script>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Context.Request.Scheme://@Context.Request.Host@Context.Request.Path" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<script>document.write(window.siteSettings?.title || 'Yapay Zeka Destekli Eğitim Platformu')</script>" />
+    <meta name="twitter:description" content="<script>document.write(window.siteSettings?.description || 'Geleceğin eğitimini bugünden yaşa!')</script>" />
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Bootcamp.PresentationLayer.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bootcamp.PresentationLayer</a>
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index" style="color: var(--logo-color, #6F42C1); font-size: 1.7rem; font-weight: bold; letter-spacing: 1px;">
+                    <i class="bi" id="logo-icon" style="font-size: 2rem; margin-right: 0.5rem;"></i>
+                    <span id="logo-text">Yapay Zeka Eğitim</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,16 +42,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Kurslar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" asp-area="" asp-controller="Account" asp-action="Register" style="background: #6F42C1; border: none;">Kayıt Ol</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -38,12 +72,102 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Bootcamp.PresentationLayer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <p id="copyright-text">© 2025 Akıllı Kampus. Tüm hakları saklıdır.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="social-links">
+                        <a href="#" id="facebook-link" class="text-muted me-3" style="display: none;"><i class="bi bi-facebook"></i></a>
+                        <a href="#" id="twitter-link" class="text-muted me-3" style="display: none;"><i class="bi bi-twitter"></i></a>
+                        <a href="#" id="instagram-link" class="text-muted me-3" style="display: none;"><i class="bi bi-instagram"></i></a>
+                        <a href="#" id="linkedin-link" class="text-muted me-3" style="display: none;"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" id="youtube-link" class="text-muted me-3" style="display: none;"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <small>
+                        <span id="contact-email">info@akillikampus.com</span> | 
+                        <span id="contact-phone">+90 555 123 45 67</span> | 
+                        <span id="contact-address">İstanbul, Türkiye</span>
+                    </small>
+                </div>
+            </div>
         </div>
     </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        // Site ayarlarını uygula
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.siteSettings) {
+                // Logo ayarları
+                const logoIcon = document.getElementById('logo-icon');
+                const logoText = document.getElementById('logo-text');
+                const logoColor = document.documentElement.style.getPropertyValue('--logo-color');
+                
+                if (logoIcon && window.siteSettings.logoIcon) {
+                    logoIcon.className = 'bi ' + window.siteSettings.logoIcon;
+                }
+                
+                if (logoText && window.siteSettings.logoText) {
+                    logoText.textContent = window.siteSettings.logoText;
+                }
+                
+                if (window.siteSettings.logoColor) {
+                    document.documentElement.style.setProperty('--logo-color', window.siteSettings.logoColor);
+                }
+                
+                // Copyright
+                const copyrightText = document.getElementById('copyright-text');
+                if (copyrightText && window.siteSettings.copyrightText) {
+                    copyrightText.textContent = window.siteSettings.copyrightText;
+                }
+                
+                // İletişim bilgileri
+                const contactEmail = document.getElementById('contact-email');
+                const contactPhone = document.getElementById('contact-phone');
+                const contactAddress = document.getElementById('contact-address');
+                
+                if (contactEmail && window.siteSettings.contactEmail) {
+                    contactEmail.textContent = window.siteSettings.contactEmail;
+                }
+                
+                if (contactPhone && window.siteSettings.contactPhone) {
+                    contactPhone.textContent = window.siteSettings.contactPhone;
+                }
+                
+                if (contactAddress && window.siteSettings.contactAddress) {
+                    contactAddress.textContent = window.siteSettings.contactAddress;
+                }
+                
+                // Sosyal medya linkleri
+                const socialLinks = {
+                    'facebook-link': window.siteSettings.facebookUrl,
+                    'twitter-link': window.siteSettings.twitterUrl,
+                    'instagram-link': window.siteSettings.instagramUrl,
+                    'linkedin-link': window.siteSettings.linkedinUrl,
+                    'youtube-link': window.siteSettings.youtubeUrl
+                };
+                
+                Object.keys(socialLinks).forEach(id => {
+                    const link = document.getElementById(id);
+                    const url = socialLinks[id];
+                    if (link && url) {
+                        link.href = url;
+                        link.style.display = 'inline-block';
+                    }
+                });
+            }
+        });
+    </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

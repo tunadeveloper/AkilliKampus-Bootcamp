@@ -1,0 +1,79 @@
+@model Bootcamp.EntityLayer.Concrete.FAQ
+@{
+    ViewData["Title"] = "Yeni SSS Ekle";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Yeni SSS Ekle</h1>
+            <p class="page-subtitle">Sıkça sorulan soru ekleyin.</p>
+        </div>
+        <a href="@Url.Action("Index", "FAQ", new { area = "Admin" })" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Geri Dön
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-plus-circle me-2"></i>
+            SSS Bilgileri
+        </h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Title" class="form-label">Başlık</label>
+                    <input asp-for="Title" class="form-control form-control-custom" placeholder="SSS başlığını giriniz">
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Title"]?.Errors.Count > 0)
+                    {
+                        <span class="text-danger">@ViewData.ModelState["Title"].Errors.First().ErrorMessage</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Icon" class="form-label">İkon</label>
+                    <input asp-for="Icon" class="form-control form-control-custom" placeholder="bi bi-question-circle">
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Icon"]?.Errors.Count > 0)
+                    {
+                        <span class="text-danger">@ViewData.ModelState["Icon"].Errors.First().ErrorMessage</span>
+                    }
+                    <small class="text-muted">Bootstrap Icons kullanın (örn: bi bi-question-circle)</small>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Açıklama</label>
+                <textarea asp-for="Description" class="form-control form-control-custom" rows="4" placeholder="SSS açıklamasını giriniz"></textarea>
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Description"]?.Errors.Count > 0)
+                {
+                    <span class="text-danger">@ViewData.ModelState["Description"].Errors.First().ErrorMessage</span>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Order" class="form-label">Sıra</label>
+                    <input asp-for="Order" type="number" class="form-control form-control-custom" placeholder="0">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-check mt-4">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                        <label asp-for="IsActive" class="form-check-label">Aktif</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary-custom">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Kaydet
+                </button>
+                <a href="@Url.Action("Index", "FAQ", new { area = "Admin" })" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-2"></i>
+                    İptal
+                </a>
+            </div>
+        </form>
+    </div>
+</div> 

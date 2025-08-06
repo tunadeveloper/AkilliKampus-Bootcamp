@@ -1,0 +1,36 @@
+@model Bootcamp.EntityLayer.Concrete.ApplicationUser
+@{
+    ViewData["Title"] = "Kullanıcı Detay";
+    var roles = ViewBag.Roles as IEnumerable<string>;
+}
+<div class="page-header">
+    <h1 class="page-title">Kullanıcı Detay</h1>
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div>
+<div class="admin-card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Id</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+            <dt class="col-sm-3">Ad Soyad</dt>
+            <dd class="col-sm-9">@Model.NameSurname</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Cinsiyet</dt>
+            <dd class="col-sm-9">@Model.Gender</dd>
+            <dt class="col-sm-3">Roller</dt>
+            <dd class="col-sm-9">
+                @if (roles != null && roles.Any())
+                {
+                    @string.Join(", ", roles)
+                }
+                else
+                {
+                    <span>-</span>
+                }
+            </dd>
+            <dt class="col-sm-3">Gemini API Key</dt>
+            <dd class="col-sm-9">@Model.GeminiApiKey</dd>
+        </dl>
+    </div>
+</div>

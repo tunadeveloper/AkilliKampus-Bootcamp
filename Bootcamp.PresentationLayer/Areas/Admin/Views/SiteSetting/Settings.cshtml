@@ -1,0 +1,209 @@
+@{
+    ViewData["Title"] = "Site Ayarları";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">Site Ayarları</h1>
+            <p class="page-subtitle">Site genelinde ayarları yönetin.</p>
+        </div>
+       
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success-custom alert-custom">
+        <i class="bi bi-check-circle me-2"></i>
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger-custom alert-custom">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        @TempData["Error"]
+    </div>
+}
+
+<!-- SEO Ayarları -->
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-search me-2"></i>
+            SEO Ayarları
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.SEOSettings != null && ((List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.SEOSettings).Any())
+        {
+            <div class="row">
+                @foreach (var setting in (List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.SEOSettings)
+                {
+                    <div class="col-md-6 mb-3">
+                        <form asp-action="UpdateSetting" method="post">
+                            <input type="hidden" name="key" value="@setting.Key" />
+                            <label class="form-label">@setting.Description</label>
+                            <div class="input-group">
+                                <input type="text" name="value" value="@setting.Value" class="form-control form-control-custom" />
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">SEO ayarları bulunmuyor.</p>
+        }
+    </div>
+</div>
+
+<!-- Logo Ayarları -->
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-image me-2"></i>
+            Logo Ayarları
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.LogoSettings != null && ((List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.LogoSettings).Any())
+        {
+            <div class="row">
+                @foreach (var setting in (List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.LogoSettings)
+                {
+                    <div class="col-md-6 mb-3">
+                        <form asp-action="UpdateSetting" method="post">
+                            <input type="hidden" name="key" value="@setting.Key" />
+                            <label class="form-label">@setting.Description</label>
+                            <div class="input-group">
+                                <input type="text" name="value" value="@setting.Value" class="form-control form-control-custom" />
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">Logo ayarları bulunmuyor.</p>
+        }
+    </div>
+</div>
+
+<!-- Genel Ayarlar -->
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-gear me-2"></i>
+            Genel Ayarlar
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.GeneralSettings != null && ((List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.GeneralSettings).Any())
+        {
+            <div class="row">
+                @foreach (var setting in (List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.GeneralSettings)
+                {
+                    <div class="col-md-6 mb-3">
+                        <form asp-action="UpdateSetting" method="post">
+                            <input type="hidden" name="key" value="@setting.Key" />
+                            <label class="form-label">@setting.Description</label>
+                            <div class="input-group">
+                                <input type="text" name="value" value="@setting.Value" class="form-control form-control-custom" />
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">Genel ayarlar bulunmuyor.</p>
+        }
+    </div>
+</div>
+
+<!-- İletişim Ayarları -->
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-envelope me-2"></i>
+            İletişim Ayarları
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.ContactSettings != null && ((List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.ContactSettings).Any())
+        {
+            <div class="row">
+                @foreach (var setting in (List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.ContactSettings)
+                {
+                    <div class="col-md-6 mb-3">
+                        <form asp-action="UpdateSetting" method="post">
+                            <input type="hidden" name="key" value="@setting.Key" />
+                            <label class="form-label">@setting.Description</label>
+                            <div class="input-group">
+                                <input type="text" name="value" value="@setting.Value" class="form-control form-control-custom" />
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">İletişim ayarları bulunmuyor.</p>
+        }
+    </div>
+</div>
+
+<!-- Sosyal Medya Ayarları -->
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <h5 class="card-title">
+            <i class="bi bi-share me-2"></i>
+            Sosyal Medya Ayarları
+        </h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.SocialSettings != null && ((List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.SocialSettings).Any())
+        {
+            <div class="row">
+                @foreach (var setting in (List<Bootcamp.EntityLayer.Concrete.SiteSetting>)ViewBag.SocialSettings)
+                {
+                    <div class="col-md-6 mb-3">
+                        <form asp-action="UpdateSetting" method="post">
+                            <input type="hidden" name="key" value="@setting.Key" />
+                            <label class="form-label">@setting.Description</label>
+                            <div class="input-group">
+                                <input type="text" name="value" value="@setting.Value" class="form-control form-control-custom" />
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">Sosyal medya ayarları bulunmuyor.</p>
+        }
+    </div>
+</div> 
