@@ -31,7 +31,6 @@
 <img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/864e3e8e-8ed1-432f-89ba-17a72f57c477" />
 <img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/d2451efe-ae5e-4747-b62a-e479eaa815d7" />
 
-
 ## 🧱 Proje Yapısı
 
 ```bash
@@ -64,6 +63,8 @@ AkilliKampus-Bootcamp/
 - Site ayarları ve istatistik ekranları
 
 ---
+
+📺 [Detaylı İnceleme](https://www.youtube.com/watch?v=iz1inUpFArw)
 
 
 ### Kurulum Adımları
