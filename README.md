@@ -30,6 +30,7 @@
 <img width="1280" height="1119" alt="Image" src="https://github.com/user-attachments/assets/8b4c1314-d328-421e-b72f-9a88ab6d8950" />
 <img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/864e3e8e-8ed1-432f-89ba-17a72f57c477" />
 <img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/d2451efe-ae5e-4747-b62a-e479eaa815d7" />
+<img width="1423" height="850" alt="Image" src="https://github.com/user-attachments/assets/136fd039-2821-4e9d-99ab-c118bb09e800" />
 
 ## 🧱 Proje Yapısı
 
