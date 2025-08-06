@@ -20,6 +20,18 @@
 
 ---
 
+<img width="1280" height="2144" alt="Image" src="https://github.com/user-attachments/assets/0dc37ac2-3c09-4a3e-a871-de7283f47d6c" />
+<img width="1280" height="2429" alt="Image" src="https://github.com/user-attachments/assets/5e0a7c01-534f-4857-94d5-30615385ba43" />
+<img width="1280" height="2238" alt="Image" src="https://github.com/user-attachments/assets/d025f604-6759-47fd-9a26-40d9e11dd327" />
+<img width="1280" height="5389" alt="Image" src="https://github.com/user-attachments/assets/c7910565-1790-4142-a282-0e69c1ecdece" />
+<img width="1280" height="2515" alt="Image" src="https://github.com/user-attachments/assets/ffb8fd8a-83e8-4938-b3d3-9a2d6470f7e5" />
+<img width="1280" height="1589" alt="Image" src="https://github.com/user-attachments/assets/f03959d2-2188-49ea-b87c-6c1f880e24e0" />
+<img width="1280" height="1979" alt="Image" src="https://github.com/user-attachments/assets/b7f348d9-825a-45ff-88a9-b33a3654a956" />
+<img width="1280" height="1119" alt="Image" src="https://github.com/user-attachments/assets/8b4c1314-d328-421e-b72f-9a88ab6d8950" />
+<img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/864e3e8e-8ed1-432f-89ba-17a72f57c477" />
+<img width="1280" height="889" alt="Image" src="https://github.com/user-attachments/assets/d2451efe-ae5e-4747-b62a-e479eaa815d7" />
+
+
 ## 🧱 Proje Yapısı
 
 ```bash
@@ -50,25 +62,6 @@ AkilliKampus-Bootcamp/
 - Kullanıcı, kurs ve video yönetimi
 - DataTables ile arama, filtreleme ve sıralama
 - Site ayarları ve istatistik ekranları
-
----
-
-## 🔒 Güvenlik Önlemleri
-
-- ASP.NET Core Identity ile authentication
-- Role-based authorization
-- CSRF, XSS ve SQL Injection korumaları
-- Input validation ve veri temizleme
-
----
-
-## ⚡ Performans Optimizasyonları
-
-- Eager loading ve Include() kullanımı
-- Veritabanı indexing
-- Lazy loading ile görsel optimizasyonu
-- Minify edilmiş CSS/JS dosyaları
-- CDN kullanımı
 
 ---
 
